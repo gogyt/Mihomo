@@ -244,7 +244,7 @@ proxy-groups:
   - {name: 欧洲粘性,       <<: *BaseSS, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
   - {name: 其他粘性,       <<: *BaseSS, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
   
-  # 3.6 自动测速组
+  # 3.7 自动测速组
   - {name: 香港自动,       <<: *BaseUT, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
   - {name: 台湾自动,       <<: *BaseUT, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
   - {name: 狮城自动,       <<: *BaseUT, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
@@ -254,7 +254,7 @@ proxy-groups:
   - {name: 欧洲自动,       <<: *BaseUT, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
   - {name: 其他自动,       <<: *BaseUT, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
 
-  # 3.7 其他策略组
+  # 3.8 其他策略组
   - {name: 全球手动,       <<: *BaseHS, proxies: [狮城策略, 香港策略, 美国策略, 台湾策略, 欧洲策略, 日本策略, 韩国策略, 其他策略], include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
   - {name: 故障转移,       <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Back.png}
 
