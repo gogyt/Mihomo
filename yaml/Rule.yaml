@@ -53,6 +53,7 @@ BehaviorDN:   &BehaviorDN {type: http, behavior: domain,    format: mrs,  interv
 BehaviorDY:   &BehaviorDY {type: http, behavior: domain,    format: yaml, interval: 86400}
 BehaviorIP:   &BehaviorIP {type: http, behavior: ipcidr,    format: mrs,  interval: 86400}
 BehaviorCY:   &BehaviorCY {type: http, behavior: classical, format: yaml, interval: 86400}
+BehaviorTT:   &BehaviorTT {type: http, behavior: domain,    format: text, interval: 86400}
 
 # 1.4 机场节点筛选正则表达式 - 基于地理位置和关键词过滤
 FilterHK:     &FilterHK '^(?=.*(?i)(港|🇭🇰|HK|Hong|HKG)).*$'
