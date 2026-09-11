@@ -64,6 +64,7 @@ SelectPY:     &SelectPY  {type: select, proxies: [故转手动, 故转狮城, �
 SelectDD:     &SelectDD  {type: select, proxies: [直接连接, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
 SelectDC:     &SelectDC  {type: select, proxies: [直接连接, 默认直连, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
 SelectFB:     &SelectFB  {type: select, proxies: [默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 全球手动, 默认直连, 直接连接]}
+SelectHS:     &SelectHS  {type: select, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动', '[全] 香港轮询', '[全] 香港散列', '[全] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港自动', '[全] 日本轮询', '[全] 日本散列', '[全] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本自动', '[全] 美国轮询', '[全] 美国散列', '[全] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国自动', '[全] 台湾轮询', '[全] 台湾散列', '[全] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾自动', '[全] 欧洲轮询', '[全] 欧洲散列', '[全] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲自动', '[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国自动', '[全] 其他轮询', '[全] 其他散列', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他自动'], include-all: true, filter: *FilterAL}
 
 # 1.6 机场订阅 
 # 注意：
@@ -218,7 +219,6 @@ proxy-groups:
   # 3.2 策略组与地理策略组分界识别
   - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
   - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
-  - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
   # 3.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
   - {name: 狮城策略,        <<: *BaseHS, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动'], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
@@ -323,7 +323,8 @@ proxy-groups:
   - {name: 故转台湾,        <<: *BaseFB, proxies: [台湾策略, 狮城策略, 美国策略, 香港策略, 日本策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
 
   # 3.8 其他策略组
-  - {name: 全球手动,        <<: *BaseHS, proxies: [狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 欧洲策略, 韩国策略, 其他策略], include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
+  - {name: 全球手动,        <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
+  - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
 # 4 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了gfw被墙域名,先过滤掉gfw被墙域名剩下的就是未被墙的境外域名)
 rules: 

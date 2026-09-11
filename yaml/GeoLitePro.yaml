@@ -62,12 +62,13 @@ FilterAL:     &FilterAL '^(?!.*(DIRECT|直接连接|群|邀请|返利|循环|官
 SelectPY:     &SelectPY {type: select, proxies: [故障转移, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接]}
 SelectDD:     &SelectDD {type: select, proxies: [直接连接, 默认代理, 故障转移, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
 SelectDC:     &SelectDC {type: select, proxies: [直接连接, 默认直连, 默认代理, 故障转移, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
+SelectHS:     &SelectHS {type: select, proxies: ['[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他自动']}
 
 # 1.6 代理提供者 
 # 注意：
 #     1) 填入机场订阅链接,可自定义机场名称。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
 #     2) 本配置默认为2个机场，如果需增加机场，可同步修订3.3-3.6，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定机场出站。
-#     3) 如果只有1个机场,建议使用Rulelite.yaml或Geolite.yaml配置文件。或将本配置的3.3-3.6替换为Rule.yaml的3.3-3.7,否则会报错。
+#     3) 如果只有1个机场,建议使用Rulelite.yaml或Geolite.yaml配置文件。或将本配置的1.5、3.3-3.6替换为Geolite.yaml的1.5、3.3-3.7,否则会报错。
 proxy-providers: 
   # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，3.3-3.6机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
   Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
@@ -179,7 +180,6 @@ proxy-groups:
   # 3.2 策略组与地理策略组分界识别
   - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Final.png}
   - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png}
-  - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png}
 
   # 3.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
   - {name: 狮城策略,        <<: *BaseHS, proxies: ['[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动'], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png}
@@ -248,9 +248,12 @@ proxy-groups:
   - {name: '[备] 欧洲自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
   - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
 
-  # 3.7 其他策略组
-  - {name: 全球手动,        <<: *BaseHS, proxies: [狮城策略, 香港策略, 美国策略, 台湾策略, 欧洲策略, 日本策略, 韩国策略, 其他策略], include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
-  - {name: 故障转移,        <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Back.png}
+  # 3.7 手动策略组
+  - {name: 全球手动,       <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
+ 
+  # 3.8 其他策略组
+  - {name: 故障转移,       <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Back.png}
+  - {name: 直接连接,       <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png}
 
 # 4 规则路由 (按照从上往下的顺序遍历,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果)
 rules: 
