@@ -166,13 +166,13 @@ dns:
     - 180.76.76.76
     - 114.114.114.114
   fake-ip-filter:
-    - +.lan                                                           # 真实解析  常见局域网域名后缀
-    - +.local                                                         # 真实解析  常见局域网域名后缀
-    - +.home                                                          # 真实解析  常见局域网域名后缀
-    - +.internal                                                      # 真实解析  常见局域网域名后缀
-    - rule-set:cn                                                     # 真实解析  中国域名
-    - rule-set:geolocation-cn                                         # 真实解析  补充中国域名
-    - rule-set:fakeip-filter                                          # 真实解析  DustinWin收录的fake-ip-filter，主要包含授时服务器、广告拦截服务器、标准公网STUN/TURN中继服务器等域名
+    - +.lan                                                             # 真实解析  常见局域网域名后缀
+    - +.local                                                           # 真实解析  常见局域网域名后缀
+    - +.home                                                            # 真实解析  常见局域网域名后缀
+    - +.internal                                                        # 真实解析  常见局域网域名后缀
+    - rule-set:cn                                                       # 真实解析  中国域名
+    - rule-set:geolocation-cn                                           # 真实解析  补充中国域名
+    - rule-set:fakeip-filter                                            # 真实解析  DustinWin收录的fake-ip-filter，主要包含授时服务器、广告拦截服务器、标准公网STUN/TURN中继服务器等域名
     - +.jsdelivr.net
 
 # 3 代理策略组 
