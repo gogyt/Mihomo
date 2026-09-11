@@ -242,7 +242,7 @@ proxy-groups:
   - {name: 欧洲轮询,       <<: *BaseCR, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
   - {name: 其他轮询,       <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
 
-   # 3.6 负载均衡-粘滞会话 
+   # 3.6 负载均衡-粘性会话 
   - {name: 香港粘滞,       <<: *BaseSS, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
   - {name: 台湾粘滞,       <<: *BaseSS, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
   - {name: 狮城粘滞,       <<: *BaseSS, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
