@@ -192,7 +192,7 @@ proxy-groups:
   - {name: Claude,          <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Claude.png}
   - {name: ChatGPT,         <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/ChatGPT.png}
   - {name: Grok,            <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Grok.png} 
-  - {name: AI服务,         <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/AI.png}
+  - {name: AI服务,          <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/AI.png}
   - {name: 维基百科,        <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Wikimedia_1.png}
   - {name: 即时通讯,        <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Communication.png}
   - {name: 国外电商,        <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Ecommerce_1.png}
