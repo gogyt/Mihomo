@@ -249,11 +249,11 @@ proxy-groups:
   - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
 
   # 3.7 手动策略组
-  - {name: 全球手动,       <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
+  - {name: 全球手动,        <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
  
   # 3.8 其他策略组
-  - {name: 故障转移,       <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Back.png}
-  - {name: 直接连接,       <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png}
+  - {name: 故障转移,        <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Back.png}
+  - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png}
 
 # 4 规则路由 (按照从上往下的顺序遍历,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果)
 rules: 
