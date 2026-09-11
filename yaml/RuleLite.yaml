@@ -59,7 +59,7 @@ FilterAL:     &FilterAL '^(?!.*(DIRECT|直接连接|群|邀请|返利|循环|官
 SelectPY:     &SelectPY {type: select, proxies: [故障转移, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接]}
 SelectDD:     &SelectDD {type: select, proxies: [直接连接, 默认代理, 故障转移, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
 SelectDC:     &SelectDC {type: select, proxies: [直接连接, 默认直连, 默认代理, 故障转移, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
-SelectHS:     &SelectHS {type: select, proxies: [狮城轮询, 狮城散列, 狮城粘性, 狮城自动, 香港轮询, 香港散列, 香港粘性, 香港自动, 日本轮询, 日本散列, 日本粘性, 日本自动, 美国轮询, 美国散列, 美国粘性, 美国自动, 台湾轮询, 台湾散列, 台湾粘性, 台湾自动, 欧洲轮询, 欧洲散列, 欧洲粘性, 欧洲自动, 韩国轮询, 韩国散列, 韩国粘性, 韩国自动, 其他轮询, 其他散列, 其他粘性, 其他自动]}
+SelectHS:     &SelectHS {type: select, proxies: [狮城轮询, 狮城散列, 狮城粘滞, 狮城自动, 香港轮询, 香港散列, 香港粘滞, 香港自动, 日本轮询, 日本散列, 日本粘滞, 日本自动, 美国轮询, 美国散列, 美国粘滞, 美国自动, 台湾轮询, 台湾散列, 台湾粘滞, 台湾自动, 欧洲轮询, 欧洲散列, 欧洲粘滞, 欧洲自动, 韩国轮询, 韩国散列, 韩国粘滞, 韩国自动, 其他轮询, 其他散列, 其他粘滞, 其他自动]}
 
 # 1.6 机场订阅 
 # 填入机场订阅链接,可自定义机场名称。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
@@ -176,14 +176,14 @@ proxy-groups:
   - {name: 网络测试,     <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png}
   
   # 3.3 地理策略组
-  - {name: 狮城策略,       <<: *BaseHS, proxies: [狮城轮询, 狮城散列, 狮城粘性, 狮城自动], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png}
-  - {name: 香港策略,       <<: *BaseHS, proxies: [香港轮询, 香港散列, 香港粘性, 香港自动], include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png}
-  - {name: 日本策略,       <<: *BaseHS, proxies: [日本轮询, 日本散列, 日本粘性, 日本自动], include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png}
-  - {name: 美国策略,       <<: *BaseHS, proxies: [美国轮询, 美国散列, 美国粘性, 美国自动], include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png}
-  - {name: 台湾策略,       <<: *BaseHS, proxies: [台湾轮询, 台湾散列, 台湾粘性, 台湾自动], include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png}
-  - {name: 欧洲策略,       <<: *BaseHS, proxies: [欧洲轮询, 欧洲散列, 欧洲粘性, 欧洲自动], include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/European_Union.png}
-  - {name: 韩国策略,       <<: *BaseHS, proxies: [韩国轮询, 韩国散列, 韩国粘性, 韩国自动], include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png}
-  - {name: 其他策略,       <<: *BaseHS, proxies: [其他轮询, 其他散列, 其他粘性, 其他自动], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
+  - {name: 狮城策略,       <<: *BaseHS, proxies: [狮城轮询, 狮城散列, 狮城粘滞, 狮城自动], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png}
+  - {name: 香港策略,       <<: *BaseHS, proxies: [香港轮询, 香港散列, 香港粘滞, 香港自动], include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png}
+  - {name: 日本策略,       <<: *BaseHS, proxies: [日本轮询, 日本散列, 日本粘滞, 日本自动], include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png}
+  - {name: 美国策略,       <<: *BaseHS, proxies: [美国轮询, 美国散列, 美国粘滞, 美国自动], include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png}
+  - {name: 台湾策略,       <<: *BaseHS, proxies: [台湾轮询, 台湾散列, 台湾粘滞, 台湾自动], include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png}
+  - {name: 欧洲策略,       <<: *BaseHS, proxies: [欧洲轮询, 欧洲散列, 欧洲粘滞, 欧洲自动], include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/European_Union.png}
+  - {name: 韩国策略,       <<: *BaseHS, proxies: [韩国轮询, 韩国散列, 韩国粘滞, 韩国自动], include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png}
+  - {name: 其他策略,       <<: *BaseHS, proxies: [其他轮询, 其他散列, 其他粘滞, 其他自动], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 3.4 负载均衡-散列 
   - {name: 香港散列,       <<: *BaseCH, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
@@ -206,14 +206,14 @@ proxy-groups:
   - {name: 其他轮询,       <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
 
    # 3.6 负载均衡-粘性会话 
-  - {name: 香港粘性,       <<: *BaseSS, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: 台湾粘性,       <<: *BaseSS, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: 狮城粘性,       <<: *BaseSS, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: 日本粘性,       <<: *BaseSS, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: 韩国粘性,       <<: *BaseSS, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: 美国粘性,       <<: *BaseSS, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: 欧洲粘性,       <<: *BaseSS, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: 其他粘性,       <<: *BaseSS, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 香港粘滞,       <<: *BaseSS, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 台湾粘滞,       <<: *BaseSS, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 狮城粘滞,       <<: *BaseSS, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 日本粘滞,       <<: *BaseSS, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 韩国粘滞,       <<: *BaseSS, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 美国粘滞,       <<: *BaseSS, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 欧洲粘滞,       <<: *BaseSS, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: 其他粘滞,       <<: *BaseSS, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
   
   # 3.7 自动测速组
   - {name: 香港自动,       <<: *BaseUT, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
