@@ -36,7 +36,7 @@ BaseHS:       &BaseHS    {type: select}
 BaseFB:       &BaseFB    {type: fallback,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204'}
 BaseCH:       &BaseCH    {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: consistent-hashing}
 BaseCR:       &BaseCR    {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: round-robin}
-BaseSmart:    &BaseSmart {type: smart,        empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', uselightgbm: true}
+BaseST:       &BaseST {type: smart,        empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', uselightgbm: true}
 
 # 1.3 规则集行为锚点
 BehaviorDN:   &BehaviorDN {type: http, behavior: domain,    format: mrs,  interval: 86400}
@@ -247,14 +247,14 @@ proxy-groups:
   - {name: 其他轮询,       <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
 
   # 3.6 smart策略 - Smart智能选择,政策权重数值越大优先级越高,修改为关键词节点,比如 主:1.5;备:0.5,默认为1,主>备,使用时请修改
-  - {name: 香港智能,       <<: *BaseSmart, include-all: true, filter: *FilterHK, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png}
-  - {name: 台湾智能,       <<: *BaseSmart, include-all: true, filter: *FilterTW, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png}
-  - {name: 日本智能,       <<: *BaseSmart, include-all: true, filter: *FilterJP, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png}
-  - {name: 狮城智能,       <<: *BaseSmart, include-all: true, filter: *FilterSG, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png}
-  - {name: 韩国智能,       <<: *BaseSmart, include-all: true, filter: *FilterKR, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png}
-  - {name: 美国智能,       <<: *BaseSmart, include-all: true, filter: *FilterUS, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png}
-  - {name: 欧洲智能,       <<: *BaseSmart, include-all: true, filter: *FilterEU, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/European_Union.png}
-  - {name: 其他智能,       <<: *BaseSmart, include-all: true, filter: *FilterOT, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
+  - {name: 香港智能,       <<: *BaseST, include-all: true, filter: *FilterHK, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png}
+  - {name: 台湾智能,       <<: *BaseST, include-all: true, filter: *FilterTW, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png}
+  - {name: 日本智能,       <<: *BaseST, include-all: true, filter: *FilterJP, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png}
+  - {name: 狮城智能,       <<: *BaseST, include-all: true, filter: *FilterSG, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png}
+  - {name: 韩国智能,       <<: *BaseST, include-all: true, filter: *FilterKR, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png}
+  - {name: 美国智能,       <<: *BaseST, include-all: true, filter: *FilterUS, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png}
+  - {name: 欧洲智能,       <<: *BaseST, include-all: true, filter: *FilterEU, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/European_Union.png}
+  - {name: 其他智能,       <<: *BaseST, include-all: true, filter: *FilterOT, policy-priority: '主:1.5;备:0.5', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 3.7 其他策略组
   - {name: 全球手动,       <<: *BaseHS, proxies: [狮城策略, 香港策略, 美国策略, 台湾策略, 欧洲策略, 日本策略, 韩国策略, 其他策略], include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
