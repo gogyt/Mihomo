@@ -1,7 +1,7 @@
 # Generated from rule/Custom_Direct.list
 # REPO: https://github.com/Aethersailor/Custom_OpenClash_Rules
 # SOURCE: https://github.com/Aethersailor/Custom_OpenClash_Rules/blob/main/rule/Custom_Direct.list
-# TOTAL: 860
+# TOTAL: 867
 
 payload:
   - '*m-team*'
@@ -60,6 +60,7 @@ payload:
   - '+.8kc.top'
   - '+.8x14khzwmi.com'
   - '+.900cha.com'
+  - '+.91biu.work'
   - '+.91shenfan.com'
   - '+.975135.xyz'
   - '+.97973399.com'
@@ -96,6 +97,7 @@ payload:
   - '+.alonginwind.top'
   - '+.aloys233.top'
   - '+.amap-cdn.com'
+  - '+.ankltoken.com'
   - '+.antping.com'
   - '+.anvnjmc.com'
   - '+.anycubic.com'
@@ -258,6 +260,7 @@ payload:
   - '+.ffhome.com'
   - '+.fjpit.com'
   - '+.flingtrainer.com'
+  - '+.fnspeed.net'
   - '+.fofuai.com'
   - '+.founderyt.com'
   - '+.fowep.com'
@@ -392,6 +395,7 @@ payload:
   - '+.hybiome.com'
   - '+.hzlawyer.net'
   - '+.hzqsn.com'
+  - '+.hzyi.eu.org'
   - '+.ibnjl.shop'
   - '+.ibwm5lynb6.com'
   - '+.icvcs.com'
@@ -555,6 +559,7 @@ payload:
   - '+.nxog.top'
   - '+.nyxcuy.com'
   - '+.oai.sb'
+  - '+.oath.com'
   - '+.oceando.cloud'
   - '+.ok321.top'
   - '+.omq.cc'
@@ -565,6 +570,7 @@ payload:
   - '+.openevai.com'
   - '+.openkylin.top'
   - '+.opentrust.net'
+  - '+.opera.com'
   - '+.orence.net'
   - '+.osbdf.com'
   - '+.ossrs.net'
@@ -714,6 +720,7 @@ payload:
   - '+.trjho.com'
   - '+.ts3.ink'
   - '+.ttshitu.com'
+  - '+.tualatin.club'
   - '+.tulipsport.com'
   - '+.tumukaoyan.com'
   - '+.tuxing.art'
