@@ -45,10 +45,10 @@
 
 | <div align="center">☑️</div> | <div align="center">🧮配置文件</div> | <div align="center">🔽策略组</div> | <div align="center">⏬节点组</div> | <div align="center">📝规则集</div> | <div align="center">📑特点</div> |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| <div align="center">**1**</div> | [**RuleLite.yaml**](yaml/RuleLite.yaml) | <div align="center">14</div> | <div align="center">25</div> | <div align="center">36</div> | 极简分流，多机场混合出站
-| <div align="center">**2**</div> | [**RuleLitePro.yaml**](yaml/RuleLitePro.yaml) | <div align="center">14</div> | <div align="center">49</div> | <div align="center">36</div> | 极简分流，多机场**自定义**出站 |
 | <div align="center">**3**</div> | [**Rule.yaml**](yaml/Rule.yaml) | <div align="center">34</div> | <div align="center">33</div> | <div align="center">55</div> | 常规分流，多机场混合出站 |
 | <div align="center">**4**</div> | [**RulePlus.yaml**](yaml/RulePlus.yaml) | <div align="center">51</div> | <div align="center">73</div> | <div align="center">65</div> | 多机场**混合**或**自定义**出站，**${\color{orange}\text{ 多元默认故转 }}$** |
+| <div align="center">**1**</div> | [**RuleLite.yaml**](yaml/RuleLite.yaml) | <div align="center">14</div> | <div align="center">25</div> | <div align="center">36</div> | 极简分流，多机场混合出站
+| <div align="center">**2**</div> | [**RuleLitePro.yaml**](yaml/RuleLitePro.yaml) | <div align="center">14</div> | <div align="center">49</div> | <div align="center">36</div> | 极简分流，多机场**自定义**出站 |
 | <div align="center">**5**</div> | [**RuleSmart.yaml**](yaml/RuleSmart) | <div align="center">46</div> | <div align="center">25</div> | <div align="center">65</div> | 适配Smart核心，多机场混合出站 |
 | <div align="center">**6**</div> | [**RuleBeta.yaml**](yaml/RuleBeta.yaml) | <div align="center">56</div> | <div align="center">82</div> | <div align="center">65</div> | BETA测试版 |
 </div>
