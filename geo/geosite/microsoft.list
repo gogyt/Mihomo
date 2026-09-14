@@ -10,8 +10,8 @@ mscrl.microsoft.com
 ocsp.microsoft.com
 oneocsp.microsoft.com
 www.microsoft.com
-prodforza.blob.core.windows.net
 flightsimulator.azureedge.net
+prodforza.blob.core.windows.net
 azure.microsoft.com
 azuremarketplace.microsoft.com
 location.microsoft.com
@@ -362,10 +362,6 @@ vsmarketplacebadge.apphb.com
 +.xboxservices.com
 +.xboxstudios.com
 +.xbx.lv
-+.forza.net
-+.forzamotorsport.net
-+.forzaracingchampionship.com
-+.forzarc.com
 +.callersbane.com
 +.minecraft-services.net
 +.minecraft.net
@@ -380,6 +376,10 @@ vsmarketplacebadge.apphb.com
 +.bethsoft.com
 +.doom.com
 +.elderscrolls.com
++.forza.net
++.forzamotorsport.net
++.forzaracingchampionship.com
++.forzarc.com
 +.microsoft.be
 +.aadrm.com
 +.azure-api.net
