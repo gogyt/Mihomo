@@ -201,9 +201,9 @@ proxy-groups:
   - {name: HBO,            <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/HBO_Max.png}
   - {name: Prime Video,    <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Prime_Video.png}
   - {name: Spotify,        <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Spotify.png}
-  - {name: Docker,         <<: *SelectDC, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Docker.png}
+  - {name: Docker,         <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Docker.png}
   - {name: OneDrive,       <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/OneDrive.png}
-  - {name: Bing(Copilot),  <<: *SelectDC, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bing.png}
+  - {name: Bing(Copilot),  <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bing.png}
   - {name: 微软服务,        <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Microsoft.png}
   - {name: 苹果服务,        <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Apple.png}
   - {name: Apple TV+,      <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Apple_TV.png}
@@ -358,6 +358,7 @@ rules:
   - RULE-SET,apple@cn,直接连接                                 # 苹果中国
   - RULE-SET,bing@cn,直接连接                                  # bing中国
   - RULE-SET,microsoft@cn,直接连接                             # 微软中国
+  - RULE-SET,docker,Docker                                    # Docker
   - RULE-SET,onedrive,OneDrive                                # OneDrive
   - RULE-SET,bing,Bing(Copilot)                               # bing (是Mircosoft、category-ai-!cn共同子集,含copilot,访问时开启代理)
   - RULE-SET,github,Github                                    # GitHub(是Microsoft的子集,前置分流)
