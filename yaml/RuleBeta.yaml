@@ -61,13 +61,13 @@ SelectPY:     &SelectPY  {type: select, proxies: [故转手动, 故转狮城, �
 SelectDD:     &SelectDD  {type: select, proxies: [直接连接, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 故转低倍, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴]}
 SelectDC:     &SelectDC  {type: select, proxies: [直接连接, 默认直连, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 故转低倍, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴]}
 SelectFB:     &SelectFB  {type: select, proxies: [默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 故转低倍, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 默认直连, 直接连接]}
-SelectHS:     &SelectHS  {type: select, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动', '[全] 香港轮询', '[全] 香港散列', '[全] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港自动', '[全] 日本轮询', '[全] 日本散列', '[全] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本自动', '[全] 美国轮询', '[全] 美国散列', '[全] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国自动', '[全] 台湾轮询', '[全] 台湾散列', '[全] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾自动', '[全] 欧洲轮询', '[全] 欧洲散列', '[全] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲自动', '[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国自动', '[全] 其他轮询', '[全] 其他散列', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他自动', '[全] 低倍轮询', '[全] 低倍散列', '[全] 低倍自动', '[主] 低倍轮询', '[主] 低倍散列', '[主] 低倍自动', '[备] 低倍轮询', '[备] 低倍散列', '[备] 低倍自动'], include-all: true, filter: *FilterAL}
+SelectHS:     &SelectHS  {type: select, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城粘性', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城粘性', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城粘性', '[备] 狮城自动', '[全] 香港轮询', '[全] 香港散列', '[全] 香港粘性', '[全] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港粘性', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港粘性', '[备] 香港自动', '[全] 日本轮询', '[全] 日本散列', '[全] 日本粘性', '[全] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本粘性', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本粘性', '[备] 日本自动', '[全] 美国轮询', '[全] 美国散列', '[全] 美国粘性', '[全] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国粘性', '[主] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国粘性', '[备] 美国自动', '[全] 台湾轮询', '[全] 台湾散列', '[全] 台湾粘性', '[全] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾粘性', '[主] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾粘性', '[备] 台湾自动', '[全] 欧洲轮询', '[全] 欧洲散列', '[全] 欧洲粘性', '[全] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲粘性', '[主] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲粘性', '[备] 欧洲自动', '[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国粘性', '[全] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国粘性', '[主] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国粘性', '[备] 韩国自动', '[全] 其他轮询', '[全] 其他散列', '[全] 其他粘性', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘性', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘性', '[备] 其他自动', '[全] 低倍轮询', '[全] 低倍散列', '[全] 低倍粘性', '[全] 低倍自动', '[主] 低倍轮询', '[主] 低倍散列', '[主] 低倍粘性', '[主] 低倍自动', '[备] 低倍轮询', '[备] 低倍散列', '[备] 低倍粘性', '[备] 低倍自动'], include-all: true, filter: *FilterAL}
 
 # 1.6 机场订阅 
 # 注意：
 #     1) 填入机场订阅链接,可自定义机场名称。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
-#     2) 本配置默认为2个机场，如果需增加机场，可同步修订3.3-3.6，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定出站机场。
-#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3~3.6替换为Rule.yaml的1.5、3.3~3.7，否则会报错。
+#     2) 本配置默认为2个机场，如果需增加机场，可同步修订3.3-3.7，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定出站机场。
+#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3~3.7替换为Rule.yaml的1.5、3.3~3.7，否则会报错。
 proxy-providers: 
   # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，3.3-3.6机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
   Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
@@ -219,15 +219,15 @@ proxy-groups:
   - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
   # 3.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
-  - {name: 狮城策略,        <<: *BaseHS, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动'], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
-  - {name: 香港策略,        <<: *BaseHS, proxies: ['[全] 香港轮询', '[全] 香港散列', '[全] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港自动'], include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
-  - {name: 日本策略,        <<: *BaseHS, proxies: ['[全] 日本轮询', '[全] 日本散列', '[全] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本自动'], include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
-  - {name: 美国策略,        <<: *BaseHS, proxies: ['[全] 美国轮询', '[全] 美国散列', '[全] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国自动'], include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States.png}
-  - {name: 台湾策略,        <<: *BaseHS, proxies: ['[全] 台湾轮询', '[全] 台湾散列', '[全] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾自动'], include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan.png}
-  - {name: 欧洲策略,        <<: *BaseHS, proxies: ['[全] 欧洲轮询', '[全] 欧洲散列', '[全] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲自动'], include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
-  - {name: 韩国策略,        <<: *BaseHS, proxies: ['[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国自动'], include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
-  - {name: 其他策略,        <<: *BaseHS, proxies: ['[全] 其他轮询', '[全] 其他散列', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他自动'], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
-  - {name: 低倍策略,        <<: *BaseHS, proxies: ['[全] 低倍轮询', '[全] 低倍散列', '[全] 低倍自动', '[主] 低倍轮询', '[主] 低倍散列', '[主] 低倍自动', '[备] 低倍轮询', '[备] 低倍散列', '[备] 低倍自动'], include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Snail.png}
+  - {name: 狮城策略,        <<: *BaseHS, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城粘性', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城粘性', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城粘性', '[备] 狮城自动'], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
+  - {name: 香港策略,        <<: *BaseHS, proxies: ['[全] 香港轮询', '[全] 香港散列', '[全] 香港粘性', '[全] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港粘性', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港粘性', '[备] 香港自动'], include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
+  - {name: 日本策略,        <<: *BaseHS, proxies: ['[全] 日本轮询', '[全] 日本散列', '[全] 日本粘性', '[全] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本粘性', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本粘性', '[备] 日本自动'], include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
+  - {name: 美国策略,        <<: *BaseHS, proxies: ['[全] 美国轮询', '[全] 美国散列', '[全] 美国粘性', '[全] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国粘性', '[主] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国粘性', '[备] 美国自动'], include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States.png}
+  - {name: 台湾策略,        <<: *BaseHS, proxies: ['[全] 台湾轮询', '[全] 台湾散列', '[全] 台湾粘性', '[全] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾粘性', '[主] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾粘性', '[备] 台湾自动'], include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan.png}
+  - {name: 欧洲策略,        <<: *BaseHS, proxies: ['[全] 欧洲轮询', '[全] 欧洲散列', '[全] 欧洲粘性', '[全] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲粘性', '[主] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲粘性', '[备] 欧洲自动'], include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
+  - {name: 韩国策略,        <<: *BaseHS, proxies: ['[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国粘性', '[全] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国粘性', '[主] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国粘性', '[备] 韩国自动'], include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
+  - {name: 低倍策略,        <<: *BaseHS, proxies: ['[全] 低倍轮询', '[全] 低倍散列', '[全] 低倍粘性', '[全] 低倍自动', '[主] 低倍轮询', '[主] 低倍散列', '[主] 低倍粘性', '[主] 低倍自动', '[备] 低倍轮询', '[备] 低倍散列', '[备] 低倍粘性', '[备] 低倍自动'], include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Snail.png}
+  - {name: 其他策略,        <<: *BaseHS, proxies: ['[全] 其他轮询', '[全] 其他散列', '[全] 其他粘性', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘性', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘性', '[备] 其他自动'], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 3.4 负载均衡散列  (需更改机场名称,与1.6小节机场名称一致)
   - {name: '[全] 香港散列', <<: *BaseCH, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
@@ -291,7 +291,38 @@ proxy-groups:
   - {name: '[备] 其他轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
   - {name: '[备] 低倍轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
 
-  # 3.6 自动测速组  (需更改机场名称,与1.6小节机场名称一致)
+  # 3.6 全部机场混合负载均衡粘性(需更改机场名称,与1.6小节机场名称一致)
+  - {name: '[全] 香港粘性', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 台湾粘性', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 狮城粘性', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 日本粘性', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 韩国粘性', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 美国粘性', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 欧洲粘性', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 其他粘性', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 低倍粘性', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+
+  - {name: '[主] 香港粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 台湾粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 狮城粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 日本粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 韩国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 美国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 欧洲粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 其他粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 低倍粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+
+  - {name: '[备] 香港粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 台湾粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 狮城粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 日本粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 韩国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 美国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 欧洲粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 其他粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 低倍粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+
+  # 3.7 自动测速组  (需更改机场名称,与1.6小节机场名称一致)
   - {name: '[全] 香港自动', <<: *BaseUT, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
   - {name: '[全] 台湾自动', <<: *BaseUT, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
   - {name: '[全] 狮城自动', <<: *BaseUT, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
@@ -322,7 +353,7 @@ proxy-groups:
   - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
   - {name: '[备] 低倍自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
 
-  # 3.7 故障转移策略组
+  # 3.8 故障转移策略组
   - {name: 故转手动,        <<: *BaseFB, proxies: [全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
   - {name: 故转狮城,        <<: *BaseFB, proxies: [狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
   - {name: 故转美国,        <<: *BaseFB, proxies: [美国策略, 香港策略, 日本策略, 狮城策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
@@ -331,7 +362,7 @@ proxy-groups:
   - {name: 故转台湾,        <<: *BaseFB, proxies: [台湾策略, 狮城策略, 美国策略, 香港策略, 日本策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
   - {name: 故转低倍,        <<: *BaseFB, proxies: [低倍策略, 美国策略, 欧洲策略, 日本策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Snail_1.png}
 
-  # 3.8 其他策略组
+  # 3.9 其他策略组
   - {name: 全球手动¹,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select.png}
   - {name: 全球手动²,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Choose_1.png}
   - {name: 全球手动³,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select_1.png}
