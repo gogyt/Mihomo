@@ -36,7 +36,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 规则数据来源主要是[MetaCubeX](https://github.com/MetaCubeX/meta-rules-dat/tree/meta/geo)规则数据库，MetaCubeX的规则一个是采用mihomo内置GEOSITE和GEOIP数据库，另一个是采用的MetaCubeX实时更新的GEO数据库，还有其他少量的数据库，如广告、直连冷门域名、fakeip-filter等数据。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 各种配置大同小异，Pro和Plus类配置模板可实现指定机场分流出站，其余模板均是多机场节点混用出站。Plus采用多元故转默认地区节点，当首选地区策略全部节点断连时，自动切换至下一可用地区策略，实现更为稳定的网络体验。[Beta版本](yaml/RuleBeta.yaml)是Plus版本的魔改测试版，配置更加灵活。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 各种配置大同小异，Pro配置模板可实现指定机场分流出站。部分Pro版本采用多元故转默认地区节点，当首选地区策略全部节点断连时，自动切换至下一可用地区策略，实现更为稳定的网络体验。[Beta版本](yaml/RuleBeta.yaml)是Pro版本的魔改测试版，配置更加灵活。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 系统上线后按自己需求选择好分流策略即可使用，控制面板中各个策略和节点连通性是否绿色的其实无关紧要，不用强迫症的不停点击测试连通性，系统会根据相关规则设定去判定节点的选择。
 
@@ -46,7 +46,7 @@
 | <div align="center">☑️</div> | <div align="center">🧮配置文件</div> | <div align="center">🔽策略组</div> | <div align="center">⏬节点组</div> | <div align="center">📝规则集</div> | <div align="center">📑特点</div> |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | <div align="center">**1**</div> | [**Rule.yaml**](yaml/Rule.yaml) | <div align="center">34</div> | <div align="center">33</div> | <div align="center">55</div> | 常规分流，多机场混合出站 |
-| <div align="center">**2**</div> | [**RulePlus.yaml**](yaml/RulePlus.yaml) | <div align="center">51</div> | <div align="center">73</div> | <div align="center">65</div> | 多机场**混合**或**自定义**出站，**${\color{orange}\text{ 多元默认故转 }}$** |
+| <div align="center">**2**</div> | [**RulePro.yaml**](yaml/RulePro.yaml) | <div align="center">51</div> | <div align="center">73</div> | <div align="center">65</div> | 多机场**混合**或**自定义**出站，**${\color{orange}\text{ 多元默认故转 }}$** |
 | <div align="center">**3**</div> | [**RuleLite.yaml**](yaml/RuleLite.yaml) | <div align="center">14</div> | <div align="center">25</div> | <div align="center">36</div> | 极简分流，多机场混合出站
 | <div align="center">**4**</div> | [**RuleLitePro.yaml**](yaml/RuleLitePro.yaml) | <div align="center">14</div> | <div align="center">49</div> | <div align="center">36</div> | 极简分流，多机场**自定义**出站 |
 | <div align="center">**5**</div> | [**RuleSmart.yaml**](yaml/RuleSmart) | <div align="center">46</div> | <div align="center">25</div> | <div align="center">65</div> | 适配Smart核心，多机场混合出站 |
