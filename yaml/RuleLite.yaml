@@ -168,42 +168,42 @@ dns:
 # 3 代理策略组 
 proxy-groups:
   # 3.1 业务策略组
-  - {name: 默认代理,     <<: *SelectPY, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png}
-  - {name: 默认直连,     <<: *SelectDD, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}
+  - {name: 默认代理,     <<: *SelectPY, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Proxy.png}
+  - {name: 默认直连,     <<: *SelectDD, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Static.png}
 
   # 3.2 策略组与地理策略组分界识别
-  - {name: 漏网之鱼,     <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Final.png}
-  - {name: 网络测试,     <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png}
+  - {name: 漏网之鱼,     <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
+  - {name: 网络测试,     <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
   
   # 3.3 地理策略组
-  - {name: 狮城策略,       <<: *BaseHS, proxies: [狮城轮询, 狮城散列, 狮城粘滞, 狮城自动], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png}
-  - {name: 香港策略,       <<: *BaseHS, proxies: [香港轮询, 香港散列, 香港粘滞, 香港自动], include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png}
-  - {name: 日本策略,       <<: *BaseHS, proxies: [日本轮询, 日本散列, 日本粘滞, 日本自动], include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png}
-  - {name: 美国策略,       <<: *BaseHS, proxies: [美国轮询, 美国散列, 美国粘滞, 美国自动], include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png}
-  - {name: 台湾策略,       <<: *BaseHS, proxies: [台湾轮询, 台湾散列, 台湾粘滞, 台湾自动], include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png}
-  - {name: 欧洲策略,       <<: *BaseHS, proxies: [欧洲轮询, 欧洲散列, 欧洲粘滞, 欧洲自动], include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/European_Union.png}
-  - {name: 韩国策略,       <<: *BaseHS, proxies: [韩国轮询, 韩国散列, 韩国粘滞, 韩国自动], include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png}
+  - {name: 狮城策略,       <<: *BaseHS, proxies: [狮城轮询, 狮城散列, 狮城粘滞, 狮城自动], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
+  - {name: 香港策略,       <<: *BaseHS, proxies: [香港轮询, 香港散列, 香港粘滞, 香港自动], include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
+  - {name: 日本策略,       <<: *BaseHS, proxies: [日本轮询, 日本散列, 日本粘滞, 日本自动], include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
+  - {name: 美国策略,       <<: *BaseHS, proxies: [美国轮询, 美国散列, 美国粘滞, 美国自动], include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States.png}
+  - {name: 台湾策略,       <<: *BaseHS, proxies: [台湾轮询, 台湾散列, 台湾粘滞, 台湾自动], include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan.png}
+  - {name: 欧洲策略,       <<: *BaseHS, proxies: [欧洲轮询, 欧洲散列, 欧洲粘滞, 欧洲自动], include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
+  - {name: 韩国策略,       <<: *BaseHS, proxies: [韩国轮询, 韩国散列, 韩国粘滞, 韩国自动], include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
   - {name: 其他策略,       <<: *BaseHS, proxies: [其他轮询, 其他散列, 其他粘滞, 其他自动], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 3.4 负载均衡-散列 
-  - {name: 香港散列,       <<: *BaseCH, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: 台湾散列,       <<: *BaseCH, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: 狮城散列,       <<: *BaseCH, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: 日本散列,       <<: *BaseCH, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: 韩国散列,       <<: *BaseCH, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: 美国散列,       <<: *BaseCH, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: 欧洲散列,       <<: *BaseCH, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: 其他散列,       <<: *BaseCH, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 香港散列,       <<: *BaseCH, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 台湾散列,       <<: *BaseCH, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 狮城散列,       <<: *BaseCH, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 日本散列,       <<: *BaseCH, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 韩国散列,       <<: *BaseCH, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 美国散列,       <<: *BaseCH, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 欧洲散列,       <<: *BaseCH, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: 其他散列,       <<: *BaseCH, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
 
   # 3.5 负载均衡-轮询 
-  - {name: 香港轮询,       <<: *BaseCR, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: 台湾轮询,       <<: *BaseCR, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: 狮城轮询,       <<: *BaseCR, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: 日本轮询,       <<: *BaseCR, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: 韩国轮询,       <<: *BaseCR, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: 美国轮询,       <<: *BaseCR, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: 欧洲轮询,       <<: *BaseCR, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: 其他轮询,       <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 香港轮询,       <<: *BaseCR, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 台湾轮询,       <<: *BaseCR, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 狮城轮询,       <<: *BaseCR, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 日本轮询,       <<: *BaseCR, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 韩国轮询,       <<: *BaseCR, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 美国轮询,       <<: *BaseCR, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 欧洲轮询,       <<: *BaseCR, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: 其他轮询,       <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
 
    # 3.6 负载均衡-粘性会话 
   - {name: 香港粘滞,       <<: *BaseSS, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
@@ -216,21 +216,21 @@ proxy-groups:
   - {name: 其他粘滞,       <<: *BaseSS, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
   
   # 3.7 自动测速组
-  - {name: 香港自动,       <<: *BaseUT, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
-  - {name: 台湾自动,       <<: *BaseUT, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
-  - {name: 狮城自动,       <<: *BaseUT, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
-  - {name: 日本自动,       <<: *BaseUT, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
-  - {name: 韩国自动,       <<: *BaseUT, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
-  - {name: 美国自动,       <<: *BaseUT, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
-  - {name: 欧洲自动,       <<: *BaseUT, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
-  - {name: 其他自动,       <<: *BaseUT, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png}
+  - {name: 香港自动,       <<: *BaseUT, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: 台湾自动,       <<: *BaseUT, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: 狮城自动,       <<: *BaseUT, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: 日本自动,       <<: *BaseUT, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: 韩国自动,       <<: *BaseUT, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: 美国自动,       <<: *BaseUT, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: 欧洲自动,       <<: *BaseUT, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: 其他自动,       <<: *BaseUT, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
 
   # 3.8 手动策略组
-  - {name: 全球手动,       <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/World_Map.png}
+  - {name: 全球手动,       <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
  
   # 3.9 其他策略组
-  - {name: 故障转移,       <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Back.png}
-  - {name: 直接连接,       <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png}
+  - {name: 故障转移,       <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back.png}
+  - {name: 直接连接,       <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
 # 4 规则路由 (按照从上往下的顺序遍历,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果)
 rules: 
@@ -274,7 +274,7 @@ rules:
 # 5 规则提供者
 rule-providers:  
   # 5.1 广告拦截规则
-  category-ads-all:                    {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs }
+  category-ads-all:                    {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-ads-all.mrs }
   AWAvenueAds:                         {<<: *BehaviorDN, url: https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs}
   adblock:                             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/adblock.mrs} 
 
@@ -288,31 +288,31 @@ rule-providers:
   non_standard_port:                   {<<: *BehaviorCY, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Custom_Port_Direct.yaml}
 
   # 5.5 主要规则集
-  private:                             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs}
-  private_IP:                          {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs}
-  google-cn:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google-cn.mrs}
-  microsoft@cn:                        {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft@cn.mrs}
-  microsoft:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs}
-  category-game-platforms-download:    {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-game-platforms-download.mrs}
-  category-public-tracker:             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-public-tracker.mrs}
-  category-pt:                         {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-pt.mrs}
-  category-games@cn:                   {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-games@cn.mrs}
-  category-games-cn:                   {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-games-cn.mrs}
-  category-games:                      {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-games.mrs}
-  category-speedtest:                  {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-speedtest.mrs}
-  test-ipv6:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/test-ipv6.mrs}
-  github:                              {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs}
-  gfw:                                 {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/gfw.mrs}
-  google_IP:                           {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs}
-  telegram_IP:                         {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs}
-  twitter_IP:                          {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs}
-  facebook_IP:                         {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/facebook.mrs}
-  netflix_IP:                          {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/netflix.mrs}
-  geolocation-cn:                      {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-cn.mrs}
-  geolocation-!cn:                     {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.mrs}
-  cloudflare_IP:                       {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudflare.mrs}
-  cloudfront_IP:                       {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudfront.mrs}
-  fastly_IP:                           {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/fastly.mrs}
-  cn:                                  {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs}
-  cn_IP:                               {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs}
+  private:                             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/private.mrs}
+  private_IP:                          {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/private.mrs}
+  google-cn:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/google-cn.mrs}
+  microsoft@cn:                        {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/microsoft@cn.mrs}
+  microsoft:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/microsoft.mrs}
+  category-game-platforms-download:    {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-game-platforms-download.mrs}
+  category-public-tracker:             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-public-tracker.mrs}
+  category-pt:                         {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-pt.mrs}
+  category-games@cn:                   {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-games@cn.mrs}
+  category-games-cn:                   {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-games-cn.mrs}
+  category-games:                      {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-games.mrs}
+  category-speedtest:                  {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-speedtest.mrs}
+  test-ipv6:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/test-ipv6.mrs}
+  github:                              {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/github.mrs}
+  gfw:                                 {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/gfw.mrs}
+  google_IP:                           {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/google.mrs}
+  telegram_IP:                         {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/telegram.mrs}
+  twitter_IP:                          {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/twitter.mrs}
+  facebook_IP:                         {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/facebook.mrs}
+  netflix_IP:                          {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/netflix.mrs}
+  geolocation-cn:                      {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-cn.mrs}
+  geolocation-!cn:                     {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-!cn.mrs}
+  cloudflare_IP:                       {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cloudflare.mrs}
+  cloudfront_IP:                       {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cloudfront.mrs}
+  fastly_IP:                           {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/fastly.mrs}
+  cn:                                  {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/cn.mrs}
+  cn_IP:                               {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
 # ==================== EOF ====================

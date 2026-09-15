@@ -211,7 +211,7 @@ proxy-groups:
   - {name: Steam,          <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Steam.png}
   - {name: 游戏平台,        <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Game.png}
   - {name: Bahamut,        <<: *BaseHS,  proxies: [默认直连, 台湾策略], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bahamut.png}
-  - {name: 非标端口,        <<: *BaseHS,  proxies: [直接连接, 漏网之鱼], icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bypass.png}
+  - {name: 非标端口,        <<: *BaseHS,  proxies: [直接连接, 漏网之鱼], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bypass.png}
 
   # 3.2 策略组与地理策略组分界识别
   - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
