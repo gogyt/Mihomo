@@ -178,8 +178,8 @@ proxy-groups:
   - {name: 默认直连,        <<: *SelectDD, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Static.png}
 
   # 3.2 策略组与地理策略组分界识别
-  - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
-  - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
+  - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
+  - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
 
   # 3.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
   - {name: 狮城策略,        <<: *BaseHS, proxies: ['[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动'], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
