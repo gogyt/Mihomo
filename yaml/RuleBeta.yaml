@@ -69,9 +69,9 @@ SelectHS:     &SelectHS  {type: select, proxies: ['[全] 狮城轮询', '[全] �
 #     2) 本配置默认为2个机场，如果需增加机场，可同步修订3.3-3.7，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定出站机场。
 #     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3~3.7替换为Rule.yaml的1.5、3.3~3.7，否则会报错。
 proxy-providers: 
-  # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，3.3-3.6机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
+  # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，3.3-3.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
   Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
-  # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，3.3-3.6机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
+  # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，3.3-3.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
   Airport2: {<<: *BaseProvider, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
 
 # 2 核心配置
