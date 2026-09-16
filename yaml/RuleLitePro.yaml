@@ -255,7 +255,7 @@ proxy-groups:
   - {name: 故障转移,        <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back.png}
   - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
-# 4 规则路由 (按照从上往下的顺序遍历,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果)
+# 4 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
 rules: 
   # 4.1 拦截规则(按需启用,可禁用拦截,不影响使用效果)
   - RULE-SET,category-ads-all,REJECT                          # 轻量化广告拦截列表,搭配AWAvenueAds秋风广告列表使用,同时禁用adblock广告过滤列表
