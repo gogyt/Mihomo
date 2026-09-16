@@ -269,7 +269,7 @@ proxy-groups:
   - {name: 故障转移,       <<: *BaseFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back.png}
   - {name: 直接连接,       <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
-# 4 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了gfw被墙域名,先过滤掉gfw被墙域名剩下的就是未被墙的境外域名)
+# 4 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
 rules: 
   # 4.1 拦截规则(按需启用,可禁用拦截,不影响使用效果)
   - GEOSITE,category-ads-all,REJECT                          # 轻量化广告拦截列表,搭配AWAvenueAds秋风广告列表使用,同时禁用adblock广告过滤列表
@@ -307,9 +307,9 @@ rules:
   - GEOSITE,spotify,Spotify                                  # Spotify
   - GEOSITE,google,谷歌服务                                   # Google服务
   - GEOSITE,category-games,游戏平台                           # 游戏平台(含category-games-cn、Steam)
-  - GEOSITE,category-communication,即时通讯                   # 即时通讯(含telegram、WhatsApp、clubhouse等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
-  - GEOSITE,category-social-media-!cn,社交媒体                # 国外社交媒体(含instagram、facebook、twitter、mixi等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
-  - GEOSITE,category-entertainment,国外娱乐                   # 国外娱乐(含youtube、tiktok、bahamut、primevideo、netflix、disney、apple-tvplus、hbo、category-games-!cn、tmdb、imdb等,若需精简,可以注释掉5.3相应的规则及"4.1 业务策略组"中对应的分组,最终到此规则兜底)
+  - GEOSITE,category-communication,即时通讯                   # 即时通讯(含telegram、WhatsApp、clubhouse等,若需精简,可以将注释掉"3.1 业务策略组"中相应的分组)
+  - GEOSITE,category-social-media-!cn,社交媒体                # 国外社交媒体(含instagram、facebook、twitter、mixi等,若需精简,可以将注释掉"3.1 业务策略组"中相应的分组)
+  - GEOSITE,category-entertainment,国外娱乐                   # 国外娱乐(含youtube、tiktok、bahamut、primevideo、netflix、disney、apple-tvplus、hbo、category-games-!cn、tmdb、imdb等,若需精简,可以注释掉5.3相应的规则及"3.1 业务策略组"中对应的分组,最终到此规则兜底)
   - GEOSITE,category-ecommerce,国外电商                       # 国外电商
   - GEOSITE,category-cryptocurrency,加密货币                  # 加密货币(大部分在gfw中)
   - GEOSITE,gfw,默认代理                                      # GFW列表(主要规则,被墙列表)
@@ -322,7 +322,7 @@ rules:
   - GEOSITE,geolocation-!cn,默认直连                          # 非中国域名(本条主要是境外域名,涵盖gfw被墙域名,其余几乎未被墙,前面gfw滤掉了被墙域名,这里默认直连,视连接情况切换代理)
   - GEOIP,cloudflare,默认直连,no-resolve                      # cloudflare(geolocation-!cn已包含cloudflare,这里IP补充)
   - GEOIP,cloudfront,默认直连,no-resolve                      # 亚马逊旗下CDN(同上IP补充)
- # - GEOIP,fastly,默认直连,no-resolve                          # FSLY CDN(同上IP补充，注意：有的代理软件GEO数据中缺少GEOIP,fastly数据，请尝试启用)
+ # - GEOIP,fastly,默认直连,no-resolve                          # FSLY CDN(同上IP补充，注：有的代理软件默认GEO数据中缺少GEOIP,fastly数据，可尝试启用)
   - GEOSITE,cn,直接连接                                       # 中国域名
   - GEOIP,cn,直接连接,no-resolve                              # 中国IP
   - RULE-SET,non_standard_port,直接连接                       # 非标端口
