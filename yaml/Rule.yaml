@@ -307,9 +307,9 @@ rules:
   - RULE-SET,spotify,Spotify                                  # Spotify
   - RULE-SET,google,谷歌服务                                   # Google服务
   - RULE-SET,category-games,游戏平台                           # 游戏平台(含category-games-cn、Steam)
-  - RULE-SET,category-communication,即时通讯                   # 即时通讯(含telegram、WhatsApp、clubhouse等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
-  - RULE-SET,category-social-media-!cn,社交媒体                # 国外社交媒体(含instagram、facebook、twitter、mixi等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
-  - RULE-SET,category-entertainment,国外娱乐                   # 国外娱乐(含youtube、tiktok、bahamut、primevideo、netflix、disney、apple-tvplus、hbo、category-games-!cn、tmdb、imdb等,若需精简,可以注释掉5.3相应的规则及"4.1 业务策略组"中对应的分组,最终到此规则兜底)
+  - RULE-SET,category-communication,即时通讯                   # 即时通讯(含telegram、WhatsApp、clubhouse等,若需精简,可以将注释掉"3.1 业务策略组"中相应的分组)
+  - RULE-SET,category-social-media-!cn,社交媒体                # 国外社交媒体(含instagram、facebook、twitter、mixi等,若需精简,可以将注释掉"3.1 业务策略组"中相应的分组)
+  - RULE-SET,category-entertainment,国外娱乐                   # 国外娱乐(含youtube、tiktok、bahamut、primevideo、netflix、disney、apple-tvplus、hbo、category-games-!cn、tmdb、imdb等,若需精简,可以注释掉5.3相应的规则及"3.1 业务策略组"中对应的分组,最终到此规则兜底)
   - RULE-SET,category-ecommerce,国外电商                       # 国外电商
   - RULE-SET,category-cryptocurrency,加密货币                  # 加密货币(大部分在gfw中)
   - RULE-SET,gfw,默认代理                                      # GFW列表(主要规则,被墙列表)
