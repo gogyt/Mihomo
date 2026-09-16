@@ -68,7 +68,7 @@ SelectHS:     &SelectHS  {type: select, proxies: ['[全] 狮城轮询', '[全] �
 # 注意：
 #     1) 填入机场订阅链接,可自定义机场名称。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
 #     2) 本配置默认为2个机场，如果需增加机场，可同步修订3.3-3.7，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定出站机场。
-#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3~3.7替换为Rule.yaml的1.5、3.3~3.7，否则会报错。
+#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3~3.9替换为Rule.yaml的1.5、3.3~3.9，否则会报错。
 proxy-providers: 
   # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，3.3-3.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
   Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
@@ -363,7 +363,7 @@ proxy-groups:
   - {name: 故转台湾,        <<: *BaseFB, proxies: [台湾策略, 狮城策略, 美国策略, 香港策略, 日本策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
   - {name: 故转低倍,        <<: *BaseFB, proxies: [低倍策略, 美国策略, 欧洲策略, 日本策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Snail_1.png}
 
-  # 3.9 其他策略组
+  # 3.9 手动策略组
   - {name: 全球手动¹,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select.png}
   - {name: 全球手动²,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Choose_1.png}
   - {name: 全球手动³,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select_1.png}
