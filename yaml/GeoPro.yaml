@@ -71,7 +71,7 @@ SelectHS:     &SelectHS  {type: select, proxies: ['[全] 狮城轮询', '[全] �
 # 注意：
 #     1) 填入机场订阅链接,可自定义机场名称。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
 #     2) 本配置默认为2个机场，如果需增加机场，可同步修订3.3-3.6，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定机场出站。
-#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3-3.6替换为Geo.yaml的1.5、3.3-3.7,否则会报错。
+#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3-3.7替换为Geo.yaml的1.5、3.3-3.8,否则会报错。
 proxy-providers: 
   # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，3.3-3.6机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
   Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
@@ -220,6 +220,7 @@ proxy-groups:
   # 3.2 策略组与地理策略组分界识别
   - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
   - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
+  - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
   # 3.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
   - {name: 狮城策略,        <<: *BaseHS, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城自动'], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
@@ -323,9 +324,8 @@ proxy-groups:
   - {name: 故转日本,        <<: *BaseFB, proxies: [日本策略, 台湾策略, 狮城策略, 美国策略, 香港策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
   - {name: 故转台湾,        <<: *BaseFB, proxies: [台湾策略, 狮城策略, 美国策略, 香港策略, 日本策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
 
-  # 3.8 其他策略组
+  # 3.8 手动策略组
   - {name: 全球手动,        <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
-  - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
 # 4 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
 rules: 
