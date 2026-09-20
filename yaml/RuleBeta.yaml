@@ -27,11 +27,24 @@
 # 故障转移是确保选择的节点一直处于可用状态，同时能自定义选择节点，按喜好将相应节点或策略组优先排序，比如高倍率节点可分配给高品质需求分流组，低倍率节点可分配给流媒体节流分流组，还可自定义消耗机场流量先后顺序等等等等，更加灵活
 
 # 配置区
-# 1 锚点配置 
-# 1.1 机场订阅锚点 - 订阅源基础配置 (根据自己机场特性,在filter参数中添加不需要的机场节点关键字,若需保留相关节点,删除该节点名称的关键字)
+
+# 1 订阅配置 
+# 1.1 订阅基本配置（根据自己机场特性,在filter参数中添加不需要的机场节点关键字,若需保留相关节点,删除该节点名称的关键字）
 BaseProvider: &BaseProvider {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.google.com/generate_204', interval: 300}, filter: '^(?!.*(客户端|特殊|如果|导致|失效|重新|一下|测试|剩余|套餐|公告|排除|直接连接|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic))'}
 
-# 1.2策略组类型锚点 - 定义不同的策略组基础配置
+# 1.2 机场配置
+# 注意：
+#     1) 本配置默认为2个机场，如果需增加机场，可同步修订4.4-4.7，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定出站机场。
+#     2) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的2.4、4.3~4.9替换为Rule.yaml对应的1.5、3.3~3.9，否则会报错。
+#     3) Airport1/Airport2为机场名称,可自定义。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
+proxy-providers: 
+  # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，4.4-4.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
+  Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
+  # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，4.4-4.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
+  Airport2: {<<: *BaseProvider, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
+
+# 2 锚点配置 
+# 2.1策略组类型锚点 - 定义不同的策略组基础配置
 BaseHS: &BaseHS {type: select}
 BaseFB: &BaseFB {type: fallback,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204'}
 BaseCR: &BaseCR {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204', strategy: round-robin}         # 轮询：新建立一条 TCP 连接，就依次轮换选取下一个可用节点，循环往复，连接均匀分摊到全部存活节点，不会根据延迟选节点，它只负责流量分发，健康检查仅用于剔除故障节点，不做优先级排序；
@@ -39,13 +52,13 @@ BaseCH: &BaseCH {type: load-balance, empty-fallback: REJECT, interval: 200, lazy
 BaseSS: &BaseSS {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204', strategy: sticky-sessions}     # 粘性会话（粘滞）：使用「源 IP + 目标地址」组合作为 key 做哈希缓存，缓存有效期约 10 分钟；在缓存有效期内，同一客户端访问同一目标，固定分配同一个节点；超时后重新哈希分配。
 BaseUT: &BaseUT {type: url-test,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204', tolerance: 50}
 
-# 1.3 规则集行为锚点
+# 2.2 规则集行为锚点
 BehaviorDN:   &BehaviorDN {type: http, behavior: domain,    format: mrs,  interval: 86400}
 BehaviorDY:   &BehaviorDY {type: http, behavior: domain,    format: yaml, interval: 86400}
 BehaviorIP:   &BehaviorIP {type: http, behavior: ipcidr,    format: mrs,  interval: 86400}
 BehaviorCY:   &BehaviorCY {type: http, behavior: classical, format: yaml, interval: 86400}
 
-# 1.4 机场节点筛选正则表达式 - 基于地理位置和关键词过滤
+# 2.3 机场节点筛选正则表达式 - 基于地理位置和关键词过滤
 FilterHK:     &FilterHK '^(?=.*(?i)(港|🇭🇰|HK|Hong|HKG)).*$'
 FilterSG:     &FilterSG '^(?=.*(?i)(坡|🇸🇬|SG|Sing|SIN|XSP)).*$'
 FilterJP:     &FilterJP '^(?=.*(?i)(日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK)).*$'
@@ -57,32 +70,21 @@ FilterOT:     &FilterOT '^(?!.*(DIRECT|直接连接|美|港|坡|台|新|日|韩|
 FilterAL:     &FilterAL '^(?!.*(DIRECT|直接连接|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'
 FilterLM:     &FilterLM '^(?=.*(?i)(低倍率|低倍|(?<![\d\.])0?\.\d+(?![0-9])(?:x|倍)?|倍率[:： ]?0?\.\d+)).*$'
 
-# 1.5 策略组代理锚点 - 预定义的代理节点优先级排序,根据自己需求在“3.1 业务策略组”选定策略组代理模板
+# 2.4 策略组代理锚点 - 预定义的代理节点优先级排序,根据自己需求在“3.1 业务策略组”选定策略组代理模板
 SelectPY:     &SelectPY  {type: select, proxies: [故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 故转低倍, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 直接连接]}
 SelectDD:     &SelectDD  {type: select, proxies: [直接连接, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 故转低倍, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴]}
 SelectDC:     &SelectDC  {type: select, proxies: [直接连接, 默认直连, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 故转低倍, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴]}
 SelectFB:     &SelectFB  {type: select, proxies: [默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 故转低倍, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 默认直连, 直接连接]}
 SelectHS:     &SelectHS  {type: select, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城粘性', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城粘性', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城粘性', '[备] 狮城自动', '[全] 香港轮询', '[全] 香港散列', '[全] 香港粘性', '[全] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港粘性', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港粘性', '[备] 香港自动', '[全] 日本轮询', '[全] 日本散列', '[全] 日本粘性', '[全] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本粘性', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本粘性', '[备] 日本自动', '[全] 美国轮询', '[全] 美国散列', '[全] 美国粘性', '[全] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国粘性', '[主] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国粘性', '[备] 美国自动', '[全] 台湾轮询', '[全] 台湾散列', '[全] 台湾粘性', '[全] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾粘性', '[主] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾粘性', '[备] 台湾自动', '[全] 欧洲轮询', '[全] 欧洲散列', '[全] 欧洲粘性', '[全] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲粘性', '[主] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲粘性', '[备] 欧洲自动', '[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国粘性', '[全] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国粘性', '[主] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国粘性', '[备] 韩国自动', '[全] 其他轮询', '[全] 其他散列', '[全] 其他粘性', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘性', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘性', '[备] 其他自动', '[全] 低倍轮询', '[全] 低倍散列', '[全] 低倍粘性', '[全] 低倍自动', '[主] 低倍轮询', '[主] 低倍散列', '[主] 低倍粘性', '[主] 低倍自动', '[备] 低倍轮询', '[备] 低倍散列', '[备] 低倍粘性', '[备] 低倍自动'], include-all: true, filter: *FilterAL}
 
-# 1.6 机场订阅 
-# 注意：
-#     1) 本配置默认为2个机场，如果需增加机场，可同步修订3.4-3.7，若不修订，除Airport1、Airport2外的机场节点只能混合出站，无法指定出站机场。
-#     2) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的1.5、3.3~3.9替换为Rule.yaml的1.5、3.3~3.9，否则会报错。
-#     3) Airport1/Airport2为机场名称,可自定义。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
-proxy-providers: 
-  # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，3.3-3.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
-  Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
-  # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，3.3-3.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
-  Airport2: {<<: *BaseProvider, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
-
-# 1.7 共用图标描点
+# 2.5 共用图标描点
 round-robin:        &round-robin        https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png
 consistent-hashing: &consistent-hashing https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png
 sticky-sessions:    &sticky-sessions    https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png
 url-test:           &url-test           https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png
 
-# 2 核心配置
-# 2.1 基础配置
+# 3 核心配置
+# 3.1 基础配置
 mode: rule                                                                                                   # 工作模式：rule(规则模式)/global(全局模式)/direct(直连模式)
 ipv6: true                                                                                                   # 是否启用 IPv6 协议支持
 mixed-port: 7893                                                                                             # HTTP+SOCKS5混合代理监听端口号
@@ -93,7 +95,7 @@ unified-delay: true                                                             
 tcp-concurrent: true                                                                                         # TCP并发测速，并行发起探测请求，缩短节点延迟测试耗时
 profile: { store-selected: true, store-fake-ip: true }                                                       # 持久化配置；store-selected保存节点选择，store-fake-ip保存FakeIP域名映射记录
 
-# 2.2 地理数据
+# 3.2 地理数据
 geo-auto-update: true                                                                                        # 开启geo地理规则数据库自动更新
 geo-update-interval: 24                                                                                      # 地理数据库自动更新间隔，单位小时
 geodata-mode: true                                                                                           # 启用geodata模式，使用geoip/geosite规则库进行匹配
@@ -103,18 +105,18 @@ geox-url:
   mmdb:    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb                   # metadb新版IP库下载地址
   asn:     https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb              # ASN自治系统编号数据库
 
-# 2.3 认证配置(需要时启用)
+# 3.3 认证配置(需要时启用)
 #authentication:                                                                                              # 代理接入账号密码认证列表
 #  - mihomo:mihomo                                                                                            # 账号:密码，客户端连接代理需要填写该凭据
 
-# 2.4管理面板配置
+# 3.4管理面板配置
 external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip                    # 前端面板Zashboard的远程下载地址
 external-controller: 0.0.0.0:9090                                                                            # 外部控制器API监听地址，用于管理面板和远程调用
 external-ui-name: zashboard                                                                                  # 指定使用的外部UI面板名称
 external-ui: ui                                                                                              # 前端静态网页文件存放的本地目录
 secret: 12345678                                                                                             # 控制器API访问密钥，访问管理面板需要携带该密钥鉴权
 
-# 2.5 TUN模式配置
+# 3.5 TUN模式配置
 tun:
   enable: true                                                                                               # 开启TUN虚拟网卡，实现系统全局透明代理
   stack: mips                                                                                                # TUN协议栈，mixed（混合协议栈） / gvisor（用户态协议栈） / mips（轻量内核栈） / system（原生网络栈）
@@ -126,7 +128,7 @@ tun:
   endpoint-independent-nat: true                                                                             # 开启与终端地址无关的NAT，适配流媒体多IP连接场景
   route-exclude-address-set: [cn_IP]                                                                         # 路由排除地址集合，cn_IP国内IP段流量不走TUN代理直接直连
 
-# 2.6 嗅探功能
+# 3.6 嗅探功能
 sniffer:
   enable: true                                                                                               # 开启流量嗅探，从TCP/QUIC流量中提取原始域名用于规则匹配
   override-destination: true                                                                                 # 嗅探成功后改写连接目标地址为嗅探得到的域名
@@ -149,7 +151,7 @@ sniffer:
     - "+.sunlogin.net"                                                                                       # 向日葵备用域名，跳过嗅探
     - "+.push.apple.com"                                                                                     # Apple推送服务域名，防止APNs推送失效
 
-# 2.7 本地静态域名映射表(优先级最高,用来强制把某个域名解析到指定 IP,不走 DNS、不经过规则判断)
+# 3.7 本地静态域名映射表(优先级最高,用来强制把某个域名解析到指定 IP,不走 DNS、不经过规则判断)
 hosts:
   "epdg.epc.mnc010.mcc234.pub.3gppnetwork.org": [87.194.8.8, 87.194.88.8, 87.194.89.8, 87.194.9.8]           # 静态域名IP绑定
   services.googleapis.cn: services.googleapis.com                                                            # 域名CNAME映射，将该域名指向另一个域名
@@ -158,7 +160,7 @@ hosts:
   dns.google: [8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860::8844]                                      # Google DNS静态IP绑定
   cloudflare-dns.com: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]                         # Cloudflare DNS静态IP绑定
 
-# 2.8 DNS配置
+# 3.8 DNS配置
 dns:
   enable: true                                                                                               # 开启mihomo内置DNS服务
   ipv6: true                                                                                                 # DNS解析支持返回IPv6 AAAA记录
@@ -183,9 +185,9 @@ dns:
     - rule-set:fakeip-filter                                                                                 # 自定义fakeip-filter规则集
     - +.jsdelivr.net
 
-# 3 代理策略组 
+# 4 代理策略组 
 proxy-groups:
-  # 3.1 业务策略组
+  # 4.1 业务策略组
   - {name: 默认代理,        <<: *SelectPY, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Proxy.png}
   - {name: 默认直连,        <<: *SelectDD, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Static.png}
   - {name: Github,         <<: *SelectFB, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/GitHub.png}
@@ -221,12 +223,12 @@ proxy-groups:
   - {name: Bahamut,        <<: *BaseHS,  proxies: [默认直连, 台湾策略], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bahamut.png}
   - {name: 非标端口,        <<: *BaseHS,  proxies: [直接连接, 漏网之鱼], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bypass.png}
 
-  # 3.2 策略组与地理策略组分界识别
+  # 4.2 策略组与地理策略组分界识别
   - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
   - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
   - {name: 直接连接,        <<: *BaseHS, proxies: [DIRECT], hidden: true, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
-  # 3.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
+  # 4.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
   - {name: 狮城策略,        <<: *BaseHS, proxies: ['[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城粘性', '[全] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城粘性', '[主] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城粘性', '[备] 狮城自动'], include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
   - {name: 香港策略,        <<: *BaseHS, proxies: ['[全] 香港轮询', '[全] 香港散列', '[全] 香港粘性', '[全] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港粘性', '[主] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港粘性', '[备] 香港自动'], include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
   - {name: 日本策略,        <<: *BaseHS, proxies: ['[全] 日本轮询', '[全] 日本散列', '[全] 日本粘性', '[全] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本粘性', '[主] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本粘性', '[备] 日本自动'], include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
@@ -237,7 +239,7 @@ proxy-groups:
   - {name: 低倍策略,        <<: *BaseHS, proxies: ['[全] 低倍轮询', '[全] 低倍散列', '[全] 低倍粘性', '[全] 低倍自动', '[主] 低倍轮询', '[主] 低倍散列', '[主] 低倍粘性', '[主] 低倍自动', '[备] 低倍轮询', '[备] 低倍散列', '[备] 低倍粘性', '[备] 低倍自动'], include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Snail.png}
   - {name: 其他策略,        <<: *BaseHS, proxies: ['[全] 其他轮询', '[全] 其他散列', '[全] 其他粘性', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘性', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘性', '[备] 其他自动'], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
-  # 3.4 负载均衡散列  (需更改机场名称,与1.6小节机场名称一致)
+  # 4.4 负载均衡散列  (需更改机场名称,与1.6小节机场名称一致)
   - {name: '[全] 香港散列', <<: *BaseCH, include-all: true, filter: *FilterHK, icon: *consistent-hashing}
   - {name: '[全] 台湾散列', <<: *BaseCH, include-all: true, filter: *FilterTW, icon: *consistent-hashing}
   - {name: '[全] 狮城散列', <<: *BaseCH, include-all: true, filter: *FilterSG, icon: *consistent-hashing}
@@ -268,7 +270,7 @@ proxy-groups:
   - {name: '[备] 其他散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterOT, icon: *consistent-hashing}
   - {name: '[备] 低倍散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterLM, icon: *consistent-hashing}
 
-  # 3.5 负载均衡轮询  (需更改机场名称,与1.6小节机场名称一致)
+  # 4.5 负载均衡轮询  (需更改机场名称,与1.6小节机场名称一致)
   - {name: '[全] 香港轮询', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *round-robin}
   - {name: '[全] 台湾轮询', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *round-robin}
   - {name: '[全] 狮城轮询', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *round-robin}
@@ -299,7 +301,7 @@ proxy-groups:
   - {name: '[备] 其他轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *round-robin}
   - {name: '[备] 低倍轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *round-robin}
 
-  # 3.6 全部机场混合负载均衡粘性(需更改机场名称,与1.6小节机场名称一致)
+  # 4.6 全部机场混合负载均衡粘性(需更改机场名称,与1.6小节机场名称一致)
   - {name: '[全] 香港粘性', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *sticky-sessions}
   - {name: '[全] 台湾粘性', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *sticky-sessions}
   - {name: '[全] 狮城粘性', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *sticky-sessions}
@@ -330,7 +332,7 @@ proxy-groups:
   - {name: '[备] 其他粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *sticky-sessions}
   - {name: '[备] 低倍粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *sticky-sessions}
 
-  # 3.7 自动测速组  (需更改机场名称,与1.6小节机场名称一致)
+  # 4.7 自动测速组  (需更改机场名称,与1.6小节机场名称一致)
   - {name: '[全] 香港自动', <<: *BaseUT, include-all: true, filter: *FilterHK, icon: *url-test}
   - {name: '[全] 台湾自动', <<: *BaseUT, include-all: true, filter: *FilterTW, icon: *url-test}
   - {name: '[全] 狮城自动', <<: *BaseUT, include-all: true, filter: *FilterSG, icon: *url-test}
@@ -361,7 +363,7 @@ proxy-groups:
   - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: *url-test}
   - {name: '[备] 低倍自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterLM, icon: *url-test}
 
-  # 3.8 故障转移策略组
+  # 4.8 故障转移策略组
   - {name: 故转手动,        <<: *BaseFB, proxies: [全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
   - {name: 故转狮城,        <<: *BaseFB, proxies: [狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
   - {name: 故转美国,        <<: *BaseFB, proxies: [美国策略, 香港策略, 日本策略, 狮城策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
@@ -370,20 +372,20 @@ proxy-groups:
   - {name: 故转台湾,        <<: *BaseFB, proxies: [台湾策略, 狮城策略, 美国策略, 香港策略, 日本策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
   - {name: 故转低倍,        <<: *BaseFB, proxies: [低倍策略, 美国策略, 欧洲策略, 日本策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Snail_1.png}
 
-  # 3.9 手动策略组
+  # 4.9 手动策略组
   - {name: 全球手动¹,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select.png}
   - {name: 全球手动²,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Choose_1.png}
   - {name: 全球手动³,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select_1.png}
   - {name: 全球手动⁴,        <<: *SelectHS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select_2.png}
 
-# 4 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
+# 5 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
 rules: 
-  # 4.1 拦截规则(按需启用,可禁用拦截,不影响使用效果)
+  # 5.1 拦截规则(按需启用,可禁用拦截,不影响使用效果)
   - RULE-SET,category-ads-all,REJECT                          # 轻量化广告拦截列表,搭配AWAvenueAds秋风广告列表使用,同时禁用adblock广告过滤列表
   - RULE-SET,AWAvenueAds,REJECT                               # 秋风广告过滤列表,搭配category-ads-all广告列表使用,同时禁用adblock广告过滤列表
   - RULE-SET,adblock,REJECT                                   # adblock广告过滤列表,与秋风、category-ads-all广告列表单独使用,使用时可在Zashboard面板规则中切换
 
-  # 4.2 分流规则
+  # 5.2 分流规则
   - RULE-SET,private,直接连接                                  # 私有域名
   - RULE-SET,private_IP,直接连接,no-resolve                    # 内网 / 保留 IP(127/8、192.168/16…)
   - RULE-SET,My_Direct,直接连接                                # 自定义直连域名
@@ -406,10 +408,10 @@ rules:
   - RULE-SET,Speedtest,网络测试                                # 测速工具
   - RULE-SET,category-speedtest,网络测试                       # 测速工具
   - RULE-SET,test-ipv6,网络测试                                # 测速工具
-  - RULE-SET,google-gemini,Gemini                             # Gemini(在category-ai-!cn已含Gemini,若需精简,可以将注释掉本条规则及"3.1 业务策略组"中相应的分组)
-  - RULE-SET,anthropic,Claude                                 # Cloude(在category-ai-!cn已含Cloude,若需精简,可以将注释掉本条规则及"3.1 业务策略组"中相应的分组)
-  - RULE-SET,openai,ChatGPT                                   # OpenAI(在category-ai-!cn已含openai,若需精简,可以将注释掉本条规则及"3.1 业务策略组"中相应的分组)
-  - RULE-SET,x,Grok                                           # Grok(在category-ai-!cn已含Grok,若需精简,可以将注释掉本条规则及"3.1 业务策略组"中相应的分组)  
+  - RULE-SET,google-gemini,Gemini                             # Gemini(在category-ai-!cn已含Gemini,若需精简,可以将注释掉本条规则及"4.1 业务策略组"中相应的分组)
+  - RULE-SET,anthropic,Claude                                 # Cloude(在category-ai-!cn已含Cloude,若需精简,可以将注释掉本条规则及"4.1 业务策略组"中相应的分组)
+  - RULE-SET,openai,ChatGPT                                   # OpenAI(在category-ai-!cn已含openai,若需精简,可以将注释掉本条规则及"4.1 业务策略组"中相应的分组)
+  - RULE-SET,x,Grok                                           # Grok(在category-ai-!cn已含Grok,若需精简,可以将注释掉本条规则及"4.1 业务策略组"中相应的分组)  
   - RULE-SET,category-ai-!cn,AI服务                           # 境外AI服务兜底(国外AI兜底,含openai、gemini、copilot、claude、grok等)
   - RULE-SET,wikimedia,维基百科                               # 维基媒体
   - RULE-SET,youtube,油管视频                                 # YouTube(是Google、category-entertainment共同子集，前置分流)
@@ -425,9 +427,9 @@ rules:
   - RULE-SET,google,谷歌服务                                   # Google服务
   - RULE-SET,steam,Steam                                      # Steam
   - RULE-SET,category-games,游戏平台                           # 游戏平台(含category-games-cn、Steam)
-  - RULE-SET,category-communication,即时通讯                   # 即时通讯(含telegram、WhatsApp、clubhouse等,若需精简,可以将注释掉"3.1 业务策略组"中相应的分组)
-  - RULE-SET,category-social-media-!cn,社交媒体                # 国外社交媒体(含instagram、facebook、twitter、mixi等,若需精简,可以将注释掉"3.1 业务策略组"中相应的分组)
-  - RULE-SET,category-entertainment,国外娱乐                   # 国外娱乐(含youtube、tiktok、bahamut、primevideo、netflix、disney、apple-tvplus、hbo、category-games-!cn、tmdb、imdb等,若需精简,可以注释掉5.3相应的规则及"3.1 业务策略组"中对应的分组,最终到此规则兜底)
+  - RULE-SET,category-communication,即时通讯                   # 即时通讯(含telegram、WhatsApp、clubhouse等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
+  - RULE-SET,category-social-media-!cn,社交媒体                # 国外社交媒体(含instagram、facebook、twitter、mixi等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
+  - RULE-SET,category-entertainment,国外娱乐                   # 国外娱乐(含youtube、tiktok、bahamut、primevideo、netflix、disney、apple-tvplus、hbo、category-games-!cn、tmdb、imdb等,若需精简,可以注释掉6.4相应的规则及"4.1 业务策略组"中对应的分组,最终到此规则兜底)
   - RULE-SET,category-ecommerce,国外电商                       # 国外电商
   - RULE-SET,category-cryptocurrency,加密货币                  # 加密货币(大部分在gfw中)
   - RULE-SET,gfw,默认代理                                      # GFW列表(主要规则,被墙列表)
@@ -446,23 +448,23 @@ rules:
   - RULE-SET,non_standard_port,非标端口                        # 非标端口
   - MATCH,漏网之鱼                                             # 漏网之鱼
 
-# 5 规则提供者
+# 6 规则提供者
 rule-providers:  
-  # 5.1 广告拦截规则
+  # 6.1 广告拦截规则
   category-ads-all:                    {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-ads-all.mrs }
   AWAvenueAds:                         {<<: *BehaviorDN, url: https://gcore.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/AWAvenue-Ads-Rule-Clash.mrs}
   adblock:                             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/adblock.mrs} 
 
-  # 5.2 fakeip-filter规则
+  # 6.2 fakeip-filter规则
   fakeip-filter:                       {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/fakeip-filter.mrs}
 
-  # 5.3 自定义规则集
+  # 6.3 自定义规则集
   My_Direct:                           {<<: *BehaviorCY, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct.yaml}
   Custom_Direct_Domain:                {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Custom_Direct_Domain.mrs}
   Speedtest:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   non_standard_port:                   {<<: *BehaviorCY, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Custom_Port_Direct.yaml}
   
-  # 5.4 主要规则集 
+  # 6.4 主要规则集 
   wikimedia:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/wikimedia.mrs}
   private:                             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/private.mrs}
   docker:                              {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/docker.mrs}  
