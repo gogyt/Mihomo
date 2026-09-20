@@ -103,9 +103,9 @@ geox-url:
   mmdb:    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb                   # metadb新版IP库下载地址
   asn:     https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb              # ASN自治系统编号数据库
 
-# 2.3 认证配置
-authentication:                                                                                              # 代理接入账号密码认证列表
-  - mihomo:mihomo                                                                                            # 账号:密码，客户端连接代理需要填写该凭据
+# 2.3 认证配置(需要时启用)
+#authentication:                                                                                              # 代理接入账号密码认证列表
+#  - mihomo:mihomo                                                                                            # 账号:密码，客户端连接代理需要填写该凭据
 
 # 2.4管理面板配置
 external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip                    # 前端面板Zashboard的远程下载地址
@@ -119,9 +119,9 @@ tun:
   enable: true                                                                                               # 开启TUN虚拟网卡，实现系统全局透明代理
   stack: mips                                                                                                # TUN协议栈，mixed（混合协议栈） / gvisor（用户态协议栈） / mips（轻量内核栈） / system（原生网络栈）
   dns-hijack: [udp://any:53, tcp://any:53]                                                                   # DNS劫持，拦截所有网卡53端口UDP/TCP DNS请求，防止DNS泄露
-  auto-detect-interface: true                                                                                # 自动识别本机外网出口网卡
-  auto-route: true                                                                                           # 自动添加系统路由，将流量导入TUN网卡
-  auto-redirect: true                                                                                        # 自动配置防火墙流量转发规则(Linux iptables/nftables)
+  auto-detect-interface: true                                                                                # 自动识别本机外网出口网卡 (仅内核模式有效)
+  auto-route: true                                                                                           # 自动添加系统路由，将流量导入TUN网卡 (仅内核模式有效)
+  auto-redirect: true                                                                                        # 自动配置防火墙流量转发规则(Linux iptables/nftables) (仅内核模式有效)
   strict-route: false                                                                                        # 严格路由开关，关闭时部分特殊流量不强制拦截，减少断网风险
   endpoint-independent-nat: true                                                                             # 开启与终端地址无关的NAT，适配流媒体多IP连接场景
   route-exclude-address-set: [cn_IP]                                                                         # 路由排除地址集合，cn_IP国内IP段流量不走TUN代理直接直连
