@@ -55,6 +55,7 @@ BaseUT: &BaseUT {type: url-test,     empty-fallback: REJECT, interval: 200, lazy
 # 2.2 规则集行为锚点
 BehaviorDN:   &BehaviorDN {type: http, behavior: domain,    format: mrs,  interval: 86400}
 BehaviorDY:   &BehaviorDY {type: http, behavior: domain,    format: yaml, interval: 86400}
+BehaviorDT:   &BehaviorDT {type: http, behavior: domain,    format: text, interval: 86400}
 BehaviorIP:   &BehaviorIP {type: http, behavior: ipcidr,    format: mrs,  interval: 86400}
 BehaviorCY:   &BehaviorCY {type: http, behavior: classical, format: yaml, interval: 86400}
 
@@ -239,7 +240,7 @@ proxy-groups:
   - {name: 低倍策略,        <<: *BaseHS, proxies: ['[全] 低倍轮询', '[全] 低倍散列', '[全] 低倍粘性', '[全] 低倍自动', '[主] 低倍轮询', '[主] 低倍散列', '[主] 低倍粘性', '[主] 低倍自动', '[备] 低倍轮询', '[备] 低倍散列', '[备] 低倍粘性', '[备] 低倍自动'], include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Snail.png}
   - {name: 其他策略,        <<: *BaseHS, proxies: ['[全] 其他轮询', '[全] 其他散列', '[全] 其他粘性', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘性', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘性', '[备] 其他自动'], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
-  # 4.4 负载均衡散列  (需更改机场名称,与1.6小节机场名称一致)
+  # 4.4 负载均衡散列  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港散列', <<: *BaseCH, include-all: true, filter: *FilterHK, icon: *consistent-hashing}
   - {name: '[全] 台湾散列', <<: *BaseCH, include-all: true, filter: *FilterTW, icon: *consistent-hashing}
   - {name: '[全] 狮城散列', <<: *BaseCH, include-all: true, filter: *FilterSG, icon: *consistent-hashing}
@@ -270,7 +271,7 @@ proxy-groups:
   - {name: '[备] 其他散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterOT, icon: *consistent-hashing}
   - {name: '[备] 低倍散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterLM, icon: *consistent-hashing}
 
-  # 4.5 负载均衡轮询  (需更改机场名称,与1.6小节机场名称一致)
+  # 4.5 负载均衡轮询  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港轮询', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *round-robin}
   - {name: '[全] 台湾轮询', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *round-robin}
   - {name: '[全] 狮城轮询', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *round-robin}
@@ -301,7 +302,7 @@ proxy-groups:
   - {name: '[备] 其他轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *round-robin}
   - {name: '[备] 低倍轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *round-robin}
 
-  # 4.6 全部机场混合负载均衡粘性(需更改机场名称,与1.6小节机场名称一致)
+  # 4.6 全部机场混合负载均衡粘性(需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港粘性', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *sticky-sessions}
   - {name: '[全] 台湾粘性', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *sticky-sessions}
   - {name: '[全] 狮城粘性', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *sticky-sessions}
@@ -332,7 +333,7 @@ proxy-groups:
   - {name: '[备] 其他粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *sticky-sessions}
   - {name: '[备] 低倍粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *sticky-sessions}
 
-  # 4.7 自动测速组  (需更改机场名称,与1.6小节机场名称一致)
+  # 4.7 自动测速组  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港自动', <<: *BaseUT, include-all: true, filter: *FilterHK, icon: *url-test}
   - {name: '[全] 台湾自动', <<: *BaseUT, include-all: true, filter: *FilterTW, icon: *url-test}
   - {name: '[全] 狮城自动', <<: *BaseUT, include-all: true, filter: *FilterSG, icon: *url-test}
