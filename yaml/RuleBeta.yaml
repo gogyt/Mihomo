@@ -75,105 +75,112 @@ proxy-providers:
   # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，3.3-3.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
   Airport2: {<<: *BaseProvider, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
 
+# 1.7 图标描点
+Round_Robin:   &Round_Robin   https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png
+Round_Robin_1: &Round_Robin_1 https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png
+Pinboard:      &Pinboard      https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png
+Auto:          &Auto          https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png
+
 # 2 核心配置
 # 2.1 基础配置
-mode: rule                                                              # 工作模式  rule(规则模式)/ global(全局模式)/ direct(直连模式)
-ipv6: true                                                              # 网络协议  是否启用 IPv6 支持
-mixed-port: 7893                                                        # 监听端口  HTTP + SOCKS5 混合代理端口
-allow-lan: true                                                         # 局域连接  是否允许局域网设备连接
-bind-address: "*"                                                       # 监听接口  监听的网络接口(* 表示所有接口)
-log-level: warning                                                      # 日志级别  silent(静默)/ error(错误)/ warning(警告)/ info(信息)/ debug(调试)
-unified-delay: true                                                     # 统一延迟  减少节点延迟抖动
-tcp-concurrent: true                                                    # 并发连接  提升多任务性能
-profile: { store-selected: true, store-fake-ip: true }                  # 保存选择  记住选择的节点和策略组、Fake-IP 映射
+mode: rule                                                                                                   # 工作模式：rule(规则模式)/global(全局模式)/direct(直连模式)
+ipv6: true                                                                                                   # 是否启用 IPv6 协议支持
+mixed-port: 7893                                                                                             # HTTP+SOCKS5混合代理监听端口号
+allow-lan: true                                                                                              # 允许局域网其他设备连接本代理服务
+bind-address: "*"                                                                                            # 绑定监听地址，*代表监听本机所有网卡地址
+log-level: warning                                                                                           # 日志输出等级，warning仅输出警告及错误日志
+unified-delay: true                                                                                          # 统一延迟测速，所有节点使用同一目标地址进行延迟探测，测速结果对比更公平
+tcp-concurrent: true                                                                                         # TCP并发测速，并行发起探测请求，缩短节点延迟测试耗时
+profile: { store-selected: true, store-fake-ip: true }                                                       # 持久化配置；store-selected保存节点选择，store-fake-ip保存FakeIP域名映射记录
 
 # 2.2 地理数据
-geo-auto-update: true                                                   # 自动更新  geodata
-geo-update-interval: 24                                                 # 更新间隔  单位:小时
-geodata-mode: true                                                      # 数据分流  使用数据集进行规则与分流匹配
+geo-auto-update: true                                                                                        # 开启geo地理规则数据库自动更新
+geo-update-interval: 24                                                                                      # 地理数据库自动更新间隔，单位小时
+geodata-mode: true                                                                                           # 启用geodata模式，使用geoip/geosite规则库进行匹配
 geox-url:
-  geosite: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
-  geoip:   https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
-  mmdb:    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb
-  asn:     https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb
+  geosite: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat                    # geosite域名规则库下载地址
+  geoip:   https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat                      # geoip IP归属规则库下载地址
+  mmdb:    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb                   # metadb新版IP库下载地址
+  asn:     https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb              # ASN自治系统编号数据库
 
 # 2.3 认证配置
-authentication:
-  - mihomo:mihomo
+authentication:                                                                                              # 代理接入账号密码认证列表
+  - mihomo:mihomo                                                                                            # 账号:密码，客户端连接代理需要填写该凭据
 
 # 2.4管理面板配置
-external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
-external-controller: 0.0.0.0:9090                                       # 面板地址
-external-ui-name: zashboard                                             # 面板名称
-external-ui: ui                                                         # 面板目录
-secret: 12345678                                                        # 面板密码
+external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip                    # 前端面板Zashboard的远程下载地址
+external-controller: 0.0.0.0:9090                                                                            # 外部控制器API监听地址，用于管理面板和远程调用
+external-ui-name: zashboard                                                                                  # 指定使用的外部UI面板名称
+external-ui: ui                                                                                              # 前端静态网页文件存放的本地目录
+secret: 12345678                                                                                             # 控制器API访问密钥，访问管理面板需要携带该密钥鉴权
 
 # 2.5 TUN模式配置
 tun:
-  enable: true                                                          # 网卡模式  是否启用 TUN 虚拟网卡模式  
-  stack: mixed                                                          # 协议类型  网络栈:system(系统栈)/ gvisor(内置用户态栈)/ mixed(混合)
-  dns-hijack: [udp://any:53, tcp://any:53]                              # 劫持请求  劫持所有 UDP/TCP 53 端口的 DNS 请求
-  auto-detect-interface: true                                           # 自动出口  自动识别默认出口网络接口 (仅内核模式有效)
-  auto-route: true                                                      # 自动路由  自动添加系统路由表      (仅内核模式有效)
-  auto-redirect: true                                                   # 自动定向  自动将流量重定向至 TUN  (仅内核模式有效)
-  strict-route: false                                                   # 路由模式  严格路由模式
-  endpoint-independent-nat: true                                        # 端点无关  NAT(提高 NAT 类型兼容性,适用于 P2P 和游戏)
-  route-exclude-address-set: [cn_IP]                                    # 绕过大陆  匹配大陆IP-CIDR(流量不进入代理) 
+  enable: true                                                                                               # 开启TUN虚拟网卡，实现系统全局透明代理
+  stack: mips                                                                                                # TUN协议栈，mixed（混合协议栈） / gvisor（用户态协议栈） / mips（轻量内核栈） / system（原生网络栈）
+  dns-hijack: [udp://any:53, tcp://any:53]                                                                   # DNS劫持，拦截所有网卡53端口UDP/TCP DNS请求，防止DNS泄露
+  auto-detect-interface: true                                                                                # 自动识别本机外网出口网卡
+  auto-route: true                                                                                           # 自动添加系统路由，将流量导入TUN网卡
+  auto-redirect: true                                                                                        # 自动配置防火墙流量转发规则(Linux iptables/nftables)
+  strict-route: false                                                                                        # 严格路由开关，关闭时部分特殊流量不强制拦截，减少断网风险
+  endpoint-independent-nat: true                                                                             # 开启与终端地址无关的NAT，适配流媒体多IP连接场景
+  route-exclude-address-set: [cn_IP]                                                                         # 路由排除地址集合，cn_IP国内IP段流量不走TUN代理直接直连
 
 # 2.6 嗅探功能
 sniffer:
-  enable: true                                                          # 启用嗅探  提升分流准确性
-  override-destination: true                                            # 成功解析  使用嗅探到的域名覆盖原始目标地址
-  parse-pure-ip: true                                                   # 反向解析  解析纯 IP 连接(尝试反向解析获得域名)
-  force-dns-mapping: true                                               # 强制映射  DNS 映射(对纯 IP 连接尝试 DNS 映射)
+  enable: true                                                                                               # 开启流量嗅探，从TCP/QUIC流量中提取原始域名用于规则匹配
+  override-destination: true                                                                                 # 嗅探成功后改写连接目标地址为嗅探得到的域名
+  parse-pure-ip: true                                                                                        # 对直接使用IP访问的流量也尝试嗅探获取域名
+  force-dns-mapping: true                                                                                    # 强制使用DNS解析映射信息辅助嗅探域名
   sniff:
-    QUIC: { ports: [443] }                                              # 嗅探参数  QUIC 协议流量(HTTP/3 常用端口)
-    TLS:  { ports: [443, 8443] }                                        # 嗅探参数  HTTPS(TLS)常用及备用端口
-    HTTP: { ports: [80, 8080-8880] }                                    # 嗅探参数  HTTP 及常见 Web / 代理端口段
-  force-domain:
-    - "+.netflix.com"                                                   # 强制嗅探  Netflix 主域名
-    - "+.nflxvideo.net"                                                 # 强制嗅探  Netflix CDN
-    - "+.amazonaws.com"                                                 # 强制嗅探  AWS 云服务
-    - "+.media.dssott.com"                                              # 强制嗅探  Disney+ 流媒体
-    - "+.tiktok.com"                                                    # 强制嗅探  TikTok 流媒体
-  skip-domain:
-    - Mijia Cloud                                                       # 跳过嗅探  米家云服务
-    - dlg.io.mi.com                                                     # 跳过嗅探  小米设备通信
-    - "+.oray.com"                                                      # 跳过嗅探  花生壳服务
-    - "+.sunlogin.net"                                                  # 跳过嗅探  向日葵远程控制
-    - "+.push.apple.com"                                                # 跳过嗅探  苹果推送服务
+    QUIC: { ports: [443] }                                                                                   # QUIC(HTTP3)协议嗅探端口
+    TLS:  { ports: [443, 8443] }                                                                             # TLS/HTTPS协议嗅探端口
+    HTTP: { ports: [80, 8080-8880] }                                                                         # HTTP明文协议嗅探端口及端口范围
+  force-domain:                                                                                              # 强制嗅探域名列表，列表内域名优先进行流量嗅探，多用于流媒体
+    - "+.netflix.com"                                                                                        # Netflix域名强制嗅探
+    - "+.nflxvideo.net"                                                                                      # Netflix视频资源域名强制嗅探
+    - "+.amazonaws.com"                                                                                      # AWS亚马逊云域名强制嗅探
+    - "+.media.dssott.com"                                                                                   # 流媒体OTT域名强制嗅探
+    - "+.tiktok.com"                                                                                         # TikTok域名强制嗅探
+  skip-domain:                                                                                               # 跳过嗅探域名列表，不对以下域名进行流量嗅探，避免设备异常
+    - Mijia Cloud                                                                                            # 米家云服务，防止智能家居设备异常
+    - dlg.io.mi.com                                                                                          # 小米设备通信域名，跳过嗅探
+    - "+.oray.com"                                                                                           # 向日葵域名，跳过嗅探避免远程控制故障
+    - "+.sunlogin.net"                                                                                       # 向日葵备用域名，跳过嗅探
+    - "+.push.apple.com"                                                                                     # Apple推送服务域名，防止APNs推送失效
 
 # 2.7 本地静态域名映射表(优先级最高,用来强制把某个域名解析到指定 IP,不走 DNS、不经过规则判断)
 hosts:
-  'epdg.epc.mnc010.mcc234.pub.3gppnetwork.org': ['87.194.8.8', '87.194.88.8', '87.194.89.8', '87.194.9.8']
-  'dns.alidns.com':                             ['223.5.5.5', '223.6.6.6', '2400:3200::1', '2400:3200:baba::1']
-  'doh.pub':                                    ['1.12.12.12', '1.12.12.21', '120.53.53.53']
-  'dns.google':                                 ['8.8.8.8', '8.8.4.4', '2001:4860:4860::8888', '2001:4860:4860::8844']
-  'cloudflare-dns.com':                         ['1.1.1.1', '1.0.0.1', '2606:4700:4700::1111', '2606:4700:4700::1001']   
-  'services.googleapis.cn':                     'services.googleapis.com'
+  "epdg.epc.mnc010.mcc234.pub.3gppnetwork.org": [87.194.8.8, 87.194.88.8, 87.194.89.8, 87.194.9.8]           # 静态域名IP绑定
+  services.googleapis.cn: services.googleapis.com                                                            # 域名CNAME映射，将该域名指向另一个域名
+  dns.alidns.com: [223.5.5.5, 223.6.6.6, 2400:3200::1, 2400:3200:baba::1]                                    # 阿里云DNS域名静态IP映射(含IPv4+IPv6)
+  doh.pub: [1.12.12.12, 1.12.12.21, 120.53.53.53]                                                            # doh.pub公共DNS静态IP绑定
+  dns.google: [8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860::8844]                                      # Google DNS静态IP绑定
+  cloudflare-dns.com: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]                         # Cloudflare DNS静态IP绑定
 
 # 2.8 DNS配置
 dns:
-  enable: true                                                          # 解析服务  启用 Clash 内置 DNS 服务
-  ipv6: true                                                            # 网络协议  启用 IPv6 DNS 解析支持
-  listen: 0.0.0.0:7874                                                  # 监听服务  DNS 服务监听地址与端口
-  enhanced-mode: fake-ip                                                # 增强模式  FDNS 增强模式(Fake-IP,用于防止 DNS 泄露)
-  fake-ip-range: 198.18.0.1/16                                          # 虚拟地址  Fake-IP 虚拟地址池范围
-  fake-ip-filter-mode: blacklist                                        # 过滤模式  Fake-IP 过滤模式(命中规则则返回真实 IP)
-  respect-rules: false                                                  # 遵循规则  不强制遵循规则顺序
-  nameserver:                                                           # 解析服务  可改为运营商提供的 DNS
-    - 119.29.29.29
-    - 223.5.5.5
-    - 180.76.76.76
-    - 114.114.114.114
-  fake-ip-filter:
-    - +.lan                                                             # 真实解析  常见局域网域名后缀
-    - +.local                                                           # 真实解析  常见局域网域名后缀
-    - +.home                                                            # 真实解析  常见局域网域名后缀
-    - +.internal                                                        # 真实解析  常见局域网域名后缀
-    - rule-set:cn                                                       # 真实解析  中国域名
-    - rule-set:geolocation-cn                                           # 真实解析  补充中国域名
-    - rule-set:fakeip-filter                                            # 真实解析  DustinWin收录的fake-ip-filter，主要包含授时服务器、广告拦截服务器、标准公网STUN/TURN中继服务器等域名
+  enable: true                                                                                               # 开启mihomo内置DNS服务
+  ipv6: true                                                                                                 # DNS解析支持返回IPv6 AAAA记录
+  listen: 0.0.0.0:7874                                                                                       # 内置DNS服务监听地址与端口
+  enhanced-mode: fake-ip                                                                                     # DNS增强模式使用fake-ip，分配虚拟IP用于规则匹配
+  fake-ip-range: 198.18.0.1/16                                                                               # Fake-IP IPv4地址段，fake-ip模式下为域名分配虚拟IPv4地址，生效前提是enhanced-mode: fake-ip开启
+  fake-ip-range6: fdfe:dcba:9876::1/64                                                                       # Fake-IP IPv6地址段，为启用fake-ip的域名分配虚拟IPv6地址，仅在enhanced-mode: fake-ip且全局ipv6: true时生效
+  fake-ip-filter-mode: blacklist                                                                             # FakeIP过滤器为黑名单模式，列表内域名不使用FakeIP，做真实DNS解析
+  respect-rules: false                                                                                       # 关闭DNS遵循流量规则，DNS解析行为不受代理规则约束
+  nameserver:                                                                                                # 默认DNS服务器列表
+    - 119.29.29.29                                                                                           # 腾讯公共DNS
+    - 223.5.5.5                                                                                              # 阿里云公共DNS
+    - 180.76.76.76                                                                                           # 百度公共DNS
+    - 114.114.114.114                                                                                        # 114公共DNS
+  fake-ip-filter:                                                                                            # FakeIP黑名单，列表内域名不分配FakeIP，直接解析真实IP
+    - +.lan                                                                                                  # lan局域网域名
+    - +.local                                                                                                # local本地局域网域名
+    - +.home                                                                                                 # home家庭局域网域名
+    - +.internal                                                                                             # internal内网域名
+    - GEOSITE:cn                                                                                             # geosite国内域名集合
+    - GEOSITE:geolocation-cn                                                                                 # geolocation-cn国内站点集合
+    - rule-set:fakeip-filter                                                                                 # 自定义fakeip-filter规则集
     - +.jsdelivr.net
 
 # 3 代理策略组 
@@ -231,128 +238,128 @@ proxy-groups:
   - {name: 其他策略,        <<: *BaseHS, proxies: ['[全] 其他轮询', '[全] 其他散列', '[全] 其他粘性', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘性', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘性', '[备] 其他自动'], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 3.4 负载均衡散列  (需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港散列', <<: *BaseCH, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 台湾散列', <<: *BaseCH, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 狮城散列', <<: *BaseCH, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 日本散列', <<: *BaseCH, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 韩国散列', <<: *BaseCH, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 美国散列', <<: *BaseCH, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 欧洲散列', <<: *BaseCH, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 其他散列', <<: *BaseCH, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[全] 低倍散列', <<: *BaseCH, include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: '[全] 香港散列', <<: *BaseCH, include-all: true, filter: *FilterHK, icon: *Round_Robin_1}
+  - {name: '[全] 台湾散列', <<: *BaseCH, include-all: true, filter: *FilterTW, icon: *Round_Robin_1}
+  - {name: '[全] 狮城散列', <<: *BaseCH, include-all: true, filter: *FilterSG, icon: *Round_Robin_1}
+  - {name: '[全] 日本散列', <<: *BaseCH, include-all: true, filter: *FilterJP, icon: *Round_Robin_1}
+  - {name: '[全] 韩国散列', <<: *BaseCH, include-all: true, filter: *FilterKR, icon: *Round_Robin_1}
+  - {name: '[全] 美国散列', <<: *BaseCH, include-all: true, filter: *FilterUS, icon: *Round_Robin_1}
+  - {name: '[全] 欧洲散列', <<: *BaseCH, include-all: true, filter: *FilterEU, icon: *Round_Robin_1}
+  - {name: '[全] 其他散列', <<: *BaseCH, include-all: true, filter: *FilterOT, icon: *Round_Robin_1}
+  - {name: '[全] 低倍散列', <<: *BaseCH, include-all: true, filter: *FilterLM, icon: *Round_Robin_1}
 
-  - {name: '[主] 香港散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 台湾散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 狮城散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 日本散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 韩国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 美国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 欧洲散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 其他散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[主] 低倍散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: '[主] 香港散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterHK, icon: *Round_Robin_1}
+  - {name: '[主] 台湾散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterTW, icon: *Round_Robin_1}
+  - {name: '[主] 狮城散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterSG, icon: *Round_Robin_1}
+  - {name: '[主] 日本散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterJP, icon: *Round_Robin_1}
+  - {name: '[主] 韩国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterKR, icon: *Round_Robin_1}
+  - {name: '[主] 美国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterUS, icon: *Round_Robin_1}
+  - {name: '[主] 欧洲散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterEU, icon: *Round_Robin_1}
+  - {name: '[主] 其他散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterOT, icon: *Round_Robin_1}
+  - {name: '[主] 低倍散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterLM, icon: *Round_Robin_1}
 
-  - {name: '[备] 香港散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 台湾散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 狮城散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 日本散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 韩国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 美国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 欧洲散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 其他散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
-  - {name: '[备] 低倍散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png}
+  - {name: '[备] 香港散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterHK, icon: *Round_Robin_1}
+  - {name: '[备] 台湾散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterTW, icon: *Round_Robin_1}
+  - {name: '[备] 狮城散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterSG, icon: *Round_Robin_1}
+  - {name: '[备] 日本散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterJP, icon: *Round_Robin_1}
+  - {name: '[备] 韩国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterKR, icon: *Round_Robin_1}
+  - {name: '[备] 美国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterUS, icon: *Round_Robin_1}
+  - {name: '[备] 欧洲散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterEU, icon: *Round_Robin_1}
+  - {name: '[备] 其他散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterOT, icon: *Round_Robin_1}
+  - {name: '[备] 低倍散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterLM, icon: *Round_Robin_1}
 
   # 3.5 负载均衡轮询  (需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港轮询', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 台湾轮询', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 狮城轮询', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 日本轮询', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 韩国轮询', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 美国轮询', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 欧洲轮询', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 其他轮询', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[全] 低倍轮询', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: '[全] 香港轮询', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *Round_Robin}
+  - {name: '[全] 台湾轮询', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *Round_Robin}
+  - {name: '[全] 狮城轮询', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *Round_Robin}
+  - {name: '[全] 日本轮询', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: *Round_Robin}
+  - {name: '[全] 韩国轮询', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: *Round_Robin}
+  - {name: '[全] 美国轮询', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: *Round_Robin}
+  - {name: '[全] 欧洲轮询', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: *Round_Robin}
+  - {name: '[全] 其他轮询', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: *Round_Robin}
+  - {name: '[全] 低倍轮询', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: *Round_Robin}
 
-  - {name: '[主] 香港轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 台湾轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 狮城轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 日本轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 韩国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 美国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 欧洲轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 其他轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[主] 低倍轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: '[主] 香港轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: *Round_Robin}
+  - {name: '[主] 台湾轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: *Round_Robin}
+  - {name: '[主] 狮城轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: *Round_Robin}
+  - {name: '[主] 日本轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: *Round_Robin}
+  - {name: '[主] 韩国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: *Round_Robin}
+  - {name: '[主] 美国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: *Round_Robin}
+  - {name: '[主] 欧洲轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: *Round_Robin}
+  - {name: '[主] 其他轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: *Round_Robin}
+  - {name: '[主] 低倍轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: *Round_Robin}
 
-  - {name: '[备] 香港轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 台湾轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 狮城轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 日本轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 韩国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 美国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 欧洲轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 其他轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
-  - {name: '[备] 低倍轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png}
+  - {name: '[备] 香港轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: *Round_Robin}
+  - {name: '[备] 台湾轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: *Round_Robin}
+  - {name: '[备] 狮城轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: *Round_Robin}
+  - {name: '[备] 日本轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: *Round_Robin}
+  - {name: '[备] 韩国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: *Round_Robin}
+  - {name: '[备] 美国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: *Round_Robin}
+  - {name: '[备] 欧洲轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: *Round_Robin}
+  - {name: '[备] 其他轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *Round_Robin}
+  - {name: '[备] 低倍轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *Round_Robin}
 
   # 3.6 全部机场混合负载均衡粘性(需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港粘性', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 台湾粘性', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 狮城粘性', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 日本粘性', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 韩国粘性', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 美国粘性', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 欧洲粘性', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 其他粘性', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[全] 低倍粘性', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[全] 香港粘性', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *Pinboard}
+  - {name: '[全] 台湾粘性', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *Pinboard}
+  - {name: '[全] 狮城粘性', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *Pinboard}
+  - {name: '[全] 日本粘性', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: *Pinboard}
+  - {name: '[全] 韩国粘性', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: *Pinboard}
+  - {name: '[全] 美国粘性', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: *Pinboard}
+  - {name: '[全] 欧洲粘性', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: *Pinboard}
+  - {name: '[全] 其他粘性', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: *Pinboard}
+  - {name: '[全] 低倍粘性', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: *Pinboard}
 
-  - {name: '[主] 香港粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 台湾粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 狮城粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 日本粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 韩国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 美国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 欧洲粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 其他粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[主] 低倍粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[主] 香港粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: *Pinboard}
+  - {name: '[主] 台湾粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: *Pinboard}
+  - {name: '[主] 狮城粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: *Pinboard}
+  - {name: '[主] 日本粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: *Pinboard}
+  - {name: '[主] 韩国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: *Pinboard}
+  - {name: '[主] 美国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: *Pinboard}
+  - {name: '[主] 欧洲粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: *Pinboard}
+  - {name: '[主] 其他粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: *Pinboard}
+  - {name: '[主] 低倍粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: *Pinboard}
 
-  - {name: '[备] 香港粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 台湾粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 狮城粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 日本粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 韩国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 美国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 欧洲粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 其他粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
-  - {name: '[备] 低倍粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png}
+  - {name: '[备] 香港粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: *Pinboard}
+  - {name: '[备] 台湾粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: *Pinboard}
+  - {name: '[备] 狮城粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: *Pinboard}
+  - {name: '[备] 日本粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: *Pinboard}
+  - {name: '[备] 韩国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: *Pinboard}
+  - {name: '[备] 美国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: *Pinboard}
+  - {name: '[备] 欧洲粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: *Pinboard}
+  - {name: '[备] 其他粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *Pinboard}
+  - {name: '[备] 低倍粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *Pinboard}
 
   # 3.7 自动测速组  (需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港自动', <<: *BaseUT, include-all: true, filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 台湾自动', <<: *BaseUT, include-all: true, filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 狮城自动', <<: *BaseUT, include-all: true, filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 日本自动', <<: *BaseUT, include-all: true, filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 韩国自动', <<: *BaseUT, include-all: true, filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 美国自动', <<: *BaseUT, include-all: true, filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 欧洲自动', <<: *BaseUT, include-all: true, filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 其他自动', <<: *BaseUT, include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[全] 低倍自动', <<: *BaseUT, include-all: true, filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: '[全] 香港自动', <<: *BaseUT, include-all: true, filter: *FilterHK, icon: *Auto}
+  - {name: '[全] 台湾自动', <<: *BaseUT, include-all: true, filter: *FilterTW, icon: *Auto}
+  - {name: '[全] 狮城自动', <<: *BaseUT, include-all: true, filter: *FilterSG, icon: *Auto}
+  - {name: '[全] 日本自动', <<: *BaseUT, include-all: true, filter: *FilterJP, icon: *Auto}
+  - {name: '[全] 韩国自动', <<: *BaseUT, include-all: true, filter: *FilterKR, icon: *Auto}
+  - {name: '[全] 美国自动', <<: *BaseUT, include-all: true, filter: *FilterUS, icon: *Auto}
+  - {name: '[全] 欧洲自动', <<: *BaseUT, include-all: true, filter: *FilterEU, icon: *Auto}
+  - {name: '[全] 其他自动', <<: *BaseUT, include-all: true, filter: *FilterOT, icon: *Auto}
+  - {name: '[全] 低倍自动', <<: *BaseUT, include-all: true, filter: *FilterLM, icon: *Auto}
 
-  - {name: '[主] 香港自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 台湾自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 狮城自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 日本自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 韩国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 美国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 欧洲自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 其他自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[主] 低倍自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: '[主] 香港自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterHK, icon: *Auto}
+  - {name: '[主] 台湾自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterTW, icon: *Auto}
+  - {name: '[主] 狮城自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterSG, icon: *Auto}
+  - {name: '[主] 日本自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterJP, icon: *Auto}
+  - {name: '[主] 韩国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterKR, icon: *Auto}
+  - {name: '[主] 美国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterUS, icon: *Auto}
+  - {name: '[主] 欧洲自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterEU, icon: *Auto}
+  - {name: '[主] 其他自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterOT, icon: *Auto}
+  - {name: '[主] 低倍自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterLM, icon: *Auto}
 
-  - {name: '[备] 香港自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterHK, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 台湾自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterTW, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 狮城自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterSG, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 日本自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterJP, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 韩国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterKR, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 美国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterUS, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 欧洲自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterEU, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
-  - {name: '[备] 低倍自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterLM, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png}
+  - {name: '[备] 香港自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterHK, icon: *Auto}
+  - {name: '[备] 台湾自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterTW, icon: *Auto}
+  - {name: '[备] 狮城自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterSG, icon: *Auto}
+  - {name: '[备] 日本自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterJP, icon: *Auto}
+  - {name: '[备] 韩国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterKR, icon: *Auto}
+  - {name: '[备] 美国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterUS, icon: *Auto}
+  - {name: '[备] 欧洲自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterEU, icon: *Auto}
+  - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: *Auto}
+  - {name: '[备] 低倍自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterLM, icon: *Auto}
 
   # 3.8 故障转移策略组
   - {name: 故转手动,        <<: *BaseFB, proxies: [全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
