@@ -80,7 +80,7 @@ proxy-providers:
   Airport1: {<<: *BaseProvider, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
   # Airport2订阅源 - 备用机场节点集合
 #  Airport2: {<<: *BaseProvider, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
-  
+
 # 2 核心配置
 # 2.1 基础配置
 mode: rule                                                              # 工作模式  rule(规则模式)/ global(全局模式)/ direct(直连模式)
@@ -181,7 +181,7 @@ dns:
     - GEOSITE:geolocation-cn                                            # 真实解析  补充中国域名
     - rule-set:fakeip-filter                                            # 真实解析  DustinWin收录的fake-ip-filter，主要包含授时服务器、广告拦截服务器、标准公网STUN/TURN中继服务器等域名
     - +.jsdelivr.net  
-    
+        
 # 3 代理策略组 
 proxy-groups:
   # 3.1 业务策略组(根据需求按“1.5 策略组代理列表”模板自行选择默认类型)
