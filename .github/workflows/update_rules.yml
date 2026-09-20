@@ -47,6 +47,9 @@ jobs:
             "geo/geosite/Direct.mrs|https://github.com/666OS/rules/raw/release/mihomo/domain/Direct.mrs"
             "geo/geosite/Direct.txt|https://github.com/666OS/rules/raw/release/mihomo/domain/Direct.txt"
 
+            "rule/fakeip_filter_cn.list|https://github.com/qichiyuhub/rule/blob/main/rules/fakeipfilter-cn.list"
+            "rule/fakeip_filter_!cn.list|https://github.com/qichiyuhub/rule/blob/main/rules/fakeipfilter-!cn.list"
+            
            # Aethersailor规则拉取
             "rule/Custom_Direct_Domain.mrs|https://github.com/Aethersailor/Custom_OpenClash_Rules/raw/main/rule/Custom_Direct_Domain.mrs"
             "rule/Custom_Direct_Domain.yaml|https://github.com/Aethersailor/Custom_OpenClash_Rules/raw/main/rule/Custom_Direct_Domain.yaml"
