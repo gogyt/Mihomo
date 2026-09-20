@@ -75,7 +75,7 @@ proxy-providers:
   # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，3.3-3.7机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
   Airport2: {<<: *BaseProvider, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
 
-# 1.7 图标描点
+# 1.7 共用图标描点
 Round_Robin:   &Round_Robin   https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png
 Round_Robin_1: &Round_Robin_1 https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png
 Pinboard:      &Pinboard      https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png
