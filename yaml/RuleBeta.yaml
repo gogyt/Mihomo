@@ -76,10 +76,10 @@ proxy-providers:
   Airport2: {<<: *BaseProvider, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
 
 # 1.7 共用图标描点
-Round_Robin:   &Round_Robin   https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png
-Round_Robin_1: &Round_Robin_1 https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png
-Pinboard:      &Pinboard      https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png
-Auto:          &Auto          https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png
+round-robin:        &round-robin        https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png
+consistent-hashing: &consistent-hashing https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png
+sticky-sessions:    &sticky-sessions    https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png
+url-test:           &url-test           https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png
 
 # 2 核心配置
 # 2.1 基础配置
@@ -238,128 +238,128 @@ proxy-groups:
   - {name: 其他策略,        <<: *BaseHS, proxies: ['[全] 其他轮询', '[全] 其他散列', '[全] 其他粘性', '[全] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘性', '[主] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘性', '[备] 其他自动'], include-all: true, filter: *FilterOT, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 3.4 负载均衡散列  (需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港散列', <<: *BaseCH, include-all: true, filter: *FilterHK, icon: *Round_Robin_1}
-  - {name: '[全] 台湾散列', <<: *BaseCH, include-all: true, filter: *FilterTW, icon: *Round_Robin_1}
-  - {name: '[全] 狮城散列', <<: *BaseCH, include-all: true, filter: *FilterSG, icon: *Round_Robin_1}
-  - {name: '[全] 日本散列', <<: *BaseCH, include-all: true, filter: *FilterJP, icon: *Round_Robin_1}
-  - {name: '[全] 韩国散列', <<: *BaseCH, include-all: true, filter: *FilterKR, icon: *Round_Robin_1}
-  - {name: '[全] 美国散列', <<: *BaseCH, include-all: true, filter: *FilterUS, icon: *Round_Robin_1}
-  - {name: '[全] 欧洲散列', <<: *BaseCH, include-all: true, filter: *FilterEU, icon: *Round_Robin_1}
-  - {name: '[全] 其他散列', <<: *BaseCH, include-all: true, filter: *FilterOT, icon: *Round_Robin_1}
-  - {name: '[全] 低倍散列', <<: *BaseCH, include-all: true, filter: *FilterLM, icon: *Round_Robin_1}
+  - {name: '[全] 香港散列', <<: *BaseCH, include-all: true, filter: *FilterHK, icon: *consistent-hashing}
+  - {name: '[全] 台湾散列', <<: *BaseCH, include-all: true, filter: *FilterTW, icon: *consistent-hashing}
+  - {name: '[全] 狮城散列', <<: *BaseCH, include-all: true, filter: *FilterSG, icon: *consistent-hashing}
+  - {name: '[全] 日本散列', <<: *BaseCH, include-all: true, filter: *FilterJP, icon: *consistent-hashing}
+  - {name: '[全] 韩国散列', <<: *BaseCH, include-all: true, filter: *FilterKR, icon: *consistent-hashing}
+  - {name: '[全] 美国散列', <<: *BaseCH, include-all: true, filter: *FilterUS, icon: *consistent-hashing}
+  - {name: '[全] 欧洲散列', <<: *BaseCH, include-all: true, filter: *FilterEU, icon: *consistent-hashing}
+  - {name: '[全] 其他散列', <<: *BaseCH, include-all: true, filter: *FilterOT, icon: *consistent-hashing}
+  - {name: '[全] 低倍散列', <<: *BaseCH, include-all: true, filter: *FilterLM, icon: *consistent-hashing}
 
-  - {name: '[主] 香港散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterHK, icon: *Round_Robin_1}
-  - {name: '[主] 台湾散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterTW, icon: *Round_Robin_1}
-  - {name: '[主] 狮城散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterSG, icon: *Round_Robin_1}
-  - {name: '[主] 日本散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterJP, icon: *Round_Robin_1}
-  - {name: '[主] 韩国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterKR, icon: *Round_Robin_1}
-  - {name: '[主] 美国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterUS, icon: *Round_Robin_1}
-  - {name: '[主] 欧洲散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterEU, icon: *Round_Robin_1}
-  - {name: '[主] 其他散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterOT, icon: *Round_Robin_1}
-  - {name: '[主] 低倍散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterLM, icon: *Round_Robin_1}
+  - {name: '[主] 香港散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterHK, icon: *consistent-hashing}
+  - {name: '[主] 台湾散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterTW, icon: *consistent-hashing}
+  - {name: '[主] 狮城散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterSG, icon: *consistent-hashing}
+  - {name: '[主] 日本散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterJP, icon: *consistent-hashing}
+  - {name: '[主] 韩国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterKR, icon: *consistent-hashing}
+  - {name: '[主] 美国散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterUS, icon: *consistent-hashing}
+  - {name: '[主] 欧洲散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterEU, icon: *consistent-hashing}
+  - {name: '[主] 其他散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterOT, icon: *consistent-hashing}
+  - {name: '[主] 低倍散列', <<: *BaseCH, use: [ Airport1 ], filter: *FilterLM, icon: *consistent-hashing}
 
-  - {name: '[备] 香港散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterHK, icon: *Round_Robin_1}
-  - {name: '[备] 台湾散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterTW, icon: *Round_Robin_1}
-  - {name: '[备] 狮城散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterSG, icon: *Round_Robin_1}
-  - {name: '[备] 日本散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterJP, icon: *Round_Robin_1}
-  - {name: '[备] 韩国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterKR, icon: *Round_Robin_1}
-  - {name: '[备] 美国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterUS, icon: *Round_Robin_1}
-  - {name: '[备] 欧洲散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterEU, icon: *Round_Robin_1}
-  - {name: '[备] 其他散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterOT, icon: *Round_Robin_1}
-  - {name: '[备] 低倍散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterLM, icon: *Round_Robin_1}
+  - {name: '[备] 香港散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterHK, icon: *consistent-hashing}
+  - {name: '[备] 台湾散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterTW, icon: *consistent-hashing}
+  - {name: '[备] 狮城散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterSG, icon: *consistent-hashing}
+  - {name: '[备] 日本散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterJP, icon: *consistent-hashing}
+  - {name: '[备] 韩国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterKR, icon: *consistent-hashing}
+  - {name: '[备] 美国散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterUS, icon: *consistent-hashing}
+  - {name: '[备] 欧洲散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterEU, icon: *consistent-hashing}
+  - {name: '[备] 其他散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterOT, icon: *consistent-hashing}
+  - {name: '[备] 低倍散列', <<: *BaseCH, use: [ Airport2 ], filter: *FilterLM, icon: *consistent-hashing}
 
   # 3.5 负载均衡轮询  (需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港轮询', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *Round_Robin}
-  - {name: '[全] 台湾轮询', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *Round_Robin}
-  - {name: '[全] 狮城轮询', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *Round_Robin}
-  - {name: '[全] 日本轮询', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: *Round_Robin}
-  - {name: '[全] 韩国轮询', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: *Round_Robin}
-  - {name: '[全] 美国轮询', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: *Round_Robin}
-  - {name: '[全] 欧洲轮询', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: *Round_Robin}
-  - {name: '[全] 其他轮询', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: *Round_Robin}
-  - {name: '[全] 低倍轮询', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: *Round_Robin}
+  - {name: '[全] 香港轮询', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *round-robin}
+  - {name: '[全] 台湾轮询', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *round-robin}
+  - {name: '[全] 狮城轮询', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *round-robin}
+  - {name: '[全] 日本轮询', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: *round-robin}
+  - {name: '[全] 韩国轮询', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: *round-robin}
+  - {name: '[全] 美国轮询', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: *round-robin}
+  - {name: '[全] 欧洲轮询', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: *round-robin}
+  - {name: '[全] 其他轮询', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: *round-robin}
+  - {name: '[全] 低倍轮询', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: *round-robin}
 
-  - {name: '[主] 香港轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: *Round_Robin}
-  - {name: '[主] 台湾轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: *Round_Robin}
-  - {name: '[主] 狮城轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: *Round_Robin}
-  - {name: '[主] 日本轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: *Round_Robin}
-  - {name: '[主] 韩国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: *Round_Robin}
-  - {name: '[主] 美国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: *Round_Robin}
-  - {name: '[主] 欧洲轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: *Round_Robin}
-  - {name: '[主] 其他轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: *Round_Robin}
-  - {name: '[主] 低倍轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: *Round_Robin}
+  - {name: '[主] 香港轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: *round-robin}
+  - {name: '[主] 台湾轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: *round-robin}
+  - {name: '[主] 狮城轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: *round-robin}
+  - {name: '[主] 日本轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: *round-robin}
+  - {name: '[主] 韩国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: *round-robin}
+  - {name: '[主] 美国轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: *round-robin}
+  - {name: '[主] 欧洲轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: *round-robin}
+  - {name: '[主] 其他轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: *round-robin}
+  - {name: '[主] 低倍轮询', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: *round-robin}
 
-  - {name: '[备] 香港轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: *Round_Robin}
-  - {name: '[备] 台湾轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: *Round_Robin}
-  - {name: '[备] 狮城轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: *Round_Robin}
-  - {name: '[备] 日本轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: *Round_Robin}
-  - {name: '[备] 韩国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: *Round_Robin}
-  - {name: '[备] 美国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: *Round_Robin}
-  - {name: '[备] 欧洲轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: *Round_Robin}
-  - {name: '[备] 其他轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *Round_Robin}
-  - {name: '[备] 低倍轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *Round_Robin}
+  - {name: '[备] 香港轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: *round-robin}
+  - {name: '[备] 台湾轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: *round-robin}
+  - {name: '[备] 狮城轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: *round-robin}
+  - {name: '[备] 日本轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: *round-robin}
+  - {name: '[备] 韩国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: *round-robin}
+  - {name: '[备] 美国轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: *round-robin}
+  - {name: '[备] 欧洲轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: *round-robin}
+  - {name: '[备] 其他轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *round-robin}
+  - {name: '[备] 低倍轮询', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *round-robin}
 
   # 3.6 全部机场混合负载均衡粘性(需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港粘性', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *Pinboard}
-  - {name: '[全] 台湾粘性', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *Pinboard}
-  - {name: '[全] 狮城粘性', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *Pinboard}
-  - {name: '[全] 日本粘性', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: *Pinboard}
-  - {name: '[全] 韩国粘性', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: *Pinboard}
-  - {name: '[全] 美国粘性', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: *Pinboard}
-  - {name: '[全] 欧洲粘性', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: *Pinboard}
-  - {name: '[全] 其他粘性', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: *Pinboard}
-  - {name: '[全] 低倍粘性', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: *Pinboard}
+  - {name: '[全] 香港粘性', <<: *BaseCR, include-all: true, filter: *FilterHK, icon: *sticky-sessions}
+  - {name: '[全] 台湾粘性', <<: *BaseCR, include-all: true, filter: *FilterTW, icon: *sticky-sessions}
+  - {name: '[全] 狮城粘性', <<: *BaseCR, include-all: true, filter: *FilterSG, icon: *sticky-sessions}
+  - {name: '[全] 日本粘性', <<: *BaseCR, include-all: true, filter: *FilterJP, icon: *sticky-sessions}
+  - {name: '[全] 韩国粘性', <<: *BaseCR, include-all: true, filter: *FilterKR, icon: *sticky-sessions}
+  - {name: '[全] 美国粘性', <<: *BaseCR, include-all: true, filter: *FilterUS, icon: *sticky-sessions}
+  - {name: '[全] 欧洲粘性', <<: *BaseCR, include-all: true, filter: *FilterEU, icon: *sticky-sessions}
+  - {name: '[全] 其他粘性', <<: *BaseCR, include-all: true, filter: *FilterOT, icon: *sticky-sessions}
+  - {name: '[全] 低倍粘性', <<: *BaseCR, include-all: true, filter: *FilterLM, icon: *sticky-sessions}
 
-  - {name: '[主] 香港粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: *Pinboard}
-  - {name: '[主] 台湾粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: *Pinboard}
-  - {name: '[主] 狮城粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: *Pinboard}
-  - {name: '[主] 日本粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: *Pinboard}
-  - {name: '[主] 韩国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: *Pinboard}
-  - {name: '[主] 美国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: *Pinboard}
-  - {name: '[主] 欧洲粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: *Pinboard}
-  - {name: '[主] 其他粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: *Pinboard}
-  - {name: '[主] 低倍粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: *Pinboard}
+  - {name: '[主] 香港粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterHK, icon: *sticky-sessions}
+  - {name: '[主] 台湾粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterTW, icon: *sticky-sessions}
+  - {name: '[主] 狮城粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterSG, icon: *sticky-sessions}
+  - {name: '[主] 日本粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterJP, icon: *sticky-sessions}
+  - {name: '[主] 韩国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterKR, icon: *sticky-sessions}
+  - {name: '[主] 美国粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterUS, icon: *sticky-sessions}
+  - {name: '[主] 欧洲粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterEU, icon: *sticky-sessions}
+  - {name: '[主] 其他粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterOT, icon: *sticky-sessions}
+  - {name: '[主] 低倍粘性', <<: *BaseCR, use: [ Airport1 ], filter: *FilterLM, icon: *sticky-sessions}
 
-  - {name: '[备] 香港粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: *Pinboard}
-  - {name: '[备] 台湾粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: *Pinboard}
-  - {name: '[备] 狮城粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: *Pinboard}
-  - {name: '[备] 日本粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: *Pinboard}
-  - {name: '[备] 韩国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: *Pinboard}
-  - {name: '[备] 美国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: *Pinboard}
-  - {name: '[备] 欧洲粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: *Pinboard}
-  - {name: '[备] 其他粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *Pinboard}
-  - {name: '[备] 低倍粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *Pinboard}
+  - {name: '[备] 香港粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterHK, icon: *sticky-sessions}
+  - {name: '[备] 台湾粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterTW, icon: *sticky-sessions}
+  - {name: '[备] 狮城粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterSG, icon: *sticky-sessions}
+  - {name: '[备] 日本粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterJP, icon: *sticky-sessions}
+  - {name: '[备] 韩国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterKR, icon: *sticky-sessions}
+  - {name: '[备] 美国粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterUS, icon: *sticky-sessions}
+  - {name: '[备] 欧洲粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterEU, icon: *sticky-sessions}
+  - {name: '[备] 其他粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterOT, icon: *sticky-sessions}
+  - {name: '[备] 低倍粘性', <<: *BaseCR, use: [ Airport2 ], filter: *FilterLM, icon: *sticky-sessions}
 
   # 3.7 自动测速组  (需更改机场名称,与1.6小节机场名称一致)
-  - {name: '[全] 香港自动', <<: *BaseUT, include-all: true, filter: *FilterHK, icon: *Auto}
-  - {name: '[全] 台湾自动', <<: *BaseUT, include-all: true, filter: *FilterTW, icon: *Auto}
-  - {name: '[全] 狮城自动', <<: *BaseUT, include-all: true, filter: *FilterSG, icon: *Auto}
-  - {name: '[全] 日本自动', <<: *BaseUT, include-all: true, filter: *FilterJP, icon: *Auto}
-  - {name: '[全] 韩国自动', <<: *BaseUT, include-all: true, filter: *FilterKR, icon: *Auto}
-  - {name: '[全] 美国自动', <<: *BaseUT, include-all: true, filter: *FilterUS, icon: *Auto}
-  - {name: '[全] 欧洲自动', <<: *BaseUT, include-all: true, filter: *FilterEU, icon: *Auto}
-  - {name: '[全] 其他自动', <<: *BaseUT, include-all: true, filter: *FilterOT, icon: *Auto}
-  - {name: '[全] 低倍自动', <<: *BaseUT, include-all: true, filter: *FilterLM, icon: *Auto}
+  - {name: '[全] 香港自动', <<: *BaseUT, include-all: true, filter: *FilterHK, icon: *url-test}
+  - {name: '[全] 台湾自动', <<: *BaseUT, include-all: true, filter: *FilterTW, icon: *url-test}
+  - {name: '[全] 狮城自动', <<: *BaseUT, include-all: true, filter: *FilterSG, icon: *url-test}
+  - {name: '[全] 日本自动', <<: *BaseUT, include-all: true, filter: *FilterJP, icon: *url-test}
+  - {name: '[全] 韩国自动', <<: *BaseUT, include-all: true, filter: *FilterKR, icon: *url-test}
+  - {name: '[全] 美国自动', <<: *BaseUT, include-all: true, filter: *FilterUS, icon: *url-test}
+  - {name: '[全] 欧洲自动', <<: *BaseUT, include-all: true, filter: *FilterEU, icon: *url-test}
+  - {name: '[全] 其他自动', <<: *BaseUT, include-all: true, filter: *FilterOT, icon: *url-test}
+  - {name: '[全] 低倍自动', <<: *BaseUT, include-all: true, filter: *FilterLM, icon: *url-test}
 
-  - {name: '[主] 香港自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterHK, icon: *Auto}
-  - {name: '[主] 台湾自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterTW, icon: *Auto}
-  - {name: '[主] 狮城自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterSG, icon: *Auto}
-  - {name: '[主] 日本自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterJP, icon: *Auto}
-  - {name: '[主] 韩国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterKR, icon: *Auto}
-  - {name: '[主] 美国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterUS, icon: *Auto}
-  - {name: '[主] 欧洲自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterEU, icon: *Auto}
-  - {name: '[主] 其他自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterOT, icon: *Auto}
-  - {name: '[主] 低倍自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterLM, icon: *Auto}
+  - {name: '[主] 香港自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterHK, icon: *url-test}
+  - {name: '[主] 台湾自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterTW, icon: *url-test}
+  - {name: '[主] 狮城自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterSG, icon: *url-test}
+  - {name: '[主] 日本自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterJP, icon: *url-test}
+  - {name: '[主] 韩国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterKR, icon: *url-test}
+  - {name: '[主] 美国自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterUS, icon: *url-test}
+  - {name: '[主] 欧洲自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterEU, icon: *url-test}
+  - {name: '[主] 其他自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterOT, icon: *url-test}
+  - {name: '[主] 低倍自动', <<: *BaseUT, use: [ Airport1 ], filter: *FilterLM, icon: *url-test}
 
-  - {name: '[备] 香港自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterHK, icon: *Auto}
-  - {name: '[备] 台湾自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterTW, icon: *Auto}
-  - {name: '[备] 狮城自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterSG, icon: *Auto}
-  - {name: '[备] 日本自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterJP, icon: *Auto}
-  - {name: '[备] 韩国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterKR, icon: *Auto}
-  - {name: '[备] 美国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterUS, icon: *Auto}
-  - {name: '[备] 欧洲自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterEU, icon: *Auto}
-  - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: *Auto}
-  - {name: '[备] 低倍自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterLM, icon: *Auto}
+  - {name: '[备] 香港自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterHK, icon: *url-test}
+  - {name: '[备] 台湾自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterTW, icon: *url-test}
+  - {name: '[备] 狮城自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterSG, icon: *url-test}
+  - {name: '[备] 日本自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterJP, icon: *url-test}
+  - {name: '[备] 韩国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterKR, icon: *url-test}
+  - {name: '[备] 美国自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterUS, icon: *url-test}
+  - {name: '[备] 欧洲自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterEU, icon: *url-test}
+  - {name: '[备] 其他自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterOT, icon: *url-test}
+  - {name: '[备] 低倍自动', <<: *BaseUT, use: [ Airport2 ], filter: *FilterLM, icon: *url-test}
 
   # 3.8 故障转移策略组
   - {name: 故转手动,        <<: *BaseFB, proxies: [全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 低倍策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
