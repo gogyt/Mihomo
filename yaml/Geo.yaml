@@ -186,9 +186,9 @@ dns:
     - +.local                                                                                                # local本地局域网域名
     - +.home                                                                                                 # home家庭局域网域名
     - +.internal                                                                                             # internal内网域名
-    - GEOSITE:cn                                                                                             # geosite国内域名集合
-    - GEOSITE:geolocation-cn                                                                                 # geolocation-cn国内站点集合
-    - rule-set:fakeip-filter                                                                                 # 自定义fakeip-filter规则集
+    - 'geosite: cn'                                                                                          # geosite国内域名集合
+    - 'geosite: geolocation-cn'                                                                              # geolocation-cn国内站点集合
+    - 'rule-set: fakeip-filter'                                                                              # 自定义fakeip-filter规则集
     - +.jsdelivr.net
         
 # 4 代理策略组 
