@@ -178,7 +178,7 @@ dns:
     - 180.76.76.76                                                                                           # 百度公共DNS
     - 114.114.114.114                                                                                        # 114公共DNS
   fake-ip-filter:                                                                                            # FakeIP白名单，列表内域名分配FakeIP
-    - 'rule-set: gfw'                                                                                         # Fake-IP规则，被墙规则
+    - 'rule-set:gfw'                                                                                         # Fake-IP规则，被墙规则
     
 # 4 代理策略组 
 proxy-groups:
