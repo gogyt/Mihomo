@@ -125,7 +125,7 @@ secret: 12345678                                                                
 # 3.5 TUN模式配置
 tun:
   enable: true                                                                                               # 开启TUN虚拟网卡，实现系统全局透明代理
-  stack: mips                                                                                                # TUN协议栈，mixed（混合协议栈） / gvisor（用户态协议栈） / mips（轻量内核栈） / system（原生网络栈）
+  stack: mixed                                                                                               # TUN协议栈，mixed（混合协议栈） / gvisor（用户态协议栈） / mips（轻量内核栈，需V1.19.31以后内核版本） / system（原生网络栈）
   dns-hijack: [udp://any:53, tcp://any:53]                                                                   # DNS劫持，拦截所有网卡53端口UDP/TCP DNS请求，防止DNS泄露
   auto-detect-interface: true                                                                                # 自动识别本机外网出口网卡 (仅内核模式有效)
   auto-route: true                                                                                           # 自动添加系统路由，将流量导入TUN网卡 (仅内核模式有效)
