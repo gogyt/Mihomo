@@ -29,7 +29,7 @@
 
 # 1 订阅配置 
 # 1.1 订阅基本配置（根据自己机场特性,在filter参数中添加不需要的机场节点关键字,若需保留相关节点,删除该节点名称的关键字）
-ProxyAnchor:  &ProxyAnchor {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.google.com/generate_204', interval: 300}, filter: '^(?!.*(客户端|特殊|如果|导致|失效|重新|一下|测试|剩余|套餐|公告|排除|直接连接|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic))'}
+ProxyAnchor:  &ProxyAnchor {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.gstatic.com/generate_204', interval: 300}, filter: '^(?!.*(客户端|特殊|如果|导致|失效|重新|一下|测试|剩余|套餐|公告|排除|直接连接|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic))'}
 
 # 1.2 机场配置 
 # 填入机场订阅链接,可自定义机场名称。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
@@ -42,11 +42,11 @@ proxy-providers:
 # 2 锚点配置 
 # 2.1策略组类型锚点 - 定义不同的策略组基础配置
 StrategyHS:   &StrategyHS {type: select}
-StrategyFB:   &StrategyFB {type: fallback,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204'}
-StrategyCR:   &StrategyCR {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204', strategy: round-robin}         # 轮询：新建立一条 TCP 连接，就依次轮换选取下一个可用节点，循环往复，连接均匀分摊到全部存活节点，不会根据延迟选节点，它只负责流量分发，健康检查仅用于剔除故障节点，不做优先级排序；
-StrategyCH:   &StrategyCH {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204', strategy: consistent-hashing}  # 一致性哈希（散列）：提取访问目标的顶级域名做哈希计算，哈希值映射到固定节点，同一个域名永远走同一个节点；
-StrategySS:   &StrategySS {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204', strategy: sticky-sessions}     # 粘性会话（粘滞）：使用「源 IP + 目标地址」组合作为 key 做哈希缓存，缓存有效期约 10 分钟；在缓存有效期内，同一客户端访问同一目标，固定分配同一个节点；超时后重新哈希分配。
-StrategyUT:   &StrategyUT {type: url-test,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.google.com/generate_204', tolerance: 50}
+StrategyFB:   &StrategyFB {type: fallback,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204'}
+StrategyCR:   &StrategyCR {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: round-robin}         # 轮询：新建立一条 TCP 连接，就依次轮换选取下一个可用节点，循环往复，连接均匀分摊到全部存活节点，不会根据延迟选节点，它只负责流量分发，健康检查仅用于剔除故障节点，不做优先级排序；
+StrategyCH:   &StrategyCH {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: consistent-hashing}  # 一致性哈希（散列）：提取访问目标的顶级域名做哈希计算，哈希值映射到固定节点，同一个域名永远走同一个节点；
+StrategySS:   &StrategySS {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: sticky-sessions}     # 粘性会话（粘滞）：使用「源 IP + 目标地址」组合作为 key 做哈希缓存，缓存有效期约 10 分钟；在缓存有效期内，同一客户端访问同一目标，固定分配同一个节点；超时后重新哈希分配。
+StrategyUT:   &StrategyUT {type: url-test,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', tolerance: 50}
 
 # 2.2 规则集行为锚点
 BehaviorDN:   &BehaviorDN {type: http, behavior: domain,    format: mrs,  interval: 86400}
