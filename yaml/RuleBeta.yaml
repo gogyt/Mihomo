@@ -221,7 +221,7 @@ proxy-groups:
   - {name: Emby,           <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Emby.png}
   - {name: Steam,          <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Steam.png}
   - {name: 游戏平台,        <<: *SelectDC, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Game.png}
-  - {name: Bahamut,        <<: *StrategyHS,  proxies: [默认直连, 台湾策略], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bahamut.png}
+  - {name: Bahamut,        <<: *StrategyHS,  proxies: [默认直连, 故转台湾], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bahamut.png}
   - {name: 非标端口,        <<: *StrategyHS,  proxies: [直接连接, 漏网之鱼], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bypass.png}
 
   # 4.2 策略组与地理策略组分界识别
