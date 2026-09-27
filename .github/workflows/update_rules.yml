@@ -251,6 +251,9 @@ jobs:
             "geo/geosite/wikimedia.mrs|https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/wikimedia.mrs"
             "geo/geosite/wikimedia.list|https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/wikimedia.list"
 
+            "geo/geosite/category-scholar-!cn.mrs|https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-scholar-!cn.mrs"
+            "geo/geosite/category-scholar-!cn.list|https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-scholar-!cn.list"
+
             
           )
 
