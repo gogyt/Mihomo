@@ -4,9 +4,6 @@
 # TOTAL: 914
 
 payload:
-  - '*m-team*'
-  - '*quickconnect*'
-  - '*synology*'
   - '+.00333118.com'
   - '+.0044696.com'
   - '+.028zk01.net'
@@ -243,6 +240,7 @@ payload:
   - '+.dtproj.top'
   - '+.dushe1.app'
   - '+.dytt8.com'
+  - '+.e0x233.com'
   - '+.eagsen.com'
   - '+.easytier.top'
   - '+.easytomessage.com'
@@ -265,6 +263,7 @@ payload:
   - '+.fb71ef91e1014.beer'
   - '+.fdfinvoice.com'
   - '+.feihengip.com'
+  - '+.feiniugo.com'
   - '+.feiyujiaju.com'
   - '+.feizhiyi.com'
   - '+.fengda.me'
@@ -341,6 +340,7 @@ payload:
   - '+.gootho.com'
   - '+.gpetrip.com'
   - '+.gpgwx.com'
+  - '+.grz-hx.com'
   - '+.gseen.com'
   - '+.gsgltz.com'
   - '+.gsjkjt.com'
