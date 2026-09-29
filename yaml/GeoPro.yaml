@@ -47,7 +47,7 @@ proxy-providers:
 
 # 2 锚点配置 
 # 2.1策略组类型锚点 - 定义不同的策略组基础配置
-StrategyHS:   &StrategyHS {type: select}
+StrategyHS:   &StrategyHS {type: select,       empty-fallback: REJECT}
 StrategyFB:   &StrategyFB {type: fallback,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204'}
 StrategyCR:   &StrategyCR {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: round-robin}         # 轮询：新建立一条 TCP 连接，就依次轮换选取下一个可用节点，循环往复，连接均匀分摊到全部存活节点，不会根据延迟选节点，它只负责流量分发，健康检查仅用于剔除故障节点，不做优先级排序；
 StrategyCH:   &StrategyCH {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: consistent-hashing}  # 一致性哈希（散列）：提取访问目标的顶级域名做哈希计算，哈希值映射到固定节点，同一个域名永远走同一个节点；
@@ -72,7 +72,7 @@ FilterEU:     &FilterEU '^(?=.*(?i)(奥|比|保|克罗地亚|塞|捷|丹|爱沙|
 FilterOT:     &FilterOT '^(?!.*(DIRECT|直接连接|美|港|坡|台|新|日|韩|奥|比|保|克罗地亚|塞|捷|丹|爱沙|芬|法|德|希|匈|爱尔|意|拉|立|卢|马其它|荷|波|葡|罗|斯洛伐|斯洛文|西|瑞|英|🇭🇰|🇼🇸|🇹🇼|🇸🇬|🇯🇵|🇰🇷|🇺🇸|🇬🇧|🇦🇹|🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|HK|TW|SG|JP|KR|US|GB|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU|HKG|TPE|TSA|KHH|SIN|XSP|NRT|HND|KIX|CTS|FUK|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|LHR|LGW))'
 FilterAL:     &FilterAL '^(?!.*(DIRECT|直接连接|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'
 
-# 2.4 策略组代理锚点 - 预定义的代理节点优先级排序,根据自己需求在“3.1 业务策略组”选定策略组代理模板
+# 2.4 策略组代理锚点 - 预定义的代理节点优先级排序,根据自己需求在“4.1 业务策略组”选定策略组代理模板
 SelectPY:     &SelectPY  {type: select, proxies: [故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接]}
 SelectDD:     &SelectDD  {type: select, proxies: [直接连接, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
 SelectDC:     &SelectDC  {type: select, proxies: [直接连接, 默认直连, 默认代理, 故转手动, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 韩国策略, 欧洲策略, 其他策略, 全球手动]}
@@ -325,12 +325,12 @@ proxy-groups:
   - {name: '[备] 其他自动', <<: *StrategyUT, use: [ Airport2 ], filter: *FilterOT, icon: *url-test}
 
   # 4.7 故障转移策略组
-  - {name: 故转手动,        <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
-  - {name: 故转狮城,        <<: *StrategyFB, proxies: [狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
-  - {name: 故转美国,        <<: *StrategyFB, proxies: [美国策略, 香港策略, 日本策略, 台湾策略, 狮城策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
-  - {name: 故转香港,        <<: *StrategyFB, proxies: [香港策略, 日本策略, 台湾策略, 狮城策略, 美国策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
-  - {name: 故转日本,        <<: *StrategyFB, proxies: [日本策略, 台湾策略, 狮城策略, 美国策略, 香港策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
-  - {name: 故转台湾,        <<: *StrategyFB, proxies: [台湾策略, 狮城策略, 美国策略, 香港策略, 日本策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 直接连接], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
+  - {name: 故转手动,        <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
+  - {name: 故转狮城,        <<: *StrategyFB, proxies: [狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
+  - {name: 故转美国,        <<: *StrategyFB, proxies: [美国策略, 香港策略, 日本策略, 台湾策略, 狮城策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
+  - {name: 故转香港,        <<: *StrategyFB, proxies: [香港策略, 日本策略, 台湾策略, 狮城策略, 美国策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
+  - {name: 故转日本,        <<: *StrategyFB, proxies: [日本策略, 台湾策略, 狮城策略, 美国策略, 香港策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
+  - {name: 故转台湾,        <<: *StrategyFB, proxies: [台湾策略, 狮城策略, 美国策略, 香港策略, 日本策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
 
   # 4.8 手动策略组
   - {name: 全球手动,        <<: *SelectHS, include-all: true, filter: *FilterAL, icon: https://testingcf.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
