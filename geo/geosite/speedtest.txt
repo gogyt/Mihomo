@@ -1,7 +1,7 @@
 # NAME: Speedtest
 # AUTHOR: YYDS666
-# UPDATED: 2026-09-28 04:31:59
-# TOTAL: 4371
+# UPDATED: 2026-09-30 05:36:09
+# TOTAL: 4373
 +.07internet.ro
 +.099.net.il
 +.139site.com
@@ -455,8 +455,10 @@
 +.speed.com.do
 +.speed.dler.io
 +.speed.vzwnet.com
++.speedtest.co
 +.speedtest.hrec.coop
 +.speedtest.net
++.speedtestcustom.com
 +.speedy.com.ar
 +.speedy.it
 +.spotnet.co.il
