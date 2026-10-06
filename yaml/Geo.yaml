@@ -143,7 +143,7 @@ sniffer:
   sniff:                                                                                                     # 子协议嗅探配置块，下面分别对QUIC/TLS/HTTP做端口与行为配置
     QUIC: { ports: [443] }                                                                                   # 嗅探443端口QUIC流量，提取SNI域名；未单独设置override‑destination，继承全局false，只嗅探不改写目标
     TLS:  { ports: [443, 8443] }                                                                             # 嗅探443、8443端口TLS加密流量，从TLS握手SNI获取域名；继承全局false，只嗅探不改写目标
-    HTTP: { ports: [80, 8080-8880], override-destination: true }                                             # 嗅探80端口以及8080‑8880端口区间的明文HTTP；本协议独立开启改写，使用Host头替换连接目标，让DOMAIN域名规则生效  force-domain:                                                                                              # 强制嗅探域名列表，列表内域名优先进行流量嗅探，多用于流媒体
+    HTTP: { ports: [80, 8080-8880], override-destination: true }                                             # 嗅探80端口以及8080‑8880端口区间的明文HTTP；本协议独立开启改写，使用Host头替换连接目标，让DOMAIN域名规则生效
   force-domain:                                                                                              # 强制嗅探域名列表，列表内域名优先进行流量嗅探，多用于流媒体
     - "+.netflix.com"                                                                                        # Netflix域名强制嗅探
     - "+.nflxvideo.net"                                                                                      # Netflix视频资源域名强制嗅探
