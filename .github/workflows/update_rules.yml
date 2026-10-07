@@ -22,7 +22,7 @@ jobs:
           LISTS=(
 
 
-            # 广告拉取
+            # 广告拦截规则拉取
             "geo/geosite/Tracking.mrs|https://github.com/666OS/rules/raw/release/mihomo/domain/Tracking.mrs"
             "geo/geosite/Tracking.txt|https://github.com/666OS/rules/raw/release/mihomo/domain/Tracking.txt"
             
