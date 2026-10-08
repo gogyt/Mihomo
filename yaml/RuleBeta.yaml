@@ -391,8 +391,6 @@ rules:
   - RULE-SET,private_IP,直接连接,no-resolve                    # 内网 / 保留 IP(127/8、192.168/16…)
   - RULE-SET,GOG_Direct_Domain,直接连接                        # 自定义直连域名
   - RULE-SET,GOG_Direct_IP,直接连接,no-resolve                 # 自定义直连IP
-  - DST-PORT,7844,直接连接                                     # Cloudflare Tunnel (cloudflared) 出站目标端口
-  - SRC-PORT,41641,直接连接                                    # Tailscale（WireGuard）P2P 直连默认源端口
   - RULE-SET,category-game-platforms-download,直接连接         # 游戏平台下载
   - RULE-SET,category-public-tracker,直接连接                  # BT Tracker
   - RULE-SET,category-pt,直接连接                              # PT站
