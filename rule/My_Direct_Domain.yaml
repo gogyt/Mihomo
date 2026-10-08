@@ -1,4 +1,4 @@
-# REPO: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/GOG_Direct_Domain.yaml
+# REPO: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_Domain.yaml
 payload:
   - "+.docker.amingg.com"
   - "+.docker-cf.mrs.1ms.run"
