@@ -358,7 +358,7 @@ rules:
  # - GEOIP,fastly,默认直连,no-resolve                          # FSLY CDN(同上IP补充，注：有的代理软件默认GEO数据中缺少GEOIP,fastly数据，可尝试启用)
   - GEOSITE,cn,直接连接                                       # 中国域名
   - GEOIP,cn,直接连接,no-resolve                              # 中国IP
-  - RULE-SET,non_standard_port,非标端口                        # 非标端口
+  - DST-PORT,1-79/81-442/444-65535,非标端口                   # 80和443以外的非标端口
   - MATCH,漏网之鱼                                            # 漏网之鱼
 
 # 6 补充规则
@@ -374,5 +374,4 @@ rule-providers:
   GOG_Direct_Domain:     {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_Domain.mrs}
   Speedtest:             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   cn_IP:                 {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
-  non_standard_port:     {<<: *BehaviorCY, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Custom_Port_Direct.yaml}
 # ==================== EOF ====================

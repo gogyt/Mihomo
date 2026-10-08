@@ -299,7 +299,7 @@ rules:
   - RULE-SET,fastly_IP,默认直连,no-resolve                     # FSLY CDN(同上IP补充)
   - RULE-SET,cn,直接连接                                       # 中国域名
   - RULE-SET,cn_IP,直接连接,no-resolve                         # 中国IP
-  - RULE-SET,non_standard_port,默认直连                        # 非标端口
+  - DST-PORT,1-79/81-442/444-65535,直接连接                    # 80和443以外的非标端口
   - MATCH,漏网之鱼                                             # 漏网之鱼
   
 # 6 规则提供者
@@ -315,7 +315,6 @@ rule-providers:
   # 6.4 自定义规则
   GOG_Direct_Domain:                   {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_Domain.mrs}
   Speedtest:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
-  non_standard_port:                   {<<: *BehaviorCY, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Custom_Port_Direct.yaml}
   
   # 6.5 主要规则集 
   private:                             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/private.mrs}
