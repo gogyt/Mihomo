@@ -280,7 +280,7 @@ jobs:
       - name: SHA256 Compare and Commit
         shell: bash
         env:
-          COMMIT_MSG: 自动更新自定义规则集
+          COMMIT_MSG: AUTO Update Custom Rule
         run: |
           set -euo pipefail
           FILE_LIST=(
