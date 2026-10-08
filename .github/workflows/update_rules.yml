@@ -40,17 +40,14 @@ jobs:
 
             "geo/geosite/anti-ad-clash.yaml|https://github.com/privacy-protection-tools/anti-AD/raw/master/anti-ad-clash.yaml"
 
+
             # fakeip-filter拉取
             "geo/geosite/fakeip-filter.mrs|https://github.com/DustinWin/ruleset_geodata/raw/mihomo-ruleset/fakeip-filter.mrs"
             "geo/geosite/fakeip-filter.list|https://github.com/DustinWin/ruleset_geodata/raw/mihomo-ruleset/fakeip-filter.list"
 
             "geo/geosite/Direct.mrs|https://github.com/666OS/rules/raw/release/mihomo/domain/Direct.mrs"
             "geo/geosite/Direct.txt|https://github.com/666OS/rules/raw/release/mihomo/domain/Direct.txt"
-
-           
-           # Aethersailor规则拉取
-            "rule/Custom_Direct_Classical_Port.yaml|https://github.com/Aethersailor/Custom_OpenClash_Rules/raw/main/rule/Custom_Direct_Classical_Port.yaml"
-            "rule/Custom_Port_Direct.yaml|https://github.com/Aethersailor/Custom_OpenClash_Rules/raw/main/rule/Custom_Port_Direct.yaml"
+          
 
            # MetaCubeX规则拉取
             "geo/geosite/private.mrs|https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs"
