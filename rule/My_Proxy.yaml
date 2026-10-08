@@ -1,0 +1,14 @@
+# https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Proxy.yaml
+# TOTAL:10
+
+payload:
+  - '+.themoviedb.org'
+  - '+.tmdb.org'
+  - '+.thetvdb.com'
+  - '+.docker.com'
+  - '+.docker.io'
+  - '+.ntrl.ntis.gov'    # 美国国家技术报告库
+  - '+.ip.sb'
+  - '+.steamcommunity.com'   # steam社区
+  - '+.cilixiong.org'
+  - '+.cilixiong.cc'
