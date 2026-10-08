@@ -1,4 +1,4 @@
-name: update-custom-rules
+name: Auto Update Merge And Convert Files
 on:
   schedule:
     - cron: '18 22 * * *'
