@@ -1,7 +1,6 @@
 # 根据个人上网习惯手动收录的漏网之鱼Direct列表，每天凌晨06:30与Aethersailor/Custom_Direct_Domain.yaml合并后自动转换为GOG_Direct_Domain.mrs文件
 # REPO: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_Domain.list
 
-
 +.docker.amingg.com
 +.docker-cf.mrs.1ms.run
 +.dingtalk.com
