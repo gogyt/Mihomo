@@ -1,4 +1,4 @@
-# REPO: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/GOG_Direct_IP.yaml
+# REPO: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_IP.yaml
 payload:
 # Steam_CDN_IP
   - '103.10.124.0/23'
