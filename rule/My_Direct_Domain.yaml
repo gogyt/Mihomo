@@ -1,4 +1,6 @@
+# 根据个人上网习惯手动收录的漏网之鱼Direct列表，定期转换为GOG_Direct_Domain.mrs文件
 # REPO: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_Domain.yaml
+
 payload:
   - '+.docker.amingg.com'
   - '+.docker-cf.mrs.1ms.run'
