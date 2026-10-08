@@ -90,7 +90,7 @@ jobs:
       # 第一步：下载&合并规则
       # 1. Direct Domain：My_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/GOG_Direct_Domain.list
       # 2. Direct IP：My_Direct_IP.list + Custom_Direct_IP.yaml → rule/GOG_Direct_IP.list
-      # 3. Proxy Domain：单源下载 My_Proxy_Domain.list → rule/My_Proxy_Domain.list
+      # 3. Proxy Domain：下载 My_Proxy_Domain.list → rule/GOG_Proxy_Domain.list
       #=====================================================
       - name: Download & Merge All Rules
         shell: bash
@@ -106,7 +106,7 @@ jobs:
           PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Proxy_Domain.list
           OUT_DOMAIN_LIST: rule/GOG_Direct_Domain.list
           OUT_IP_LIST: rule/GOG_Direct_IP.list
-          OUT_PROXY_DOMAIN_LIST: rule/My_Proxy_Domain.list
+          OUT_PROXY_DOMAIN_LIST: rule/GOG_Proxy_Domain.list
         run: |
           set -euo pipefail
           mkdir -p rule
@@ -224,19 +224,19 @@ jobs:
           PY
           test -s "${OUT_IP_LIST}"
 
-          # ---------------------- 处理 Proxy Domain（单文件直接下载复制） ----------------------
-          echo "===== 下载【Proxy Domain单源】 ====="
+          # ---------------------- 处理 Proxy Domain（下载并重命名为 GOG_Proxy_Domain.list） ----------------------
+          echo "===== 下载【Proxy Domain单源】并重命名 ====="
           curl -fsSL --retry 3 --retry-all-errors \
             --connect-timeout 20 --max-time 120 \
             -o "${OUT_PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_URL}"
           test -s "${OUT_PROXY_DOMAIN_LIST}"
-          echo "Proxy Domain list 文件下载完成"
+          echo "Proxy Domain list 文件已保存至 rule/GOG_Proxy_Domain.list"
 
       #=====================================================
       # 第二步：list 转 mrs
       # rule/GOG_Direct_Domain.list    → rule/GOG_Direct_Domain.mrs (domain text)
       # rule/GOG_Direct_IP.list        → rule/GOG_Direct_IP.mrs     (ipcidr text)
-      # rule/My_Proxy_Domain.list      → rule/My_Proxy_Domain.mrs  (domain text)
+      # rule/GOG_Proxy_Domain.list     → rule/GOG_Proxy_Domain.mrs  (domain text)
       #=====================================================
       - name: Convert LIST to MRS files
         shell: bash
@@ -246,8 +246,8 @@ jobs:
           DOMAIN_MRS="rule/GOG_Direct_Domain.mrs"
           IP_LIST="rule/GOG_Direct_IP.list"
           IP_MRS="rule/GOG_Direct_IP.mrs"
-          PROXY_DOMAIN_LIST="rule/My_Proxy_Domain.list"
-          PROXY_DOMAIN_MRS="rule/My_Proxy_Domain.mrs"
+          PROXY_DOMAIN_LIST="rule/GOG_Proxy_Domain.list"
+          PROXY_DOMAIN_MRS="rule/GOG_Proxy_Domain.mrs"
 
           echo "===== 转换 Direct域名规则 ${DOMAIN_LIST} → ${DOMAIN_MRS} ====="
           timeout 180s /tmp/mihomo convert-ruleset domain text "${DOMAIN_LIST}" "${DOMAIN_MRS}" > /tmp/convert_domain.log 2>&1
@@ -270,6 +270,12 @@ jobs:
       #=====================================================
       # SHA256对比，任意文件变更才提交push
       # 总共6个文件：3list + 3mrs
+      # rule/GOG_Direct_Domain.list
+      # rule/GOG_Direct_Domain.mrs
+      # rule/GOG_Direct_IP.list
+      # rule/GOG_Direct_IP.mrs
+      # rule/GOG_Proxy_Domain.list
+      # rule/GOG_Proxy_Domain.mrs
       #=====================================================
       - name: SHA256 Compare and Commit
         shell: bash
@@ -282,8 +288,8 @@ jobs:
             rule/GOG_Direct_Domain.mrs
             rule/GOG_Direct_IP.list
             rule/GOG_Direct_IP.mrs
-            rule/My_Proxy_Domain.list
-            rule/My_Proxy_Domain.mrs
+            rule/GOG_Proxy_Domain.list
+            rule/GOG_Proxy_Domain.mrs
           )
           # 计算新哈希
           declare -A new_sha
@@ -304,7 +310,7 @@ jobs:
           done
 
           if [[ "$any_change" -eq 0 ]]; then
-            echo "全部文件SHA256无变化，无需提交，退出"
+            echo "全部文件SHA256无变化，退出，无需提交"
             exit 0
           fi
 
