@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: update-custom-rules
+  group: Auto-Update-Merge-And-Convert-Files
   cancel-in-progress: true
 jobs:
   build-rules:
