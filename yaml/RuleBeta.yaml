@@ -389,8 +389,7 @@ rules:
   # 5.2 分流规则
   - RULE-SET,private,直接连接                                  # 私有域名
   - RULE-SET,private_IP,直接连接,no-resolve                    # 内网 / 保留 IP(127/8、192.168/16…)
-  - RULE-SET,My_Direct,直接连接                                # 自定义直连域名
-  - RULE-SET,Custom_Direct_Domain,直接连接                     # 自定义直连域名
+  - RULE-SET,GOG_Direct_Domain,直接连接                       # 自定义直连域名
   - RULE-SET,category-game-platforms-download,直接连接         # 游戏平台下载
   - RULE-SET,category-public-tracker,直接连接                  # BT Tracker
   - RULE-SET,category-pt,直接连接                              # PT站
@@ -460,8 +459,7 @@ rule-providers:
   fakeip-filter:                       {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/fakeip-filter.mrs}
 
   # 6.3 自定义规则集
-  My_Direct:                           {<<: *BehaviorCY, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct.yaml}
-  Custom_Direct_Domain:                {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Custom_Direct_Domain.mrs}
+  GOG_Direct_Domain:                   {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_Domain.mrs}
   Speedtest:                           {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   non_standard_port:                   {<<: *BehaviorCY, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Custom_Port_Direct.yaml}
   
