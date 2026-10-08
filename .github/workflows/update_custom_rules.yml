@@ -250,7 +250,7 @@ jobs:
       - name: SHA256 Compare and Commit
         shell: bash
         env:
-          COMMIT_MSG: 更新自定义Direct/Proxy规则集
+          COMMIT_MSG: 更新自定义Proxy规则集
         run: |
           set -euo pipefail
           FILE_LIST=(
