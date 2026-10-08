@@ -289,6 +289,7 @@ rules:
   - GEOSITE,private,直接连接                                  # 私有域名
   - GEOIP,private,直接连接,no-resolve                         # 内网 / 保留 IP(127/8、192.168/16…)
   - RULE-SET,GOG_Direct_Domain,直接连接                       # 自定义直连域名
+  - RULE-SET,GOG_Direct_IP,直接连接,no-resolve                # 自定义直连IP
   - GEOSITE,category-game-platforms-download,直接连接         # 游戏平台下载
   - GEOSITE,category-public-tracker,直接连接                  # BT Tracker
   - GEOSITE,category-pt,直接连接                              # PT站
@@ -333,7 +334,7 @@ rules:
  # - GEOIP,fastly,默认直连,no-resolve                          # FSLY CDN(同上IP补充，注：有的代理软件默认GEO数据中缺少GEOIP,fastly数据，可尝试启用)
   - GEOSITE,cn,直接连接                                       # 中国域名
   - GEOIP,cn,直接连接,no-resolve                              # 中国IP
-  - DST-PORT,1-79/81-442/444-65535,直接连接                   # 80和443以外的非标端口
+  - DST-PORT,1-79/81-442/444-65535,默认直连                   # 80和443以外的非标端口
   - MATCH,漏网之鱼                                            # 漏网之鱼
 
 # 6 补充规则
@@ -347,6 +348,7 @@ rule-providers:
   
   # 6.3 其他规则
   GOG_Direct_Domain:     {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_Domain.mrs}
+  GOG_Direct_IP:         {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_IP.mrs}
   Speedtest:             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   cn_IP:                 {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
 # ==================== EOF ====================

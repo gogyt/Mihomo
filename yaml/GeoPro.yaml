@@ -346,6 +346,7 @@ rules:
   - GEOSITE,private,直接连接                                  # 私有域名
   - GEOIP,private,直接连接,no-resolve                         # 内网 / 保留 IP(127/8、192.168/16…)
   - RULE-SET,GOG_Direct_Domain,直接连接                       # 自定义直连域名
+  - RULE-SET,GOG_Direct_IP,直接连接,no-resolve                # 自定义直连IP
   - GEOSITE,category-game-platforms-download,直接连接         # 游戏平台下载
   - GEOSITE,category-public-tracker,直接连接                  # BT Tracker
   - GEOSITE,category-pt,直接连接                              # PT站
@@ -415,6 +416,7 @@ rule-providers:
 
   # 6.3 其他规则
   GOG_Direct_Domain:     {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_Domain.mrs}
+  GOG_Direct_IP:         {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_IP.mrs}
   Speedtest:             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   cn_IP:                 {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}  
 # ==================== EOF ====================
