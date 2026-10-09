@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 1
+
       #=====================================================
       # 安装 Mihomo，自动获取最新release
       #=====================================================
@@ -84,30 +85,32 @@ jobs:
           echo "检查 Mihomo 是否可以运行..."
           /tmp/mihomo -v || true
           echo "Mihomo 安装完成：${MIHOMO_VERSION}"
+
       #=====================================================
       # 第一步：下载&合并规则
-      # 1. Direct Domain：My_Direct_Domain + Custom_Direct_Domain → rule/GOG_Direct_Domain
-      # 2. Direct IP：My_Direct_IP + Custom_Direct_IP → rule/GOG_Direct_IP
-      # 3. Proxy Domain：My_Proxy_Domain → rule/GOG_Proxy_Domain
+      # 1. Direct Domain：My_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/GOG_Direct_Domain.list
+      # 2. Direct IP：My_Direct_IP.list + Custom_Direct_IP.yaml → rule/GOG_Direct_IP.list
+      # 3. Proxy Domain：My_Proxy_Domain.list → rule/GOG_Proxy_Domain.list
       #=====================================================
       - name: Download & Merge All Rules
         shell: bash
         env:
           DOMAIN_SOURCE_URLS: |
-            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_Domain.yaml
+            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_Domain.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_Domain.yaml
           IP_SOURCE_URLS: |
-            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_IP.yaml
+            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_IP.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_IP.yaml
-          PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Proxy_Domain.yaml
-          OUT_DOMAIN_LIST: rule/GOG_Direct_Domain.yaml
-          OUT_IP_LIST: rule/GOG_Direct_IP.yaml
-          OUT_PROXY_DOMAIN_LIST: rule/GOG_Proxy_Domain.yaml
+          PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Proxy_Domain.list
+          OUT_DOMAIN_LIST: rule/GOG_Direct_Domain.list
+          OUT_IP_LIST: rule/GOG_Direct_IP.list
+          OUT_PROXY_DOMAIN_LIST: rule/GOG_Proxy_Domain.list
         run: |
           set -euo pipefail
           mkdir -p rule
           TMP_DIR="/tmp/rules_tmp"
           mkdir -p "$TMP_DIR"
+
           # ---------------------- 处理 Direct 域名规则（双源合并去重） ----------------------
           echo "===== 开始下载并合并【Direct域名规则源】 ====="
           DOMAIN_FILES="$TMP_DIR/domain_files.txt"
@@ -119,11 +122,13 @@ jobs:
             filename="${filename%%#*}"
             dl_path="$TMP_DIR/$filename"
             echo "下载Direct域名源: $filename"
-            curl -fsSL --retry 3 --retry-all-errors \
-              --connect-timeout 20 --max-time 120 \
+            curl -fsSL --retry 5 --retry-all-errors \
+              --connect-timeout 30 --max-time 180 \
               -o "$dl_path" "$url"
+            test -s "$dl_path" || { echo "ERROR: 文件下载为空 $url"; exit 22; }
             printf '%s\n' "$dl_path" >> "$DOMAIN_FILES"
           done <<< "$DOMAIN_SOURCE_URLS"
+
           python3 - <<'PY'
           import yaml
           from pathlib import Path
@@ -143,19 +148,19 @@ jobs:
                       continue
               except Exception:
                   pass
-              # plain list
+              # plain list：一行一条域名
               for line in raw.splitlines():
                   line = line.strip()
                   if line and not line.startswith("#"):
                       domain_set.add(line)
-          out_path = Path("rule/GOG_Direct_Domain.yaml")
+          out_path = Path("rule/GOG_Direct_Domain.list")
           with open(out_path, "w", encoding="utf-8", newline="\n") as f:
-              f.write("payload:\n")
               for d in sorted(domain_set):
-                  f.write(f"  - {d}\n")
+                  f.write(f"{d}\n")
           print(f"Direct域名规则合并完成，共 {len(domain_set)} 条")
           PY
-          test -s "${OUT_DOMAIN_LIST}"
+          test -s "${OUT_DOMAIN_LIST}" || { echo "ERROR: GOG_Direct_Domain.list 生成空文件"; exit 22; }
+
           # ---------------------- 处理 Direct IP CIDR规则（双源合并+网段聚合） ----------------------
           echo "===== 开始下载并合并【Direct IP CIDR规则源】 ====="
           IP_FILES="$TMP_DIR/ip_files.txt"
@@ -167,11 +172,13 @@ jobs:
             filename="${filename%%#*}"
             dl_path="$TMP_DIR/$filename"
             echo "下载IP源: $filename"
-            curl -fsSL --retry 3 --retry-all-errors \
-              --connect-timeout 20 --max-time 120 \
+            curl -fsSL --retry 5 --retry-all-errors \
+              --connect-timeout 30 --max-time 180 \
               -o "$dl_path" "$url"
+            test -s "$dl_path" || { echo "ERROR: 文件下载为空 $url"; exit 22; }
             printf '%s\n' "$dl_path" >> "$IP_FILES"
           done <<< "$IP_SOURCE_URLS"
+
           python3 - <<'PY'
           import yaml
           import ipaddress
@@ -206,55 +213,60 @@ jobs:
           v4 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==4), key=lambda x:int(x.network_address))
           v6 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==6), key=lambda x:int(x.network_address))
           agg = v4 + v6
-          out_path = Path("rule/GOG_Direct_IP.yaml")
+          out_path = Path("rule/GOG_Direct_IP.list")
           with open(out_path, "w", encoding="utf-8", newline="\n") as f:
-              f.write("payload:\n")
               for net in agg:
-                  f.write(f"  - {net}\n")
+                  f.write(f"{net}\n")
           print(f"Direct IP CIDR合并聚合完成，原始{len(raw_nets)}条，聚合后{len(agg)}条")
           PY
-          test -s "${OUT_IP_LIST}"
-          # ---------------------- 处理 Proxy Domain（下载yaml → GOG_Proxy_Domain.yaml） ----------------------
+          test -s "${OUT_IP_LIST}" || { echo "ERROR: GOG_Direct_IP.list 生成空文件"; exit 22; }
+
+          # ---------------------- 处理 Proxy Domain（下载list → GOG_Proxy_Domain.list） ----------------------
           echo "===== 下载【Proxy Domain单源】 ====="
-          curl -fsSL --retry 3 --retry-all-errors \
-            --connect-timeout 20 --max-time 120 \
+          curl -fsSL --retry 5 --retry-all-errors \
+            --connect-timeout 30 --max-time 180 \
             -o "${OUT_PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_URL}"
-          test -s "${OUT_PROXY_DOMAIN_LIST}"
-          echo "Proxy Domain yaml 文件已保存至 rule/GOG_Proxy_Domain.yaml"
+          test -s "${OUT_PROXY_DOMAIN_LIST}" || { echo "ERROR: Proxy domain 文件下载为空"; exit 22; }
+          echo "Proxy Domain list 文件已保存至 rule/GOG_Proxy_Domain.list"
+
       #=====================================================
-      # 第二步：yaml payload 转 mrs
-      # rule/GOG_Direct_Domain.yaml    → rule/GOG_Direct_Domain.mrs (domain)
-      # rule/GOG_Direct_IP.yaml        → rule/GOG_Direct_IP.mrs     (ipcidr)
-      # rule/GOG_Proxy_Domain.yaml     → rule/GOG_Proxy_Domain.mrs  (domain)
+      # 第二步：list文本 转 mrs
+      # rule/GOG_Direct_Domain.list    → rule/GOG_Direct_Domain.mrs (domain text)
+      # rule/GOG_Direct_IP.list        → rule/GOG_Direct_IP.mrs     (ipcidr text)
+      # rule/GOG_Proxy_Domain.list     → rule/GOG_Proxy_Domain.mrs  (domain text)
       #=====================================================
-      - name: Convert YAML to MRS files
+      - name: Convert LIST to MRS files
         shell: bash
         run: |
           set -euo pipefail
-          DOMAIN_YAML="rule/GOG_Direct_Domain.yaml"
+          DOMAIN_LIST="rule/GOG_Direct_Domain.list"
           DOMAIN_MRS="rule/GOG_Direct_Domain.mrs"
-          IP_YAML="rule/GOG_Direct_IP.yaml"
+          IP_LIST="rule/GOG_Direct_IP.list"
           IP_MRS="rule/GOG_Direct_IP.mrs"
-          PROXY_DOMAIN_YAML="rule/GOG_Proxy_Domain.yaml"
+          PROXY_DOMAIN_LIST="rule/GOG_Proxy_Domain.list"
           PROXY_DOMAIN_MRS="rule/GOG_Proxy_Domain.mrs"
-          echo "===== 转换 Direct域名规则 ${DOMAIN_YAML} → ${DOMAIN_MRS} ====="
-          timeout 180s /tmp/mihomo convert-ruleset domain yaml "${DOMAIN_YAML}" "${DOMAIN_MRS}" > /tmp/convert_domain.log 2>&1
+
+          echo "===== 转换 Direct域名规则 ${DOMAIN_LIST} → ${DOMAIN_MRS} ====="
+          timeout 180s /tmp/mihomo convert-ruleset domain text "${DOMAIN_LIST}" "${DOMAIN_MRS}" > /tmp/convert_domain.log 2>&1
           cat /tmp/convert_domain.log
           test -s "${DOMAIN_MRS}"
           echo "Direct域名MRS生成成功"
-          echo "===== 转换 Direct IP规则 ${IP_YAML} → ${IP_MRS} ====="
-          timeout 180s /tmp/mihomo convert-ruleset ipcidr yaml "${IP_YAML}" "${IP_MRS}" > /tmp/convert_ip.log 2>&1
+
+          echo "===== 转换 Direct IP规则 ${IP_LIST} → ${IP_MRS} ====="
+          timeout 180s /tmp/mihomo convert-ruleset ipcidr text "${IP_LIST}" "${IP_MRS}" > /tmp/convert_ip.log 2>&1
           cat /tmp/convert_ip.log
           test -s "${IP_MRS}"
           echo "Direct IP MRS生成成功"
-          echo "===== 转换 Proxy域名规则 ${PROXY_DOMAIN_YAML} → ${PROXY_DOMAIN_MRS} ====="
-          timeout 180s /tmp/mihomo convert-ruleset domain yaml "${PROXY_DOMAIN_YAML}" "${PROXY_DOMAIN_MRS}" > /tmp/convert_proxy_domain.log 2>&1
+
+          echo "===== 转换 Proxy域名规则 ${PROXY_DOMAIN_LIST} → ${PROXY_DOMAIN_MRS} ====="
+          timeout 180s /tmp/mihomo convert-ruleset domain text "${PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_MRS}" > /tmp/convert_proxy_domain.log 2>&1
           cat /tmp/convert_proxy_domain.log
           test -s "${PROXY_DOMAIN_MRS}"
           echo "Proxy域名MRS生成成功"
+
       #=====================================================
       # SHA256对比，文件变更才提交push
-      # 3yaml +3mrs
+      # 3list +3mrs
       #=====================================================
       - name: SHA256 Compare and Commit
         shell: bash
@@ -263,11 +275,11 @@ jobs:
         run: |
           set -euo pipefail
           FILE_LIST=(
-            rule/GOG_Direct_Domain.yaml
+            rule/GOG_Direct_Domain.list
             rule/GOG_Direct_Domain.mrs
-            rule/GOG_Direct_IP.yaml
+            rule/GOG_Direct_IP.list
             rule/GOG_Direct_IP.mrs
-            rule/GOG_Proxy_Domain.yaml
+            rule/GOG_Proxy_Domain.list
             rule/GOG_Proxy_Domain.mrs
           )
           declare -A new_sha
@@ -299,12 +311,13 @@ jobs:
           fi
           git commit -m "${COMMIT_MSG}"
           git push
+
       #=====================================================
-      # 失败邮件通知，仅任务失败触发
+      # 失败邮件通知，github-script@v8消除Node警告
       #=====================================================
       - name: Send Failure Notify
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const repo = context.repo;
