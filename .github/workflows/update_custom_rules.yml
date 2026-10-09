@@ -85,29 +85,29 @@ jobs:
           echo "Mihomo 安装完成：${MIHOMO_VERSION}"
       #=====================================================
       # 第一步：下载&合并规则
-      # 1. Direct Domain：My_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/GOG_Direct_Domain.list（仅域名，无注释空行）
-      # 2. Direct IP：My_Direct_IP.list + Custom_Direct_IP.yaml → rule/GOG_Direct_IP.list（仅IP，无注释空行）
-      # 3. Proxy Domain：My_Proxy_Domain.list 下载提取纯域名 → rule/GOG_Proxy_Domain.list（仅域名，无注释空行）
+      # 1. Direct Domain：Custom_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/Direct_Domain.list（仅域名，无注释空行）
+      # 2. Direct IP：Custom_Direct_IP.list + Custom_Direct_IP.yaml → rule/Direct_IP.list（仅IP，无注释空行）
+      # 3. Proxy Domain：Custom_Proxy_Domain.list 下载提取纯域名 → rule/Proxy_Domain.list（仅域名，无注释空行）
       #=====================================================
       - name: Download & Merge All Rules
         shell: bash
         env:
           DOMAIN_SOURCE_URLS: |
-            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_Domain.list
+            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/Custom_Direct_Domain.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_Domain.yaml
           IP_SOURCE_URLS: |
-            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_IP.list
+            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/Custom_Direct_IP.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_IP.yaml
-          PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Proxy_Domain.list
-          OUT_DOMAIN_LIST: rule/GOG_Direct_Domain.list
-          OUT_IP_LIST: rule/GOG_Direct_IP.list
-          OUT_PROXY_DOMAIN_LIST: rule/GOG_Proxy_Domain.list
+          PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/Custom_Proxy_Domain.list
+          OUT_DOMAIN_LIST: rule/Direct_Domain.list
+          OUT_IP_LIST: rule/Direct_IP.list
+          OUT_PROXY_DOMAIN_LIST: rule/Proxy_Domain.list
         run: |
           set -euo pipefail
           mkdir -p rule
           # 清理旧yaml、旧代理文件残留
-          rm -f rule/GOG_Direct_Domain.yaml rule/GOG_Direct_IP.yaml rule/GOG_Proxy_Domain.yaml
-          rm -f rule/My_Proxy_Domain.list rule/My_Proxy_Domain.mrs
+          rm -f rule/Direct_Domain.yaml rule/Direct_IP.yaml rule/Proxy_Domain.yaml
+          rm -f rule/Custom_Proxy_Domain.list rule/Custom_Proxy_Domain.mrs
           TMP_DIR="/tmp/rules_tmp"
           mkdir -p "$TMP_DIR"
           # ---------------------- 处理 Direct 域名规则（双源合并去重，剔除注释空行） ----------------------
@@ -151,7 +151,7 @@ jobs:
                               if not item or item.startswith("#"):
                                   continue
                               domain_set.add(item)
-          out_path = Path("rule/GOG_Direct_Domain.list")
+          out_path = Path("rule/Direct_Domain.list")
           with open(out_path, "w", encoding="utf-8", newline="\n") as f:
               for d in sorted(domain_set):
                   f.write(f"{d}\n")
@@ -211,65 +211,65 @@ jobs:
           v4 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==4), key=lambda x:int(x.network_address))
           v6 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==6), key=lambda x:int(x.network_address))
           agg = v4 + v6
-          out_path = Path("rule/GOG_Direct_IP.list")
+          out_path = Path("rule/Direct_IP.list")
           with open(out_path, "w", encoding="utf-8", newline="\n") as f:
               for net in agg:
                   f.write(f"{net}\n")
           print(f"Direct IP CIDR合并聚合完成，原始{len(raw_nets)}条，聚合后{len(agg)}条")
           PY
           test -s "${OUT_IP_LIST}"
-          # ---------------------- Proxy Domain：下载源文件，提取纯域名，剔除注释空行，输出GOG_Proxy_Domain.list ----------------------
-          echo "===== 下载【Proxy Domain】并提取纯域名保存为 GOG_Proxy_Domain.list ====="
+          # ---------------------- Proxy Domain：下载源文件，提取纯域名，剔除注释空行，输出Proxy_Domain.list ----------------------
+          echo "===== 下载【Proxy Domain】并提取纯域名保存为 Proxy_Domain.list ====="
           curl -fsSL --retry 3 --retry-all-errors \
             --connect-timeout 20 --max-time 120 \
             -o "${OUT_PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_URL}"
           # 删除注释行、空白行，只保留域名数据
           sed -i '/^[[:space:]]*#/d; /^[[:space:]]*$/d' "${OUT_PROXY_DOMAIN_LIST}"
           test -s "${OUT_PROXY_DOMAIN_LIST}"
-          echo "GOG_Proxy_Domain.list 文件下载并过滤注释完成"
+          echo "Proxy_Domain.list 文件下载并过滤注释完成"
       #=====================================================
       # 第二步：list转mrs
-      # GOG_Direct_Domain.list    → GOG_Direct_Domain.mrs (domain)
-      # GOG_Direct_IP.list        → GOG_Direct_IP.mrs     (ipcidr)
-      # GOG_Proxy_Domain.list     → GOG_Proxy_Domain.mrs  (domain)
+      # Direct_Domain.list    → Direct_Domain.mrs (domain)
+      # Direct_IP.list        → Direct_IP.mrs     (ipcidr)
+      # Proxy_Domain.list     → Proxy_Domain.mrs  (domain)
       #=====================================================
       - name: Convert LIST to MRS files
         shell: bash
         run: |
           set -euo pipefail
-          GOG_DOMAIN_LIST="rule/GOG_Direct_Domain.list"
-          GOG_DOMAIN_MRS="rule/GOG_Direct_Domain.mrs"
-          GOG_IP_LIST="rule/GOG_Direct_IP.list"
-          GOG_IP_MRS="rule/GOG_Direct_IP.mrs"
-          GOG_PROXY_DOMAIN_LIST="rule/GOG_Proxy_Domain.list"
-          GOG_PROXY_DOMAIN_MRS="rule/GOG_Proxy_Domain.mrs"
+          DOMAIN_LIST="rule/Direct_Domain.list"
+          DOMAIN_MRS="rule/Direct_Domain.mrs"
+          IP_LIST="rule/Direct_IP.list"
+          IP_MRS="rule/Direct_IP.mrs"
+          PROXY_DOMAIN_LIST="rule/Proxy_Domain.list"
+          PROXY_DOMAIN_MRS="rule/Proxy_Domain.mrs"
 
-          echo "===== 转换 GOG_Direct_Domain.list → ${GOG_DOMAIN_MRS} ====="
-          timeout 180s /tmp/mihomo convert-ruleset domain text "${GOG_DOMAIN_LIST}" "${GOG_DOMAIN_MRS}" > /tmp/convert_gog_domain.log 2>&1
-          cat /tmp/convert_gog_domain.log
-          test -s "${GOG_DOMAIN_MRS}"
-          echo "GOG Direct域名MRS生成成功"
+          echo "===== 转换 Direct_Domain.list → ${DOMAIN_MRS} ====="
+          timeout 180s /tmp/mihomo convert-ruleset domain text "${DOMAIN_LIST}" "${DOMAIN_MRS}" > /tmp/convert_domain.log 2>&1
+          cat /tmp/convert_domain.log
+          test -s "${DOMAIN_MRS}"
+          echo "Direct域名MRS生成成功"
 
-          echo "===== 转换 GOG_Direct_IP.list → ${GOG_IP_MRS} ====="
-          timeout 180s /tmp/mihomo convert-ruleset ipcidr text "${GOG_IP_LIST}" "${GOG_IP_MRS}" > /tmp/convert_gog_ip.log 2>&1
-          cat /tmp/convert_gog_ip.log
-          test -s "${GOG_IP_MRS}"
-          echo "GOG Direct IP MRS生成成功"
+          echo "===== 转换 Direct_IP.list → ${IP_MRS} ====="
+          timeout 180s /tmp/mihomo convert-ruleset ipcidr text "${IP_LIST}" "${IP_MRS}" > /tmp/convert_ip.log 2>&1
+          cat /tmp/convert_ip.log
+          test -s "${IP_MRS}"
+          echo "Direct IP MRS生成成功"
 
-          echo "===== 转换 GOG_Proxy_Domain.list → ${GOG_PROXY_DOMAIN_MRS} ====="
-          timeout 180s /tmp/mihomo convert-ruleset domain text "${GOG_PROXY_DOMAIN_LIST}" "${GOG_PROXY_DOMAIN_MRS}" > /tmp/convert_gog_proxy_domain.log 2>&1
-          cat /tmp/convert_gog_proxy_domain.log
-          test -s "${GOG_PROXY_DOMAIN_MRS}"
-          echo "GOG Proxy域名MRS生成成功"
+          echo "===== 转换 Proxy_Domain.list → ${PROXY_DOMAIN_MRS} ====="
+          timeout 180s /tmp/mihomo convert-ruleset domain text "${PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_MRS}" > /tmp/convert_proxy_domain.log 2>&1
+          cat /tmp/convert_proxy_domain.log
+          test -s "${PROXY_DOMAIN_MRS}"
+          echo "Proxy域名MRS生成成功"
       #=====================================================
       # SHA256对比，任意文件变更才提交push
       # 文件清单：3个list + 3个mrs
-      # rule/GOG_Direct_Domain.list
-      # rule/GOG_Direct_Domain.mrs
-      # rule/GOG_Direct_IP.list
-      # rule/GOG_Direct_IP.mrs
-      # rule/GOG_Proxy_Domain.list
-      # rule/GOG_Proxy_Domain.mrs
+      # rule/Direct_Domain.list
+      # rule/Direct_Domain.mrs
+      # rule/Direct_IP.list
+      # rule/Direct_IP.mrs
+      # rule/Proxy_Domain.list
+      # rule/Proxy_Domain.mrs
       #=====================================================
       - name: SHA256 Compare and Commit
         shell: bash
@@ -278,12 +278,12 @@ jobs:
         run: |
           set -euo pipefail
           FILE_LIST=(
-            rule/GOG_Direct_Domain.list
-            rule/GOG_Direct_Domain.mrs
-            rule/GOG_Direct_IP.list
-            rule/GOG_Direct_IP.mrs
-            rule/GOG_Proxy_Domain.list
-            rule/GOG_Proxy_Domain.mrs
+            rule/Direct_Domain.list
+            rule/Direct_Domain.mrs
+            rule/Direct_IP.list
+            rule/Direct_IP.mrs
+            rule/Proxy_Domain.list
+            rule/Proxy_Domain.mrs
           )
           # 计算新哈希
           declare -A new_sha
