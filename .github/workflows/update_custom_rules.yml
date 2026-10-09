@@ -85,9 +85,9 @@ jobs:
           echo "Mihomo 安装完成：${MIHOMO_VERSION}"
       #=====================================================
       # 第一步：下载&合并规则
-      # 1. Direct Domain：My_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/GOG_Direct_Domain.list
-      # 2. Direct IP：My_Direct_IP.list + Custom_Direct_IP.yaml → rule/GOG_Direct_IP.list
-      # 3. Proxy Domain：My_Proxy_Domain.list 下载另存为 rule/GOG_Proxy_Domain.list
+      # 1. Direct Domain：My_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/GOG_Direct_Domain.list（仅域名，无注释空行）
+      # 2. Direct IP：My_Direct_IP.list + Custom_Direct_IP.yaml → rule/GOG_Direct_IP.list（仅IP，无注释空行）
+      # 3. Proxy Domain：My_Proxy_Domain.list 下载提取纯域名 → rule/GOG_Proxy_Domain.list（仅域名，无注释空行）
       #=====================================================
       - name: Download & Merge All Rules
         shell: bash
@@ -110,7 +110,7 @@ jobs:
           rm -f rule/My_Proxy_Domain.list rule/My_Proxy_Domain.mrs
           TMP_DIR="/tmp/rules_tmp"
           mkdir -p "$TMP_DIR"
-          # ---------------------- 处理 Direct 域名规则（双源合并去重） ----------------------
+          # ---------------------- 处理 Direct 域名规则（双源合并去重，剔除注释空行） ----------------------
           echo "===== 开始下载并合并【Direct域名规则源】 ====="
           DOMAIN_FILES="$TMP_DIR/domain_files.txt"
           : > "$DOMAIN_FILES"
@@ -135,18 +135,22 @@ jobs:
               if not fpath.strip():
                   continue
               raw = Path(fpath).read_text(encoding="utf-8", errors="ignore")
-              # 判断文件后缀：.list 直接逐行读取；yaml读取payload
               if fpath.endswith(".list"):
                   for line in raw.splitlines():
                       line = line.strip()
-                      if line:
-                          domain_set.add(line)
+                      # 跳过空行、#注释行
+                      if not line or line.startswith("#"):
+                          continue
+                      domain_set.add(line)
               else:
                   data = yaml.safe_load(raw)
                   if isinstance(data, dict) and "payload" in data:
                       for item in data["payload"]:
                           if isinstance(item, str):
-                              domain_set.add(item.strip())
+                              item = item.strip()
+                              if not item or item.startswith("#"):
+                                  continue
+                              domain_set.add(item)
           out_path = Path("rule/GOG_Direct_Domain.list")
           with open(out_path, "w", encoding="utf-8", newline="\n") as f:
               for d in sorted(domain_set):
@@ -154,7 +158,7 @@ jobs:
           print(f"Direct域名规则合并完成，共 {len(domain_set)} 条")
           PY
           test -s "${OUT_DOMAIN_LIST}"
-          # ---------------------- 处理 Direct IP CIDR规则（双源合并+网段聚合） ----------------------
+          # ---------------------- 处理 Direct IP CIDR规则（双源合并+网段聚合，剔除注释空行） ----------------------
           echo "===== 开始下载并合并【Direct IP CIDR规则源】 ====="
           IP_FILES="$TMP_DIR/ip_files.txt"
           : > "$IP_FILES"
@@ -183,7 +187,7 @@ jobs:
               if fpath.endswith(".list"):
                   for line in raw.splitlines():
                       line = line.strip()
-                      if not line:
+                      if not line or line.startswith("#"):
                           continue
                       try:
                           net = ipaddress.ip_network(line, strict=False)
@@ -195,8 +199,11 @@ jobs:
                   if isinstance(data, dict) and "payload" in data:
                       for item in data["payload"]:
                           if isinstance(item, str):
+                              item = item.strip()
+                              if not item or item.startswith("#"):
+                                  continue
                               try:
-                                  net = ipaddress.ip_network(item.strip(), strict=False)
+                                  net = ipaddress.ip_network(item, strict=False)
                                   raw_nets.append(net)
                               except ValueError:
                                   continue
@@ -211,13 +218,15 @@ jobs:
           print(f"Direct IP CIDR合并聚合完成，原始{len(raw_nets)}条，聚合后{len(agg)}条")
           PY
           test -s "${OUT_IP_LIST}"
-          # ---------------------- Proxy Domain：下载My_Proxy_Domain.list，另存为GOG_Proxy_Domain.list ----------------------
-          echo "===== 下载【Proxy Domain】并保存为 GOG_Proxy_Domain.list ====="
+          # ---------------------- Proxy Domain：下载源文件，提取纯域名，剔除注释空行，输出GOG_Proxy_Domain.list ----------------------
+          echo "===== 下载【Proxy Domain】并提取纯域名保存为 GOG_Proxy_Domain.list ====="
           curl -fsSL --retry 3 --retry-all-errors \
             --connect-timeout 20 --max-time 120 \
             -o "${OUT_PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_URL}"
+          # 删除注释行、空白行，只保留域名数据
+          sed -i '/^[[:space:]]*#/d; /^[[:space:]]*$/d' "${OUT_PROXY_DOMAIN_LIST}"
           test -s "${OUT_PROXY_DOMAIN_LIST}"
-          echo "GOG_Proxy_Domain.list 文件下载完成"
+          echo "GOG_Proxy_Domain.list 文件下载并过滤注释完成"
       #=====================================================
       # 第二步：list转mrs
       # GOG_Direct_Domain.list    → GOG_Direct_Domain.mrs (domain)
