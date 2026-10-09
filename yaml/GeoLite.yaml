@@ -252,8 +252,8 @@ rules:
   # 5.2 分流规则
   - GEOSITE,private,直接连接                                  # 私有域名
   - GEOIP,private,直接连接,no-resolve                         # 内网 / 保留 IP(127/8、192.168/16…)
-  - RULE-SET,GOG_Direct_Domain,直接连接                       # 自定义直连域名
-  - RULE-SET,GOG_Direct_IP,直接连接,no-resolve                # 自定义直连IP
+  - RULE-SET,Direct_Domain,直接连接                           # 自定义直连域名
+  - RULE-SET,Direct_IP,直接连接,no-resolve                    # 自定义直连IP
   - GEOSITE,google-cn,直接连接                                # Google中国服务
   - GEOSITE,category-game-platforms-download,直接连接         # 游戏平台下载
   - GEOSITE,category-games@cn,直接连接                        # 国内游戏
@@ -291,8 +291,8 @@ rule-providers:
   fakeip-filter:         {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/fakeip-filter.mrs}
 
   # 6.3 其他规则
-  GOG_Direct_Domain:     {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_Domain.mrs}
-  GOG_Direct_IP:         {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/GOG_Direct_IP.mrs}
+  Direct_Domain:         {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct_Domain.mrs}
+  Direct_IP:             {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct_IP.mrs}
   Speedtest:             {<<: *BehaviorDN, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   cn_IP:                 {<<: *BehaviorIP, url: https://testingcf.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs} 
 # ==================== EOF ====================
