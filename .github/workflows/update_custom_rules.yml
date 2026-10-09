@@ -7,7 +7,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: Auto-Update-Merge-And-Convert-Files
   cancel-in-progress: true
 jobs:
   build-rules:
@@ -19,60 +19,52 @@ jobs:
           fetch-depth: 1
 
       #=====================================================
-      # 安装 Mihomo，自动获取最新release
+      # 安装 Mihomo，自动获取最新 release
       #=====================================================
       - name: Install Mihomo
         shell: bash
         run: |
           set -euo pipefail
           echo "获取 Mihomo 最新版本..."
-          RELEASE_JSON="$(
-            curl -fsSL --retry 5 --retry-all-errors \
-              --connect-timeout 20 --max-time 120 \
-              "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
-          )"
-          MIHOMO_VERSION="$(
-            printf '%s' "$RELEASE_JSON" |
-              python3 -c '
-          import json
-          import sys
-          data = json.load(sys.stdin)
-          tag = data.get("tag_name")
-          if not tag:
-              raise SystemExit("GitHub API 返回中没有 tag_name")
-          print(tag)
-          '
-          )"
-          MIHOMO_ASSET="$(
-            printf '%s' "$RELEASE_JSON" |
-              python3 -c '
-          import json
-          import sys
-          data = json.load(sys.stdin)
-          candidates = []
-          for asset in data.get("assets", []):
-              name = asset.get("name", "")
-              if (
-                  name.startswith("mihomo-linux-amd64-")
-                  and name.endswith(".gz")
-              ):
-                  candidates.append(name)
-          if not candidates:
-              raise SystemExit("找不到 mihomo-linux-amd64-*.gz，请检查 Mihomo 最新 Release 的资产名称。")
-          print(candidates[0])
-          '
-          )"
+          RELEASE_JSON="$( curl -fsSL --retry 5 --retry-all-errors \
+            --connect-timeout 20 --max-time 120 \
+            "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest" )"
+
+          MIHOMO_VERSION="$( printf '%s' "${RELEASE_JSON}" | python3 -c '
+import json
+import sys
+data = json.load(sys.stdin)
+tag = data.get("tag_name")
+if not tag:
+    raise SystemExit("GitHub API 返回中没有 tag_name")
+print(tag)
+' )"
+
+          MIHOMO_ASSET="$( printf '%s' "${RELEASE_JSON}" | python3 -c '
+import json
+import sys
+data = json.load(sys.stdin)
+candidates = []
+for asset in data.get("assets", []):
+    name = asset.get("name", "")
+    if (
+        name.startswith("mihomo-linux-amd64-")
+        and name.endswith(".gz")
+    ):
+        candidates.append(name)
+if not candidates:
+    raise SystemExit("找不到 mihomo-linux-amd64-*.gz，请检查 Mihomo 最新 Release 的资产名称。")
+print(candidates[0])
+' )"
+
           DOWNLOAD_URL="https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/${MIHOMO_ASSET}"
           echo "========================================"
           echo "Mihomo 最新版本：${MIHOMO_VERSION}"
-          echo "下载文件：${MIHOMO_ASSET}"
+          echo " 下载文件：${MIHOMO_ASSET}"
           echo "下载地址：${DOWNLOAD_URL}"
           echo "========================================"
           echo "下载 Mihomo..."
-          curl -fL --retry 5 --retry-all-errors \
-            --connect-timeout 20 --max-time 120 \
-            -o /tmp/mihomo.gz \
-            "$DOWNLOAD_URL"
+          curl -fL --retry 5 --retry-all-errors --connect-timeout 20 --max-time 120 -o /tmp/mihomo.gz "${DOWNLOAD_URL}"
           echo "检查下载文件..."
           test -s /tmp/mihomo.gz
           echo "校验 gzip..."
@@ -87,17 +79,19 @@ jobs:
           echo "Mihomo 安装完成：${MIHOMO_VERSION}"
 
       #=====================================================
-      # 第一步：下载&合并规则
+      # 第一步：下载 & 合并规则
       # 1. Direct Domain：My_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/GOG_Direct_Domain.list
       # 2. Direct IP：My_Direct_IP.list + Custom_Direct_IP.yaml → rule/GOG_Direct_IP.list
-      # 3. Proxy Domain：My_Proxy_Domain.list → rule/GOG_Proxy_Domain.list
+      # 3. Proxy Domain：下载 My_Proxy_Domain.list → rule/GOG_Proxy_Domain.list
       #=====================================================
       - name: Download & Merge All Rules
         shell: bash
         env:
+          #两个域名源：gogyt 是 list，Aethersailor 是 yaml
           DOMAIN_SOURCE_URLS: |
             https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_Domain.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_Domain.yaml
+          #两个 IP 源：gogyt 是 list，Aethersailor 是 yaml
           IP_SOURCE_URLS: |
             https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/My_Direct_IP.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_IP.yaml
@@ -111,129 +105,128 @@ jobs:
           TMP_DIR="/tmp/rules_tmp"
           mkdir -p "$TMP_DIR"
 
-          # ---------------------- 处理 Direct 域名规则（双源合并去重） ----------------------
-          echo "===== 开始下载并合并【Direct域名规则源】 ====="
-          DOMAIN_FILES="$TMP_DIR/domain_files.txt"
-          : > "$DOMAIN_FILES"
+          #---------------------- 处理 Direct 域名规则（双源合并去重） ----------------------
+          echo "===== 开始下载并合并【Direct 域名规则源】 ====="
+          DOMAIN_FILES="${TMP_DIR}/domain_files.txt"
+          : > "${DOMAIN_FILES}"
           while IFS= read -r url; do
-            [[ -z "$url" ]] && continue
+            [[ -z "${url}" ]] && continue
             filename="${url##*/}"
             filename="${filename%%\?*}"
-            filename="${filename%%#*}"
-            dl_path="$TMP_DIR/$filename"
-            echo "下载Direct域名源: $filename"
-            curl -fsSL --retry 5 --retry-all-errors \
-              --connect-timeout 30 --max-time 180 \
-              -o "$dl_path" "$url"
-            test -s "$dl_path" || { echo "ERROR: 文件下载为空 $url"; exit 22; }
-            printf '%s\n' "$dl_path" >> "$DOMAIN_FILES"
-          done <<< "$DOMAIN_SOURCE_URLS"
+            filename="${filename%%#}"
+            dl_path="${TMP_DIR}/${filename}"
+            echo " 下载 Direct 域名源: ${filename}"
+            curl -fsSL --retry 3 --retry-all-errors \
+              --connect-timeout 20 --max-time 120 \
+              -o "${dl_path}" "${url}"
+            printf '%s\n' "${dl_path}" >> "${DOMAIN_FILES}"
+          done <<< "${DOMAIN_SOURCE_URLS}"
 
           python3 - <<'PY'
-          import yaml
-          from pathlib import Path
-          domain_set = set()
-          file_list = Path("/tmp/rules_tmp/domain_files.txt").read_text(encoding="utf-8").splitlines()
-          for fpath in file_list:
-              if not fpath.strip():
-                  continue
-              raw = Path(fpath).read_text(encoding="utf-8", errors="ignore")
-              # 判断yaml，读取payload
-              try:
-                  data = yaml.safe_load(raw)
-                  if isinstance(data, dict) and "payload" in data:
-                      for item in data["payload"]:
-                          if isinstance(item, str):
-                              domain_set.add(item.strip())
-                      continue
-              except Exception:
-                  pass
-              # plain list：一行一条域名
-              for line in raw.splitlines():
-                  line = line.strip()
-                  if line and not line.startswith("#"):
-                      domain_set.add(line)
-          out_path = Path("rule/GOG_Direct_Domain.list")
-          with open(out_path, "w", encoding="utf-8", newline="\n") as f:
-              for d in sorted(domain_set):
-                  f.write(f"{d}\n")
-          print(f"Direct域名规则合并完成，共 {len(domain_set)} 条")
-          PY
-          test -s "${OUT_DOMAIN_LIST}" || { echo "ERROR: GOG_Direct_Domain.list 生成空文件"; exit 22; }
+import yaml
+from pathlib import Path
+domain_set = set()
+file_list = Path("/tmp/rules_tmp/domain_files.txt").read_text(encoding="utf-8").splitlines()
+for fpath in file_list:
+    if not fpath.strip():
+        continue
+    raw = Path(fpath).read_text(encoding="utf-8", errors="ignore")
+    #判断是否 yaml（带 payload），否则当做纯文本 list 逐行读取
+    try:
+        data = yaml.safe_load(raw)
+        if isinstance(data, dict) and "payload" in data:
+            for item in data["payload"]:
+                if isinstance(item, str):
+                    domain_set.add(item.strip())
+            continue
+    except Exception:
+        pass
+    #plain list 文件：一行一条域名
+    for line in raw.splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            domain_set.add(line)
+out_path = Path("rule/GOG_Direct_Domain.list")
+with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+    for d in sorted(domain_set):
+        f.write(f"{d}\n")
+print(f"Direct 域名规则合并完成，共 {len(domain_set)} 条")
+PY
+          test -s "${OUT_DOMAIN_LIST}"
 
-          # ---------------------- 处理 Direct IP CIDR规则（双源合并+网段聚合） ----------------------
-          echo "===== 开始下载并合并【Direct IP CIDR规则源】 ====="
-          IP_FILES="$TMP_DIR/ip_files.txt"
-          : > "$IP_FILES"
+          #---------------------- 处理 Direct IP CIDR 规则（双源合并 + 网段聚合） ----------------------
+          echo "===== 开始下载并合并【Direct IP CIDR 规则源】 ====="
+          IP_FILES="${TMP_DIR}/ip_files.txt"
+          : > "${IP_FILES}"
           while IFS= read -r url; do
-            [[ -z "$url" ]] && continue
+            [[ -z "${url}" ]] && continue
             filename="${url##*/}"
             filename="${filename%%\?*}"
-            filename="${filename%%#*}"
-            dl_path="$TMP_DIR/$filename"
-            echo "下载IP源: $filename"
-            curl -fsSL --retry 5 --retry-all-errors \
-              --connect-timeout 30 --max-time 180 \
-              -o "$dl_path" "$url"
-            test -s "$dl_path" || { echo "ERROR: 文件下载为空 $url"; exit 22; }
-            printf '%s\n' "$dl_path" >> "$IP_FILES"
-          done <<< "$IP_SOURCE_URLS"
+            filename="${filename%%#}"
+            dl_path="${TMP_DIR}/${filename}"
+            echo " 下载 IP 源: ${filename}"
+            curl -fsSL --retry 3 --retry-all-errors \
+              --connect-timeout 20 --max-time 120 \
+              -o "${dl_path}" "${url}"
+            printf '%s\n' "${dl_path}" >> "${IP_FILES}"
+          done <<< "${IP_SOURCE_URLS}"
 
           python3 - <<'PY'
-          import yaml
-          import ipaddress
-          from pathlib import Path
-          raw_nets = []
-          file_list = Path("/tmp/rules_tmp/ip_files.txt").read_text(encoding="utf-8").splitlines()
-          for fpath in file_list:
-              if not fpath.strip():
-                  continue
-              raw = Path(fpath).read_text(encoding="utf-8", errors="ignore")
-              try:
-                  data = yaml.safe_load(raw)
-                  if isinstance(data, dict) and "payload" in data:
-                      for item in data["payload"]:
-                          if isinstance(item, str):
-                              try:
-                                  net = ipaddress.ip_network(item.strip(), strict=False)
-                                  raw_nets.append(net)
-                              except ValueError:
-                                  continue
-                      continue
-              except Exception:
-                  pass
-              for line in raw.splitlines():
-                  line = line.strip()
-                  if line and not line.startswith("#"):
-                      try:
-                          net = ipaddress.ip_network(line, strict=False)
-                          raw_nets.append(net)
-                      except ValueError:
-                          continue
-          v4 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==4), key=lambda x:int(x.network_address))
-          v6 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==6), key=lambda x:int(x.network_address))
-          agg = v4 + v6
-          out_path = Path("rule/GOG_Direct_IP.list")
-          with open(out_path, "w", encoding="utf-8", newline="\n") as f:
-              for net in agg:
-                  f.write(f"{net}\n")
-          print(f"Direct IP CIDR合并聚合完成，原始{len(raw_nets)}条，聚合后{len(agg)}条")
-          PY
-          test -s "${OUT_IP_LIST}" || { echo "ERROR: GOG_Direct_IP.list 生成空文件"; exit 22; }
+import yaml
+import ipaddress
+from pathlib import Path
+raw_nets = []
+file_list = Path("/tmp/rules_tmp/ip_files.txt").read_text(encoding="utf-8").splitlines()
+for fpath in file_list:
+    if not fpath.strip():
+        continue
+    raw = Path(fpath).read_text(encoding="utf-8", errors="ignore")
+    #yaml payload
+    try:
+        data = yaml.safe_load(raw)
+        if isinstance(data, dict) and "payload" in data:
+            for item in data["payload"]:
+                if isinstance(item, str):
+                    try:
+                        net = ipaddress.ip_network(item.strip(), strict=False)
+                        raw_nets.append(net)
+                    except ValueError:
+                        continue
+            continue
+    except Exception:
+        pass
+    #plain list 逐行读取 CIDR
+    for line in raw.splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            try:
+                net = ipaddress.ip_network(line, strict=False)
+                raw_nets.append(net)
+            except ValueError:
+                continue
+#IPv4/IPv6 分别聚合
+v4 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==4), key=lambda x:int(x.network_address))
+v6 = sorted(ipaddress.collapse_addresses(n for n in raw_nets if n.version ==6), key=lambda x:int(x.network_address))
+agg = v4 + v6
+out_path = Path("rule/GOG_Direct_IP.list")
+with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+    for net in agg:
+        f.write(f"{net}\n")
+print(f"Direct IP CIDR 合并聚合完成，原始 {len(raw_nets)} 条，聚合后 {len(agg)} 条")
+PY
+          test -s "${OUT_IP_LIST}"
 
-          # ---------------------- 处理 Proxy Domain（下载list → GOG_Proxy_Domain.list） ----------------------
-          echo "===== 下载【Proxy Domain单源】 ====="
-          curl -fsSL --retry 5 --retry-all-errors \
-            --connect-timeout 30 --max-time 180 \
-            -o "${OUT_PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_URL}"
-          test -s "${OUT_PROXY_DOMAIN_LIST}" || { echo "ERROR: Proxy domain 文件下载为空"; exit 22; }
+          #---------------------- 处理 Proxy Domain（下载并重命名为 GOG_Proxy_Domain.list） ----------------------
+          echo "===== 下载【Proxy Domain 单源】并重命名 ====="
+          curl -fsSL --retry 3 --retry-all-errors --connect-timeout 20 --max-time 120 -o "${OUT_PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_URL}"
+          test -s "${OUT_PROXY_DOMAIN_LIST}"
           echo "Proxy Domain list 文件已保存至 rule/GOG_Proxy_Domain.list"
 
       #=====================================================
-      # 第二步：list文本 转 mrs
-      # rule/GOG_Direct_Domain.list    → rule/GOG_Direct_Domain.mrs (domain text)
-      # rule/GOG_Direct_IP.list        → rule/GOG_Direct_IP.mrs     (ipcidr text)
-      # rule/GOG_Proxy_Domain.list     → rule/GOG_Proxy_Domain.mrs  (domain text)
+      # 第二步：list 转 mrs
+      # rule/GOG_Direct_Domain.list → rule/GOG_Direct_Domain.mrs (domain text)
+      # rule/GOG_Direct_IP.list → rule/GOG_Direct_IP.mrs (ipcidr text)
+      # rule/GOG_Proxy_Domain.list → rule/GOG_Proxy_Domain.mrs (domain text)
       #=====================================================
       - name: Convert LIST to MRS files
         shell: bash
@@ -246,27 +239,33 @@ jobs:
           PROXY_DOMAIN_LIST="rule/GOG_Proxy_Domain.list"
           PROXY_DOMAIN_MRS="rule/GOG_Proxy_Domain.mrs"
 
-          echo "===== 转换 Direct域名规则 ${DOMAIN_LIST} → ${DOMAIN_MRS} ====="
+          echo "===== 转换 Direct 域名规则 ${DOMAIN_LIST} → ${DOMAIN_MRS} ====="
           timeout 180s /tmp/mihomo convert-ruleset domain text "${DOMAIN_LIST}" "${DOMAIN_MRS}" > /tmp/convert_domain.log 2>&1
           cat /tmp/convert_domain.log
           test -s "${DOMAIN_MRS}"
-          echo "Direct域名MRS生成成功"
+          echo "Direct 域名 MRS 生成成功"
 
-          echo "===== 转换 Direct IP规则 ${IP_LIST} → ${IP_MRS} ====="
+          echo "===== 转换 Direct IP 规则 ${IP_LIST} → ${IP_MRS} ====="
           timeout 180s /tmp/mihomo convert-ruleset ipcidr text "${IP_LIST}" "${IP_MRS}" > /tmp/convert_ip.log 2>&1
           cat /tmp/convert_ip.log
           test -s "${IP_MRS}"
-          echo "Direct IP MRS生成成功"
+          echo "Direct IP MRS 生成成功"
 
-          echo "===== 转换 Proxy域名规则 ${PROXY_DOMAIN_LIST} → ${PROXY_DOMAIN_MRS} ====="
+          echo "===== 转换 Proxy 域名规则 ${PROXY_DOMAIN_LIST} → ${PROXY_DOMAIN_MRS} ====="
           timeout 180s /tmp/mihomo convert-ruleset domain text "${PROXY_DOMAIN_LIST}" "${PROXY_DOMAIN_MRS}" > /tmp/convert_proxy_domain.log 2>&1
           cat /tmp/convert_proxy_domain.log
           test -s "${PROXY_DOMAIN_MRS}"
-          echo "Proxy域名MRS生成成功"
+          echo "Proxy 域名 MRS 生成成功"
 
       #=====================================================
-      # SHA256对比，文件变更才提交push
-      # 3list +3mrs
+      # SHA256 对比，任意文件变更才提交 push
+      # 总共 6 个文件：3list + 3mrs
+      # rule/GOG_Direct_Domain.list
+      # rule/GOG_Direct_Domain.mrs
+      # rule/GOG_Direct_IP.list
+      # rule/GOG_Direct_IP.mrs
+      # rule/GOG_Proxy_Domain.list
+      # rule/GOG_Proxy_Domain.mrs
       #=====================================================
       - name: SHA256 Compare and Commit
         shell: bash
@@ -282,45 +281,33 @@ jobs:
             rule/GOG_Proxy_Domain.list
             rule/GOG_Proxy_Domain.mrs
           )
+          #计算新哈希
           declare -A new_sha
           declare -A old_sha
           any_change=0
           for f in "${FILE_LIST[@]}"; do
-            new_sha[$f]=$(sha256sum "$f" | awk '{print $1}')
-            old_sha[$f]="MISSING"
-            if git cat-file -e "HEAD:${f}" 2>/dev/null; then
-              old_sha[$f]=$(git show "HEAD:${f}" | sha256sum | awk '{print $1}')
-            fi
-            echo "File: $f"
-            echo "  New SHA: ${new_sha[$f]}"
-            echo "  Old SHA: ${old_sha[$f]}"
-            if [[ "${new_sha[$f]}" != "${old_sha[$f]}" ]]; then
-              any_change=1
-            fi
+              new_sha[$f]=$(sha256sum "$f" | awk '{print $1}')
+              old_sha[$f]="MISSING"
+              if git cat-file -e "HEAD:${f}" 2>/dev/null; then
+                  old_sha[$f]=$(git show "HEAD:${f}" | sha256sum | awk '{print $1}')
+              fi
+              echo "File: $f"
+              echo " New SHA: ${new_sha[$f]}"
+              echo " Old SHA: ${old_sha[$f]}"
+              if [[ "${new_sha[$f]}" != "${old_sha[$f]}" ]]; then
+                  any_change=1
+              fi
           done
-          if [[ "$any_change" -eq 0 ]]; then
-            echo "全部文件SHA256无变化，退出，无需提交"
-            exit 0
+          if [[ ${any_change} -eq 0 ]]; then
+              echo "全部文件SHA256无变化，退出，无需提交"
+              exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "${FILE_LIST[@]}"
           if git diff --cached --quiet; then
-            echo "Git暂存区无实际改动，跳过提交"
-            exit 0
+              echo "Git 暂存区无实际改动，跳过提交"
+              exit 0
           fi
           git commit -m "${COMMIT_MSG}"
           git push
-
-      #=====================================================
-      # 失败邮件通知，github-script@v8消除Node警告
-      #=====================================================
-      - name: Send Failure Notify
-        if: failure()
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const repo = context.repo;
-            const runId = context.runId;
-            const runUrl = `https://github.com/${repo.owner}/${repo.repo}/actions/runs/${runId}`;
-            core.notice(`❌ Auto Update Merge And Convert Files 任务失败！\n仓库：${repo.owner}/${repo.repo}\nRun地址：${runUrl}`);
