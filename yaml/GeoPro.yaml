@@ -102,10 +102,10 @@ geo-auto-update: true                                                           
 geo-update-interval: 24                                                                                      # 地理数据库自动更新间隔，单位小时
 geodata-mode: true                                                                                           # 启用geodata模式，使用geoip/geosite规则库进行匹配
 geox-url:
-  geosite: https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat     # geosite域名规则库下载地址
-  geoip:   https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat       # geoip IP归属规则库下载地址
-  mmdb:    https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb    # metadb新版IP库下载地址
-  asn:     https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb # ASN自治系统编号数据库
+  geosite: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat                          # geosite域名规则库下载地址
+  geoip:   https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat                            # geoip IP归属规则库下载地址
+  mmdb:    https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb                         # metadb新版IP库下载地址
+  asn:     https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb                    # ASN自治系统编号数据库
 
 # 3.3 认证配置(需要时启用)
 #authentication:                                                                                              # 代理接入账号密码认证列表
