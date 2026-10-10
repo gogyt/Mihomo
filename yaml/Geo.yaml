@@ -84,10 +84,10 @@ SelectFB:     &SelectFB {type: select, proxies: [默认代理, 故障转移, 狮
 SelectHS:     &SelectHS {type: select, proxies: [狮城自动, 狮城轮询, 狮城散列, 狮城粘滞, 香港自动, 香港轮询, 香港散列, 香港粘滞, 日本自动, 日本轮询, 日本散列, 日本粘滞, 美国自动, 美国轮询, 美国散列, 美国粘滞, 台湾自动, 台湾轮询, 台湾散列, 台湾粘滞, 欧洲自动, 欧洲轮询, 欧洲散列, 欧洲粘滞, 韩国自动, 韩国轮询, 韩国散列, 韩国粘滞, 其他自动, 其他轮询, 其他散列, 其他粘滞], include-all: true, filter: *FilterAL}
 
 # 2.5 共用图标锚点
-round:        &round      https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Round_Robin.png
-consistent:   &consistent https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Round_Robin_1.png
-sticky:       &sticky     https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Pinboard.png
-url-test:     &url-test   https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Auto.png
+round:        &round      https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png
+consistent:   &consistent https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png
+sticky:       &sticky     https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png
+url-test:     &url-test   https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png
 
 # 3 核心配置
 # 3.1 基础配置
@@ -194,43 +194,43 @@ dns:
 # 4 代理策略组 
 proxy-groups:
   # 4.1 业务策略组
-  - {name: 默认代理,       <<: *SelectPY, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Proxy.png}
-  - {name: 默认直连,       <<: *SelectDD, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Static.png}
-  - {name: Github,        <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/GitHub.png}
-  - {name: 油管视频,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/YouTube.png}
-  - {name: 谷歌服务,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Google_Search.png}
-  - {name: AI服务,        <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/AI.png}
-  - {name: 国外电商,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Ecommerce_1.png}
-  - {name: 加密货币,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Cryptocurrency.png}
-  - {name: 即时通讯,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Communication.png}
-  - {name: 社交媒体,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Media_1.png}
-  - {name: TikTok,        <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/TikTok.png}
-  - {name: 奈飞视频,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Netflix.png}
-  - {name: 迪士尼+,        <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Disney%2B.png}
-  - {name: HBO,           <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/HBO_Max.png}
-  - {name: Prime Video,   <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Prime_Video.png}
-  - {name: Spotify,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Spotify.png}
-  - {name: 国外娱乐,       <<: *SelectFB, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/ForeignMedia.png}
-  - {name: Bing(Copilot), <<: *SelectDC, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Bing.png}
-  - {name: 微软服务,       <<: *SelectDC, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Microsoft.png}
-  - {name: 苹果服务,       <<: *SelectDC, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Apple.png}
-  - {name: Emby,          <<: *SelectDC, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Emby.png}
-  - {name: 游戏平台,       <<: *SelectDC, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Game.png}
+  - {name: 默认代理,       <<: *SelectPY, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Proxy.png}
+  - {name: 默认直连,       <<: *SelectDD, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Static.png}
+  - {name: Github,        <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/GitHub.png}
+  - {name: 油管视频,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/YouTube.png}
+  - {name: 谷歌服务,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Google_Search.png}
+  - {name: AI服务,        <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/AI.png}
+  - {name: 国外电商,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Ecommerce_1.png}
+  - {name: 加密货币,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Cryptocurrency.png}
+  - {name: 即时通讯,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Communication.png}
+  - {name: 社交媒体,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Media_1.png}
+  - {name: TikTok,        <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/TikTok.png}
+  - {name: 奈飞视频,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Netflix.png}
+  - {name: 迪士尼+,        <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Disney%2B.png}
+  - {name: HBO,           <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/HBO_Max.png}
+  - {name: Prime Video,   <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Prime_Video.png}
+  - {name: Spotify,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Spotify.png}
+  - {name: 国外娱乐,       <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/ForeignMedia.png}
+  - {name: Bing(Copilot), <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bing.png}
+  - {name: 微软服务,       <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Microsoft.png}
+  - {name: 苹果服务,       <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Apple.png}
+  - {name: Emby,          <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Emby.png}
+  - {name: 游戏平台,       <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Game.png}
   
   # 4.2 策略组与地理策略组分界识别
-  - {name: 漏网之鱼,       <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Final.png}
-  - {name: 网络测试,       <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Speedtest.png}
-  - {name: 直接连接,       <<: *StrategyHS, proxies: [DIRECT], hidden: true, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Direct.png}
+  - {name: 漏网之鱼,       <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
+  - {name: 网络测试,       <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
+  - {name: 直接连接,       <<: *StrategyHS, proxies: [DIRECT], hidden: true, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
   # 4.3 地理策略组
-  - {name: 狮城策略,       <<: *StrategyHS, proxies: [狮城自动, 狮城轮询, 狮城散列, 狮城粘滞], include-all: true, filter: *FilterSG, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Singapore.png}
-  - {name: 香港策略,       <<: *StrategyHS, proxies: [香港自动, 香港轮询, 香港散列, 香港粘滞], include-all: true, filter: *FilterHK, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Hong_Kong.png}
-  - {name: 日本策略,       <<: *StrategyHS, proxies: [日本自动, 日本轮询, 日本散列, 日本粘滞], include-all: true, filter: *FilterJP, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Japan.png}
-  - {name: 美国策略,       <<: *StrategyHS, proxies: [美国自动, 美国轮询, 美国散列, 美国粘滞], include-all: true, filter: *FilterUS, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/United_States.png}
-  - {name: 台湾策略,       <<: *StrategyHS, proxies: [台湾自动, 台湾轮询, 台湾散列, 台湾粘滞], include-all: true, filter: *FilterTW, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Taiwan.png}
-  - {name: 欧洲策略,       <<: *StrategyHS, proxies: [欧洲自动, 欧洲轮询, 欧洲散列, 欧洲粘滞], include-all: true, filter: *FilterEU, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/European_Union.png}
-  - {name: 韩国策略,       <<: *StrategyHS, proxies: [韩国自动, 韩国轮询, 韩国散列, 韩国粘滞], include-all: true, filter: *FilterKR, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Korea.png}
-  - {name: 其他策略,       <<: *StrategyHS, proxies: [其他自动, 其他轮询, 其他散列, 其他粘滞], include-all: true, filter: *FilterOT, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Other.png}
+  - {name: 狮城策略,       <<: *StrategyHS, proxies: [狮城自动, 狮城轮询, 狮城散列, 狮城粘滞], include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
+  - {name: 香港策略,       <<: *StrategyHS, proxies: [香港自动, 香港轮询, 香港散列, 香港粘滞], include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
+  - {name: 日本策略,       <<: *StrategyHS, proxies: [日本自动, 日本轮询, 日本散列, 日本粘滞], include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
+  - {name: 美国策略,       <<: *StrategyHS, proxies: [美国自动, 美国轮询, 美国散列, 美国粘滞], include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States.png}
+  - {name: 台湾策略,       <<: *StrategyHS, proxies: [台湾自动, 台湾轮询, 台湾散列, 台湾粘滞], include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan.png}
+  - {name: 欧洲策略,       <<: *StrategyHS, proxies: [欧洲自动, 欧洲轮询, 欧洲散列, 欧洲粘滞], include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
+  - {name: 韩国策略,       <<: *StrategyHS, proxies: [韩国自动, 韩国轮询, 韩国散列, 韩国粘滞], include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
+  - {name: 其他策略,       <<: *StrategyHS, proxies: [其他自动, 其他轮询, 其他散列, 其他粘滞], include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 4.4 负载均衡-散列 
   - {name: 香港散列,       <<: *StrategyCH, include-all: true, filter: *FilterHK, icon: *consistent}
@@ -273,10 +273,10 @@ proxy-groups:
   - {name: 其他自动,       <<: *StrategyUT, include-all: true, filter: *FilterOT, icon: *url-test}
 
   # 4.8 故障转移策略组
-  - {name: 故障转移,       <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Back.png}
+  - {name: 故障转移,       <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back.png}
 
   # 4.9 手动策略组
-  - {name: 全球手动,       <<: *SelectHS, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/World_Map.png}
+  - {name: 全球手动,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
  
 # 5 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
 rules: 
@@ -340,15 +340,15 @@ rules:
 # 6 补充规则
 rule-providers:  
   # 6.1 拦截规则
-  AWAvenueAds:           {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/TG-Twilight/AWAvenue-Ads-Rule/raw/main/Filters/AWAvenue-Ads-Rule-Clash.mrs}
-  adblock:               {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/217heidai/adblockfilters/raw/main/rules/adblockmihomo.mrs} 
+  AWAvenueAds:           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs}
+  adblock:               {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/217heidai/adblockfilters@main/rules/adblockmihomo.mrs} 
 
   # 6.2 fakeip-filter规则
-  fakeip-filter:         {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/DustinWin/ruleset_geodata/raw/mihomo-ruleset/fakeip-filter.mrs}
+  fakeip-filter:         {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/fakeip-filter.mrs}
   
   # 6.3 其他规则
-  Direct_Domain:         {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/rule/Direct_Domain.mrs}
-  Direct_IP:             {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/rule/Direct_IP.mrs}
-  Speedtest:             {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/speedtest.mrs}
-  cn_IP:                 {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/cn.mrs}
+  Direct_Domain:         {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct_Domain.mrs}
+  Direct_IP:             {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct_IP.mrs}
+  Speedtest:             {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
+  cn_IP:                 {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
 # ==================== EOF ====================

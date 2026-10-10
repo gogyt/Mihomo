@@ -77,10 +77,10 @@ SelectDC:     &SelectDC {type: select, proxies: [直接连接, 默认直连, 默
 SelectHS:     &SelectHS {type: select, proxies: ['[主] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[备] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[主] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[备] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[主] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[备] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[主] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[备] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[主] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[备] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[主] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[备] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[主] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[备] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[主] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[备] 其他自动', '[备] 其他轮询', '[备] 其他散列'], include-all: true, filter: *FilterAL}
 
 # 2.5 共用图标锚点
-round:        &round      https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Round_Robin.png
-consistent:   &consistent https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Round_Robin_1.png
-sticky:       &sticky     https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Pinboard.png
-url-test:     &url-test   https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Auto.png
+round:        &round      https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin.png
+consistent:   &consistent https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Round_Robin_1.png
+sticky:       &sticky     https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Pinboard.png
+url-test:     &url-test   https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Auto.png
   
 # 3 核心配置
 # 3.1 基础配置
@@ -183,23 +183,23 @@ dns:
 # 4 代理策略组 
 proxy-groups:
   # 4.1 业务策略组
-  - {name: 默认代理,        <<: *SelectPY, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Proxy.png}
-  - {name: 默认直连,        <<: *SelectDD, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Static.png}
+  - {name: 默认代理,        <<: *SelectPY, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Proxy.png}
+  - {name: 默认直连,        <<: *SelectDD, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Static.png}
 
   # 4.2 策略组与地理策略组分界识别
-  - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Final.png}
-  - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Speedtest.png}
-  - {name: 直接连接,        <<: *StrategyHS, proxies: [DIRECT], hidden: true, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Direct.png}
+  - {name: 漏网之鱼,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Final.png}
+  - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
+  - {name: 直接连接,        <<: *StrategyHS, proxies: [DIRECT], hidden: true, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
   # 4.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
-  - {name: 狮城策略,        <<: *StrategyHS, proxies: ['[主] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[备] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列'], include-all: true, filter: *FilterSG, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Singapore.png}
-  - {name: 香港策略,        <<: *StrategyHS, proxies: ['[主] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[备] 香港自动', '[备] 香港轮询', '[备] 香港散列'], include-all: true, filter: *FilterHK, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Hong_Kong.png}
-  - {name: 日本策略,        <<: *StrategyHS, proxies: ['[主] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[备] 日本自动', '[备] 日本轮询', '[备] 日本散列'], include-all: true, filter: *FilterJP, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Japan.png}
-  - {name: 美国策略,        <<: *StrategyHS, proxies: ['[主] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[备] 美国自动', '[备] 美国轮询', '[备] 美国散列'], include-all: true, filter: *FilterUS, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/United_States.png}
-  - {name: 台湾策略,        <<: *StrategyHS, proxies: ['[主] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[备] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列'], include-all: true, filter: *FilterTW, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Taiwan.png}
-  - {name: 欧洲策略,        <<: *StrategyHS, proxies: ['[主] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[备] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列'], include-all: true, filter: *FilterEU, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/European_Union.png}
-  - {name: 韩国策略,        <<: *StrategyHS, proxies: ['[主] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[备] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列'], include-all: true, filter: *FilterKR, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Korea.png}
-  - {name: 其他策略,        <<: *StrategyHS, proxies: ['[主] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[备] 其他自动', '[备] 其他轮询', '[备] 其他散列'], include-all: true, filter: *FilterOT, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Other.png}
+  - {name: 狮城策略,        <<: *StrategyHS, proxies: ['[主] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[备] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列'], include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
+  - {name: 香港策略,        <<: *StrategyHS, proxies: ['[主] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[备] 香港自动', '[备] 香港轮询', '[备] 香港散列'], include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
+  - {name: 日本策略,        <<: *StrategyHS, proxies: ['[主] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[备] 日本自动', '[备] 日本轮询', '[备] 日本散列'], include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
+  - {name: 美国策略,        <<: *StrategyHS, proxies: ['[主] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[备] 美国自动', '[备] 美国轮询', '[备] 美国散列'], include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States.png}
+  - {name: 台湾策略,        <<: *StrategyHS, proxies: ['[主] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[备] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列'], include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan.png}
+  - {name: 欧洲策略,        <<: *StrategyHS, proxies: ['[主] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[备] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列'], include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
+  - {name: 韩国策略,        <<: *StrategyHS, proxies: ['[主] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[备] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列'], include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
+  - {name: 其他策略,        <<: *StrategyHS, proxies: ['[主] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[备] 其他自动', '[备] 其他轮询', '[备] 其他散列'], include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 4.4 负载均衡-散列  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[主] 香港散列', <<: *StrategyCH, use: [ Airport1 ], filter: *FilterHK, icon: *consistent}
@@ -259,10 +259,10 @@ proxy-groups:
   - {name: '[备] 其他自动', <<: *StrategyUT, use: [ Airport2 ], filter: *FilterOT, icon: *url-test}
  
   # 4.7 故障转移策略组
-  - {name: 故障转移,        <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/Back.png}
+  - {name: 故障转移,        <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back.png}
 
   # 4.8 手动策略组
-  - {name: 全球手动,        <<: *SelectHS, icon: https://gh-proxy.com/github.com/gogyt/Qure/raw/master/IconSet/Color/World_Map.png}
+  - {name: 全球手动,        <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
 
 # 5 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
 rules: 
@@ -306,44 +306,44 @@ rules:
 # 6 规则提供者
 rule-providers:  
   # 6.1 广告拦截规则
-  category-ads-all:                    {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-ads-all.mrs }
-  AWAvenueAds:                         {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/TG-Twilight/AWAvenue-Ads-Rule/raw/main/Filters/AWAvenue-Ads-Rule-Clash.mrs}
-  adblock:                             {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/217heidai/adblockfilters/raw/main/rules/adblockmihomo.mrs} 
+  category-ads-all:                    {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-ads-all.mrs }
+  AWAvenueAds:                         {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs}
+  adblock:                             {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/217heidai/adblockfilters@main/rules/adblockmihomo.mrs} 
 
   # 6.2 fakeip-filter规则
-  fakeip-filter:                       {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/fakeip-filter.mrs}
+  fakeip-filter:                       {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/fakeip-filter.mrs}
 
   # 6.4 自定义规则
-  Direct_Domain:                       {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/rule/Direct_Domain.mrs}
-  Direct_IP:                           {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/rule/Direct_IP.mrs}
-  Speedtest:                           {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/speedtest.mrs}
+  Direct_Domain:                       {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct_Domain.mrs}
+  Direct_IP:                           {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/rule/Direct_IP.mrs}
+  Speedtest:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   
   # 6.5 主要规则集 
-  private:                             {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/private.mrs}
-  private_IP:                          {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/private.mrs}
-  google-cn:                           {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/google-cn.mrs}
-  microsoft@cn:                        {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/microsoft@cn.mrs}
-  microsoft:                           {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/microsoft.mrs}
-  category-game-platforms-download:    {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-game-platforms-download.mrs}
-  category-public-tracker:             {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-public-tracker.mrs}
-  category-pt:                         {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-pt.mrs}
-  category-games@cn:                   {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-games@cn.mrs}
-  category-games-cn:                   {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-games-cn.mrs}
-  category-games:                      {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-games.mrs}
-  category-speedtest:                  {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/category-speedtest.mrs}
-  test-ipv6:                           {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/test-ipv6.mrs}
-  github:                              {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/github.mrs}
-  gfw:                                 {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/gfw.mrs}
-  google_IP:                           {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/google.mrs}
-  telegram_IP:                         {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/telegram.mrs}
-  twitter_IP:                          {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/twitter.mrs}
-  facebook_IP:                         {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/facebook.mrs}
-  netflix_IP:                          {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/netflix.mrs}
-  geolocation-cn:                      {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/geolocation-cn.mrs}
-  geolocation-!cn:                     {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/geolocation-!cn.mrs}
-  cloudflare_IP:                       {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/cloudflare.mrs}
-  cloudfront_IP:                       {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/cloudfront.mrs}
-  fastly_IP:                           {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/fastly.mrs}
-  cn:                                  {<<: *BehaviorDN, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geosite/cn.mrs}
-  cn_IP:                               {<<: *BehaviorIP, url: https://gh-proxy.com/github.com/gogyt/Mihomo/raw/main/geo/geoip/cn.mrs}
+  private:                             {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/private.mrs}
+  private_IP:                          {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/private.mrs}
+  google-cn:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/google-cn.mrs}
+  microsoft@cn:                        {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/microsoft@cn.mrs}
+  microsoft:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/microsoft.mrs}
+  category-game-platforms-download:    {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-game-platforms-download.mrs}
+  category-public-tracker:             {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-public-tracker.mrs}
+  category-pt:                         {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-pt.mrs}
+  category-games@cn:                   {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-games@cn.mrs}
+  category-games-cn:                   {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-games-cn.mrs}
+  category-games:                      {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-games.mrs}
+  category-speedtest:                  {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-speedtest.mrs}
+  test-ipv6:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/test-ipv6.mrs}
+  github:                              {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/github.mrs}
+  gfw:                                 {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/gfw.mrs}
+  google_IP:                           {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/google.mrs}
+  telegram_IP:                         {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/telegram.mrs}
+  twitter_IP:                          {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/twitter.mrs}
+  facebook_IP:                         {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/facebook.mrs}
+  netflix_IP:                          {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/netflix.mrs}
+  geolocation-cn:                      {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-cn.mrs}
+  geolocation-!cn:                     {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-!cn.mrs}
+  cloudflare_IP:                       {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cloudflare.mrs}
+  cloudfront_IP:                       {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cloudfront.mrs}
+  fastly_IP:                           {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/fastly.mrs}
+  cn:                                  {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/cn.mrs}
+  cn_IP:                               {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
 # ==================== EOF ====================
