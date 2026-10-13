@@ -295,4 +295,4 @@ rule-providers:
   Direct_IP:             {<<: *BehaviorIP, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/rule/Direct_IP.mrs}
   Speedtest:             {<<: *BehaviorDN, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   cn_IP:                 {<<: *BehaviorIP, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs} 
-# ==================== EOF ====================
+# DONE
