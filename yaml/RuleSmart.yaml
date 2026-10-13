@@ -435,4 +435,4 @@ rule-providers:
   cloudfront_IP:                       {<<: *BehaviorIP, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geoip/cloudfront.mrs}
   fastly_IP:                           {<<: *BehaviorIP, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geoip/fastly.mrs}
   cn_IP:                               {<<: *BehaviorIP, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
-# ==================== EOF ====================
+# DONE
