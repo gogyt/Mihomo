@@ -346,4 +346,4 @@ rule-providers:
   fastly_IP:                           {<<: *BehaviorIP, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geoip/fastly.mrs}
   cn:                                  {<<: *BehaviorDN, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geosite/cn.mrs}
   cn_IP:                               {<<: *BehaviorIP, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
-# ==================== EOF ====================
+# DONE
