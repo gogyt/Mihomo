@@ -295,9 +295,8 @@ proxy-groups:
 # 5 规则路由 (按照从上往下的顺序遍历,相互隶属的规则按"金字塔"模式排序实现分流,优先命中上位规则,规则重复无影响,修改顺序会影响分流效果,如geolocation-!cn为境外域名,包含了前置gfw被墙域名,先滤掉gfw被墙域名后，剩下的就是未被墙的境外域名)
 rules: 
   # 5.1 拦截规则(按需启用,可禁用拦截,不影响使用效果)
-  - RULE-SET,category-ads-all,REJECT                         # 轻量化广告拦截列表,搭配AWAvenueAds秋风广告列表使用,与adblock广告单独使用
-  - RULE-SET,AWAvenueAds,REJECT                              # 秋风广告过滤列表,搭配category-ads-all广告列表使用,与adblock广告单独使用
-#  - RULE-SET,adblock,REJECT                                   # adblock广告过滤列表,与秋风、category-ads-all广告列表单独使用
+  - RULE-SET,Ads,REJECT                                      # 轻量化广告列表，是AWAvenueAds(秋风)与MetaCubeX的category-ads-all合并、去重、转换而来
+#  - RULE-SET,adblock,REJECT                                   # adblock全量广告过滤列表,与Ads广告二选一
   
   # 5.2 分流规则
   - GEOSITE,private,直接连接                                  # 私有域名
@@ -365,7 +364,7 @@ rules:
 # 6 补充规则
 rule-providers:  
   # 6.1 广告拦截规则
-  AWAvenueAds:           {<<: *BehaviorDN, url: https://cdn.jsdmirror.com/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs}
+  Ads:                   {<<: *BehaviorDN, url: https://cdn.jsdmirror.com/gh/gogyt/Mihomo@main/rule/Ads.mrs}
   adblock:               {<<: *BehaviorDN, url: https://cdn.jsdmirror.com/gh/217heidai/adblockfilters@main/rules/adblockmihomo.mrs} 
 
   # 6.3 fakeip-filter规则
