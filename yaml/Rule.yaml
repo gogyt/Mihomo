@@ -283,7 +283,7 @@ rules:
   # 5.1 拦截规则(按需启用,可禁用拦截,不影响使用效果)
   - RULE-SET,category-ads-all,REJECT                          # 轻量化广告拦截列表,搭配AWAvenueAds秋风广告列表使用,同时禁用adblock广告过滤列表
   - RULE-SET,AWAvenueAds,REJECT                               # 秋风广告过滤列表,搭配category-ads-all广告列表使用,同时禁用adblock广告过滤列表
-  - RULE-SET,adblock,REJECT                                   # adblock广告过滤列表,与秋风、category-ads-all广告列表单独使用
+#  - RULE-SET,adblock,REJECT                                   # adblock广告过滤列表,与秋风、category-ads-all广告列表单独使用
   
   # 5.2 域名规则
   - RULE-SET,private,直接连接                                  # 私有域名
