@@ -16,7 +16,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家庭网络遵循简单好用，例如仅一台硬路由也能满足家庭科学上网需求，不必搞几层路由。通过对比ClashVerge、MerlinClash、OpenClash、Nikki、ClashMate等代理程序，各种程序在不同的硬件和网络环境各有优劣：有稳定的旁路由（一般为7×24小时开机的独立旁路由），使用OpenClash、Nikki等比较稳定；如果旁路由需经常开关机，那部署在主路由上比较合适（如OpenClash、Nikki或Merlinclash等）；科学上网需求不大的，在终端电脑上安装类似Clash Verge的代理程序，随用随开。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 基于mihomo的yaml配置文件通用性较强，适用于各种mihomo代理程序，导入即用；到底什么配置文件才好用？很多大佬的配置教程，他们用的机场本身质量就非常好，怎么选节点都好用，同一配置模板当换成质量相对不稳定的机场时就不好用了，往往在实际使用中，ping的高低并不等于连接速率，有时选择ping低的节点，却十分卡顿，采用多个节点尝试连接，选择到连接速率最高节点概率将大幅度增加。另一方面，每个人上网习惯不同，有些小众网站分流，对于有的人是经常使用的分流，所以只有适合自己的配置才是最好的配置，本仓的配置文件尽可能阐明功能原理，可按需求自行修订；通过在merlinclash、openclash、nikki、clashverge长时测试，特别是在主路由环境下的merlinclash  、旁路由环境下的openclash和nikki ，采用了两个廉价机场，十分稳定，**${\color{red}\text{可实现长期免维护}}$**。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 基于mihomo的yaml配置文件通用性较强，适用于各种mihomo代理程序，导入即用；到底什么配置文件才好用？很多大佬的配置教程，他们用的机场本身质量就非常好，怎么选节点都好用，同一配置模板当换成质量相对不稳定的机场时就不好用了，往往在实际使用中，ping的高低并不等于连接速率，有时选择ping低的节点，却十分卡顿，采用多个节点尝试连接，选择到连接速率最高节点概率将大幅度增加。另一方面，每个人上网习惯不同，有些小众网站分流，对于有的人是却是主要分流，所以只有适合自己的配置才是最好的配置，本仓的配置文件尽可能阐明功能原理，可按需求自行修订；通过在merlinclash、openclash、nikki、clashverge测试，特别是在主路由环境下的merlinclash  、旁路由环境下的openclash和nikki ，采用了两个廉价机场测试，十分稳定，**${\color{red}\text{可实现长期免维护}}$**。
 
 > [!NOTE]
 > #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本仓仅提供基于Mihomo的配置文件示例，OpenClash、Nikki、Merlinclash等代理程序的设置可自行查阅[相关教程](https://github.com/wybzsngw/router-vpn/blob/3a851e8e13cfdd88b6b8412b020c8de1ac068b48)，需一定科学网络配置基础才能上手。另外[HenryChiao/MIHOMO_YAMLS](https://github.com/gogyt/MIHOMO_YAMLS/tree/main/THEYAMLS/General_Config)项目收集了全网相对典型的yaml和ini订阅配置模板，可集思广益参考借鉴。
