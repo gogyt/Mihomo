@@ -1,4 +1,4 @@
-name: Auto Update Remote Files
+name: Auto Update Geo Files
 
 on:
   schedule:
