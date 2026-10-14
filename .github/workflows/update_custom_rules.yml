@@ -93,12 +93,12 @@ jobs:
         shell: bash
         env:
           DOMAIN_SOURCE_URLS: |
-            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/Custom_Direct_Domain.list
+            https://raw.githubusercontent.com/gogyt/Rules/refs/heads/main/rules/Custom_Direct_Domain.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_Domain.yaml
           IP_SOURCE_URLS: |
-            https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/Custom_Direct_IP.list
+            https://raw.githubusercontent.com/gogyt/Rules/refs/heads/main/rules/Custom_Direct_IP.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_IP.yaml
-          PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Mihomo/refs/heads/main/rule/Custom_Proxy_Domain.list
+          PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Rules/refs/heads/main/rules/Custom_Proxy_Domain.list
           OUT_DOMAIN_LIST: rule/Direct_Domain.list
           OUT_IP_LIST: rule/Direct_IP.list
           OUT_PROXY_DOMAIN_LIST: rule/Proxy_Domain.list
