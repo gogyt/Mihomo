@@ -1,7 +1,8 @@
 name: AUTO Update Ads Rule
 on:
   schedule:
-    - cron: '30 14 * * *'
+    - cron: '30 4 * * *'
+      timezone: 'Asia/Shanghai'
   workflow_dispatch:
 permissions:
   contents: write
