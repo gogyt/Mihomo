@@ -45,11 +45,8 @@ jobs:
             "geo/geosite/fakeip-filter.mrs|https://github.com/DustinWin/ruleset_geodata/raw/mihomo-ruleset/fakeip-filter.mrs"
             "geo/geosite/fakeip-filter.list|https://github.com/DustinWin/ruleset_geodata/raw/mihomo-ruleset/fakeip-filter.list"
 
-            "geo/geosite/Direct.mrs|https://github.com/666OS/rules/raw/release/mihomo/domain/Direct.mrs"
-            "geo/geosite/Direct.txt|https://github.com/666OS/rules/raw/release/mihomo/domain/Direct.txt"
-          
 
-           # MetaCubeX规则拉取
+            # MetaCubeX规则拉取
             "geo/geosite/private.mrs|https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs"
             "geo/geosite/private.list|https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.list"
 
