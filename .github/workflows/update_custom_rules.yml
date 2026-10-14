@@ -89,6 +89,7 @@ jobs:
       # 1. Direct Domain：Custom_Direct_Domain.list + Custom_Direct_Domain.yaml → rule/Direct_Domain.list（仅域名，无注释空行）
       # 2. Direct IP：Custom_Direct_IP.list + Custom_Direct_IP.yaml → rule/Direct_IP.list（仅IP，无注释空行）
       # 3. Proxy Domain：Custom_Proxy_Domain.list 下载提取纯域名 → rule/Proxy_Domain.list（仅域名，无注释空行）
+      # 4. Ads Domain：AWAvenue-Ads-Rule-Clash.yaml + category-ads-all.list → rule/Ads.list（域名，合并去重排序）
       #=====================================================
       - name: Download & Merge All Rules
         shell: bash
@@ -100,15 +101,20 @@ jobs:
             https://raw.githubusercontent.com/gogyt/Rules/refs/heads/main/rules/Custom_Direct_IP.list
             https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Direct_IP.yaml
           PROXY_DOMAIN_URL: https://raw.githubusercontent.com/gogyt/Rules/refs/heads/main/rules/Custom_Proxy_Domain.list
+          ADS_SOURCE_URLS: |
+            https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml
+            https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.list
           OUT_DOMAIN_LIST: rule/Direct_Domain.list
           OUT_IP_LIST: rule/Direct_IP.list
           OUT_PROXY_DOMAIN_LIST: rule/Proxy_Domain.list
+          OUT_ADS_LIST: rule/Ads.list
         run: |
           set -euo pipefail
           mkdir -p rule
           # 清理旧yaml、旧代理文件残留
           rm -f rule/Direct_Domain.yaml rule/Direct_IP.yaml rule/Proxy_Domain.yaml
           rm -f rule/Custom_Proxy_Domain.list rule/Custom_Proxy_Domain.mrs
+          rm -f rule/Ads.yaml rule/Ads.mrs rule/Ads.list
           TMP_DIR="/tmp/rules_tmp"
           mkdir -p "$TMP_DIR"
           # ---------------------- 处理 Direct 域名规则（双源合并去重，剔除注释空行） ----------------------
@@ -228,11 +234,59 @@ jobs:
           sed -i '/^[[:space:]]*#/d; /^[[:space:]]*$/d' "${OUT_PROXY_DOMAIN_LIST}"
           test -s "${OUT_PROXY_DOMAIN_LIST}"
           echo "Proxy_Domain.list 文件下载并过滤注释完成"
+          # ---------------------- Ads Domain：双源下载、提取域名、合并去重排序输出 Ads.list ----------------------
+          echo "===== 开始下载并合并【Ads广告域名规则源】 ====="
+          ADS_FILES="$TMP_DIR/ads_files.txt"
+          : > "$ADS_FILES"
+          while IFS= read -r url; do
+            [[ -z "$url" ]] && continue
+            filename="${url##*/}"
+            filename="${filename%%\?*}"
+            filename="${filename%%#*}"
+            dl_path="$TMP_DIR/$filename"
+            echo "下载Ads源: $filename"
+            curl -fsSL --retry 3 --retry-all-errors \
+              --connect-timeout 20 --max-time 120 \
+              -o "$dl_path" "$url"
+            printf '%s\n' "$dl_path" >> "$ADS_FILES"
+          done <<< "$ADS_SOURCE_URLS"
+          python3 - <<'PY'
+          import yaml
+          from pathlib import Path
+          ads_set = set()
+          file_list = Path("/tmp/rules_tmp/ads_files.txt").read_text(encoding="utf-8").splitlines()
+          for fpath in file_list:
+              if not fpath.strip():
+                  continue
+              raw = Path(fpath).read_text(encoding="utf-8", errors="ignore")
+              if fpath.endswith(".list"):
+                  for line in raw.splitlines():
+                      line = line.strip()
+                      if not line or line.startswith("#"):
+                          continue
+                      ads_set.add(line)
+              else:
+                  data = yaml.safe_load(raw)
+                  if isinstance(data, dict) and "payload" in data:
+                      for item in data["payload"]:
+                          if isinstance(item, str):
+                              item = item.strip()
+                              if not item or item.startswith("#"):
+                                  continue
+                              ads_set.add(item)
+          out_path = Path("rule/Ads.list")
+          with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+              for d in sorted(ads_set):
+                  f.write(f"{d}\n")
+          print(f"Ads域名规则合并去重完成，共 {len(ads_set)} 条")
+          PY
+          test -s "${OUT_ADS_LIST}"
       #=====================================================
       # 第二步：list转mrs
       # Direct_Domain.list    → Direct_Domain.mrs (domain)
       # Direct_IP.list        → Direct_IP.mrs     (ipcidr)
       # Proxy_Domain.list     → Proxy_Domain.mrs  (domain)
+      # Ads.list              → Ads.mrs           (domain)
       #=====================================================
       - name: Convert LIST to MRS files
         shell: bash
@@ -244,6 +298,8 @@ jobs:
           IP_MRS="rule/Direct_IP.mrs"
           PROXY_DOMAIN_LIST="rule/Proxy_Domain.list"
           PROXY_DOMAIN_MRS="rule/Proxy_Domain.mrs"
+          ADS_LIST="rule/Ads.list"
+          ADS_MRS="rule/Ads.mrs"
 
           echo "===== 转换 Direct_Domain.list → ${DOMAIN_MRS} ====="
           timeout 180s /tmp/mihomo convert-ruleset domain text "${DOMAIN_LIST}" "${DOMAIN_MRS}" > /tmp/convert_domain.log 2>&1
@@ -262,15 +318,23 @@ jobs:
           cat /tmp/convert_proxy_domain.log
           test -s "${PROXY_DOMAIN_MRS}"
           echo "Proxy域名MRS生成成功"
+
+          echo "===== 转换 Ads.list → ${ADS_MRS} ====="
+          timeout 180s /tmp/mihomo convert-ruleset domain text "${ADS_LIST}" "${ADS_MRS}" > /tmp/convert_ads.log 2>&1
+          cat /tmp/convert_ads.log
+          test -s "${ADS_MRS}"
+          echo "Ads域名MRS生成成功"
       #=====================================================
       # SHA256对比，任意文件变更才提交push
-      # 文件清单：3个list + 3个mrs
+      # 文件清单：4个list + 4个mrs
       # rule/Direct_Domain.list
       # rule/Direct_Domain.mrs
       # rule/Direct_IP.list
       # rule/Direct_IP.mrs
       # rule/Proxy_Domain.list
       # rule/Proxy_Domain.mrs
+      # rule/Ads.list
+      # rule/Ads.mrs
       #=====================================================
       - name: SHA256 Compare and Commit
         shell: bash
@@ -285,6 +349,8 @@ jobs:
             rule/Direct_IP.mrs
             rule/Proxy_Domain.list
             rule/Proxy_Domain.mrs
+            rule/Ads.list
+            rule/Ads.mrs
           )
           # 计算新哈希
           declare -A new_sha
