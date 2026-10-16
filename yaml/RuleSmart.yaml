@@ -91,7 +91,7 @@ bind-address: "*"                                                               
 log-level: warning                                                                                           # 日志输出等级，warning仅输出警告及错误日志
 unified-delay: true                                                                                          # 统一延迟测速，所有节点使用同一目标地址进行延迟探测，测速结果对比更公平
 tcp-concurrent: true                                                                                         # TCP并发测速，并行发起探测请求，缩短节点延迟测试耗时
-profile: { store-selected: true, store-fake-ip: true }                                                       # 持久化配置；store-selected保存节点选择，store-fake-ip保存FakeIP域名映射记录
+profile: {store-selected: true, store-fake-ip: true}                                                         # 持久化配置；store-selected保存节点选择，store-fake-ip保存FakeIP域名映射记录
 
 # 3.2 地理数据
 geo-auto-update: true                                                                                        # 开启geo地理规则数据库自动更新
@@ -118,12 +118,12 @@ secret: 12345678                                                                
 tun:
   enable: true                                                                                               # 开启TUN虚拟网卡，实现系统全局透明代理
   stack: mixed                                                                                               # TUN协议栈，mixed（混合协议栈） / gvisor（用户态协议栈） / mips（轻量内核栈，需V1.19.31以后内核版本） / system（原生网络栈）
-  dns-hijack: [udp://any:53, tcp://any:53]                                                                   # DNS劫持，拦截所有网卡53端口UDP/TCP DNS请求，防止DNS泄露
-  auto-detect-interface: true                                                                                # 自动识别本机外网出口网卡 (仅内核模式有效)
   auto-route: true                                                                                           # 自动添加系统路由，将流量导入TUN网卡 (仅内核模式有效)
+  strict-route: true                                                                                         # 该参数只有在 `auto-route: true` 时才生效，作用是启用严格路由模式，封堵系统路由层面的流量泄露与 DNS 泄露
   auto-redirect: true                                                                                        # 自动配置防火墙流量转发规则(Linux iptables/nftables) (仅内核模式有效)
-  strict-route: false                                                                                        # 严格路由开关，关闭时部分特殊流量不强制拦截，减少断网风险
+  auto-detect-interface: true                                                                                # 自动识别本机外网出口网卡 (仅内核模式有效)
   endpoint-independent-nat: true                                                                             # 开启与终端地址无关的NAT，适配流媒体多IP连接场景
+  dns-hijack: ["any:53", "tcp://any:53"]                                                                     # DNS劫持，拦截所有网卡53端口UDP/TCP DNS请求，防止DNS泄露
   route-exclude-address-set: [cn_IP]                                                                         # 路由排除地址集合，cn_IP国内IP段流量不走TUN代理直接直连
 
 # 3.6 嗅探功能
@@ -133,9 +133,9 @@ sniffer:
   parse-pure-ip: true                                                                                        # 开启纯IP流量解析，对直接访问IP的连接，尝试通过DNS映射补全域名信息，用于日志和规则判断
   force-dns-mapping: true                                                                                    # 强制DNS映射，利用DNS缓存把IP反向关联回域名，提升IP直连场景下域名识别的成功率
   sniff:                                                                                                     # 子协议嗅探配置块，下面分别对QUIC/TLS/HTTP做端口与行为配置
-    QUIC: { ports: [443] }                                                                                   # 嗅探443端口QUIC流量，提取SNI域名；未单独设置override‑destination，继承全局false，只嗅探不改写目标
-    TLS:  { ports: [443, 8443] }                                                                             # 嗅探443、8443端口TLS加密流量，从TLS握手SNI获取域名；继承全局false，只嗅探不改写目标
-    HTTP: { ports: [80, 8080-8880], override-destination: true }                                             # 嗅探80端口以及8080‑8880端口区间的明文HTTP；本协议独立开启改写，使用Host头替换连接目标，让DOMAIN域名规则生效
+    QUIC: {ports: [443]}                                                                                     # 嗅探443端口QUIC流量，提取SNI域名；未单独设置override‑destination，继承全局false，只嗅探不改写目标
+    TLS:  {ports: [443, 8443]}                                                                               # 嗅探443、8443端口TLS加密流量，从TLS握手SNI获取域名；继承全局false，只嗅探不改写目标
+    HTTP: {ports: [80, 8080-8880], override-destination: true}                                               # 嗅探80端口以及8080‑8880端口区间的明文HTTP；本协议独立开启改写，使用Host头替换连接目标，让DOMAIN域名规则生效
   force-domain:                                                                                              # 强制嗅探域名列表，列表内域名优先进行流量嗅探，多用于流媒体
     - "+.netflix.com"                                                                                        # Netflix域名强制嗅探
     - "+.nflxvideo.net"                                                                                      # Netflix视频资源域名强制嗅探
@@ -152,7 +152,7 @@ sniffer:
 # 3.7 本地静态域名映射表(优先级最高,用来强制把某个域名解析到指定 IP,不走 DNS、不经过规则判断)
 hosts:
   "epdg.epc.mnc010.mcc234.pub.3gppnetwork.org": [87.194.8.8, 87.194.88.8, 87.194.89.8, 87.194.9.8]           # 静态域名IP绑定
-  services.googleapis.cn: services.googleapis.com                                                            # 域名CNAME映射，将该域名指向另一个域名
+  services.googleapis.cn: services.googleapis.com                                                            # 域名CNAME映射，将该域名指向另一个域名,解决谷歌商店无法下载的问题
   dns.alidns.com: [223.5.5.5, 223.6.6.6, 2400:3200::1, 2400:3200:baba::1]                                    # 阿里云DNS域名静态IP映射(含IPv4+IPv6)
   doh.pub: [1.12.12.12, 1.12.12.21, 120.53.53.53]                                                            # doh.pub公共DNS静态IP绑定
   dns.google: [8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860::8844]                                      # Google DNS静态IP绑定
@@ -162,26 +162,27 @@ hosts:
 dns:
   enable: true                                                                                               # 开启mihomo内置DNS服务
   ipv6: true                                                                                                 # DNS解析支持返回IPv6 AAAA记录
-  listen: 0.0.0.0:7874                                                                                       # 内置DNS服务监听地址与端口
+  use-hosts: true                                                                                            # 使用 Mihomo 配置中的 hosts 映射
+  use-system-hosts: true                                                                                     # 系统映射,使用操作系统 hosts 文件中的域名映射
+  cache-algorithm: arc                                                                                       # 缓存策略,DNS 按访问频率与最近使用情况动态淘汰缓存
+  respect-rules: false                                                                                       # 关闭DNS遵循流量规则，DNS解析行为不受代理规则约束
   enhanced-mode: fake-ip                                                                                     # DNS增强模式使用fake-ip，分配虚拟IP用于规则匹配
   fake-ip-range: 198.18.0.1/16                                                                               # Fake-IP IPv4地址段，fake-ip模式下为域名分配虚拟IPv4地址，生效前提是enhanced-mode: fake-ip开启
   fake-ip-range6: fdfe:dcba:9876::1/64                                                                       # Fake-IP IPv6地址段，为启用fake-ip的域名分配虚拟IPv6地址，仅在enhanced-mode: fake-ip且全局ipv6: true时生效
   fake-ip-filter-mode: blacklist                                                                             # FakeIP过滤器为黑名单模式，列表内域名不使用FakeIP，做真实DNS解析
-  respect-rules: false                                                                                       # 关闭DNS遵循流量规则，DNS解析行为不受代理规则约束
   nameserver:                                                                                                # 默认DNS服务器列表
-    - 119.29.29.29                                                                                           # 腾讯公共DNS
-    - 223.5.5.5                                                                                              # 阿里云公共DNS
-    - 180.76.76.76                                                                                           # 百度公共DNS
     - 114.114.114.114                                                                                        # 114公共DNS
+    - 223.5.5.5                                                                                              # 阿里云公共DNS
+    - 119.29.29.29                                                                                           # 腾讯公共DNS
+    - 180.76.76.76                                                                                           # 百度公共DNS
   fake-ip-filter:                                                                                            # FakeIP黑名单，列表内域名不分配FakeIP，直接解析真实IP
     - +.lan                                                                                                  # lan局域网域名
     - +.local                                                                                                # local本地局域网域名
     - +.home                                                                                                 # home家庭局域网域名
     - +.internal                                                                                             # internal内网域名
     - 'geosite: cn'                                                                                          # geosite国内域名集合
-    - 'geosite: geolocation-cn'                                                                              # geolocation-cn国内站点集合
+    - 'geosite: geolocation-cn'                                                                              # geolocation-cn补充国内域名集合
     - 'rule-set:fakeip-filter'                                                                               # 自定义fakeip-filter规则集
-    - +.jsdelivr.net
 
 # 4 代理策略组 
 proxy-groups:
