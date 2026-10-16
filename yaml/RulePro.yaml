@@ -146,12 +146,15 @@ sniffer:
     - "+.media.dssott.com"                                                                                   # 流媒体OTT域名强制嗅探
     - "+.tiktok.com"                                                                                         # TikTok域名强制嗅探
   skip-domain:                                                                                               # 跳过嗅探域名列表，不对以下域名进行流量嗅探，避免设备异常
-    - Mijia Cloud                                                                                            # 米家云服务，防止智能家居设备异常
-    - dlg.io.mi.com                                                                                          # 小米设备通信域名，跳过嗅探
-    - "+.oray.com"                                                                                           # 向日葵域名，跳过嗅探避免远程控制故障
-    - "+.sunlogin.net"                                                                                       # 向日葵备用域名，跳过嗅探
-    - "+.push.apple.com"                                                                                     # Apple推送服务域名，防止APNs推送失效
-
+    - "+.mi.com"                                                                                             # 米家IoT核心、小米账号、设备MQTT、米家设备控制
+    - "+.gitv.tv"                                                                                            # 银河互联网电视，小米电视内置内容服务
+    - "+.xiaomi.com"                                                                                         # PatchWall电视系统、电视OTA、应用商店、小米业务后台
+    - "+.miui.com"                                                                                           # MIUI/澎湃OS埋点、系统服务、小爱语音相关服务
+    - "+.huawei.com"                                                                                         # 华为鸿蒙智家 / HiLink IoT核心业务（智能插座、门锁、传感器、摄像头）
+    - "+.hwvrs.com"                                                                                          # 华为智慧屏 华为视频业务域名
+    - "+.cmvideo.cn"                                                                                         # CIBN国广东方（智慧屏内置片源牌照方）
+    - "+.hicloud.com"                                                                                        # 华为云账号、HMS、智慧生活配套
+    
 # 3.7 本地静态域名映射表(优先级最高,用来强制把某个域名解析到指定 IP,不走 DNS、不经过规则判断)
 hosts:
   "epdg.epc.mnc010.mcc234.pub.3gppnetwork.org": [87.194.8.8, 87.194.88.8, 87.194.89.8, 87.194.9.8]           # 静态域名IP绑定
