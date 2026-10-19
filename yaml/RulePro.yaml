@@ -328,16 +328,15 @@ proxy-groups:
   - {name: '[备] 其他自动', <<: *StrategyUT, use: [ Airport2 ], filter: *FilterOT, icon: *url-test}
 
   # 4.7 故障转移策略组
-  - {name: 故转手动,        <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Back_1.png}
-  - {name: 故转狮城,        <<: *StrategyFB, proxies: [狮城策略, 香港策略, 日本策略, 美国策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Singapore_1.png}
-  - {name: 故转美国,        <<: *StrategyFB, proxies: [美国策略, 狮城策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/United_States_1.png}
-  - {name: 故转香港,        <<: *StrategyFB, proxies: [香港策略, 日本策略, 美国策略, 狮城策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Hong_Kong_1.png}
-  - {name: 故转日本,        <<: *StrategyFB, proxies: [日本策略, 美国策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Japan_1.png}
-  - {name: 故转台湾,        <<: *StrategyFB, proxies: [台湾策略, 狮城策略, 香港策略, 日本策略, 美国策略, 韩国策略, 欧洲策略, 其他策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Taiwan_1.png}
-  - {name: 故转韩国,        <<: *StrategyFB, proxies: [韩国策略, 香港策略, 狮城策略, 日本策略, 美国策略, 台湾策略, 欧洲策略, 其他策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Korea_1.png}
-  - {name: 故转欧洲,        <<: *StrategyFB, proxies: [欧洲策略, 日本策略, 美国策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 其他策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/European_Union_1.png}
-  - {name: 故转低倍,        <<: *StrategyFB, proxies: [低倍策略, 美国策略, 狮城策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Snail_1.png}
-  - {name: 故转其他,        <<: *StrategyFB, proxies: [其他策略, 狮城策略, 香港策略, 日本策略, 美国策略, 台湾策略, 韩国策略, 欧洲策略, 全球手动, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Other_1.png}
+  - {name: 故转手动,        <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Back_1.png}
+  - {name: 故转狮城,        <<: *StrategyFB, proxies: [狮城策略, 香港策略, 日本策略, 美国策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Singapore_1.png}
+  - {name: 故转美国,        <<: *StrategyFB, proxies: [美国策略, 狮城策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/United_States_1.png}
+  - {name: 故转香港,        <<: *StrategyFB, proxies: [香港策略, 日本策略, 美国策略, 狮城策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Hong_Kong_1.png}
+  - {name: 故转日本,        <<: *StrategyFB, proxies: [日本策略, 美国策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Japan_1.png}
+  - {name: 故转台湾,        <<: *StrategyFB, proxies: [台湾策略, 狮城策略, 香港策略, 日本策略, 美国策略, 韩国策略, 欧洲策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Taiwan_1.png}
+  - {name: 故转韩国,        <<: *StrategyFB, proxies: [韩国策略, 香港策略, 狮城策略, 日本策略, 美国策略, 台湾策略, 欧洲策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Korea_1.png}
+  - {name: 故转欧洲,        <<: *StrategyFB, proxies: [欧洲策略, 日本策略, 美国策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 其他策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/European_Union_1.png}
+  - {name: 故转其他,        <<: *StrategyFB, proxies: [其他策略, 狮城策略, 香港策略, 日本策略, 美国策略, 台湾策略, 韩国策略, 欧洲策略, 全球手动], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Other_1.png}
 
   # 4.8 手动策略组
   - {name: 全球手动,        <<: *SelectHS, icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/World_Map.png}
