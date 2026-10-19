@@ -378,7 +378,7 @@ proxy-groups:
   - {name: 故转韩国,        <<: *StrategyFB, proxies: [韩国策略, 香港策略, 狮城策略, 日本策略, 美国策略, 台湾策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Korea_1.png}
   - {name: 故转欧洲,        <<: *StrategyFB, proxies: [欧洲策略, 日本策略, 美国策略, 狮城策略, 香港策略, 台湾策略, 韩国策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/European_Union_1.png}
   - {name: 故转低倍,        <<: *StrategyFB, proxies: [低倍策略, 美国策略, 狮城策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Snail_1.png}
-  - {name: 故转其他,        <<: *StrategyFB, proxies: [其他策略, 狮城策略, 香港策略, 日本策略, 美国策略, 台湾策略, 韩国策略, 欧洲策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Star.png}
+  - {name: 故转其他,        <<: *StrategyFB, proxies: [其他策略, 狮城策略, 香港策略, 日本策略, 美国策略, 台湾策略, 韩国策略, 欧洲策略, 全球手动¹, 全球手动², 全球手动³, 全球手动⁴, 低倍策略], icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Other_1.png}
 
   # 4.9 手动策略组
   - {name: 全球手动¹,       <<: *SelectHS, icon: https://gh-proxy.com/github.com/gogyt/Qure/blob/master/IconSet/Color/Select.png}
