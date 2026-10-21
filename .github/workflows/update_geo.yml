@@ -2,7 +2,7 @@ name: Auto Update Geo Files
 
 on:
   schedule:
-    - cron: '30 0 * * *'
+    - cron: '30 20 * * *'
       timezone: 'Asia/Shanghai'
   workflow_dispatch:
 
