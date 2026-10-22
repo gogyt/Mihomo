@@ -223,6 +223,7 @@ proxy-groups:
   - {name: Prime Video,    <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Prime_Video.png}
   - {name: Spotify,        <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Spotify.png}
   - {name: 国外娱乐,        <<: *SelectFB, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/ForeignMedia.png}
+  - {name: 新闻传媒,        <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Media.png}
   - {name: Docker,         <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Docker.png}
   - {name: OneDrive,       <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/OneDrive.png}
   - {name: Bing(Copilot),  <<: *SelectDC, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bing.png}
@@ -443,6 +444,7 @@ rules:
   - RULE-SET,category-games,游戏平台                           # 游戏平台(含category-games-cn、Steam)
   - RULE-SET,category-communication,即时通讯                   # 即时通讯(含telegram、WhatsApp、clubhouse等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
   - RULE-SET,category-social-media-!cn,社交媒体                # 国外社交媒体(含instagram、facebook、twitter、mixi等,若需精简,可以将注释掉"4.1 业务策略组"中相应的分组)
+  - RULE-SET,category-media,新闻传媒                           # 新闻传媒
   - RULE-SET,category-entertainment,国外娱乐                   # 国外娱乐(含youtube、tiktok、bahamut、primevideo、netflix、disney、apple-tvplus、hbo、category-games-!cn、tmdb、imdb等,若需精简,可以注释掉6.4相应的规则及"4.1 业务策略组"中对应的分组,最终到此规则兜底)
   - RULE-SET,category-ecommerce,国外电商                       # 国外电商
   - RULE-SET,category-cryptocurrency,加密货币                  # 加密货币(大部分在gfw中)
@@ -476,6 +478,7 @@ rule-providers:
   Speedtest:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/speedtest.mrs}
   
   # 6.4 主要规则集 
+  category-media:                      {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/category-media.mrs}
   wikimedia:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/wikimedia.mrs}
   private:                             {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/private.mrs}
   docker:                              {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/docker.mrs}  
