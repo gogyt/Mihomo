@@ -189,13 +189,10 @@ dns:
     - 'rule-set:cn'                                                                                          # geosite国内域名集合
     - 'rule-set:geolocation-cn'                                                                              # geolocation-cn补充国内域名集合
     - 'rule-set:fakeip-filter'                                                                               # 自定义fakeip-filter规则集
-    - +.cdn.jsdelivr.net                                                                                     # 用于github加速，避免DNS被污染后解析到假IP打不开，下类同
-    - +.cdn.jsdelivr.com
-    - +.testingcf.jsdelivr.net
-    - +.gcore.jsdelivr.net
-    - +.fastly.jsdelivr.net
-    - +.cdn.jsdmirror.com
-    - +.cdn.jsdmirror.cn
+    - +.jsdelivr.net                                                                                         # 用于github加速，避免DNS被污染后解析到假IP打不开，下类同
+    - +.jsdelivr.com
+    - +.jsdmirror.com
+    - +.jsdmirror.cn
 
 # 4 代理策略组 
 proxy-groups:
