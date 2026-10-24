@@ -92,8 +92,10 @@ rules:
 
 ---
 
-> [!TIP]
 <div align="center">
+  
+> [!TIP]
+
 > **个人水平有限，难免有误，敬请谅解；如果配置对您有帮助，请点亮右上角的 ⭐ Star 支持一下！有更好的建议，欢迎[Issues](https://github.com/gogyt/Mihomo/issues)交流。**
 > 
 </div>
