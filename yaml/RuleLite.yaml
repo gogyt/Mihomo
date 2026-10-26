@@ -50,9 +50,7 @@ StrategyUT:   &StrategyUT {type: url-test,     empty-fallback: REJECT, interval:
 
 # 2.2 规则集行为锚点
 BehaviorDN:   &BehaviorDN {type: http, behavior: domain,    format: mrs,  interval: 86400}
-BehaviorDY:   &BehaviorDY {type: http, behavior: domain,    format: yaml, interval: 86400}
 BehaviorIP:   &BehaviorIP {type: http, behavior: ipcidr,    format: mrs,  interval: 86400}
-BehaviorCY:   &BehaviorCY {type: http, behavior: classical, format: yaml, interval: 86400}
 
 # 2.3 机场节点筛选正则表达式 - 基于地理位置和关键词过滤
 FilterHK:     &FilterHK '^(?=.*(?i)(港|🇭🇰|HK|Hong|HKG)).*$'
@@ -299,7 +297,6 @@ rule-providers:
 
   # 6.5 主要规则集
   private:                             {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/private.mrs}
-  private_IP:                          {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/private.mrs}
   google-cn:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/google-cn.mrs}
   microsoft@cn:                        {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/microsoft@cn.mrs}
   microsoft:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/microsoft.mrs}
@@ -313,16 +310,17 @@ rule-providers:
   test-ipv6:                           {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/test-ipv6.mrs}
   github:                              {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/github.mrs}
   gfw:                                 {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/gfw.mrs}
+  geolocation-cn:                      {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-cn.mrs}
+  geolocation-!cn:                     {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-!cn.mrs}
+  cn:                                  {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/cn.mrs}
+  private_IP:                          {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/private.mrs}
   google_IP:                           {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/google.mrs}
   telegram_IP:                         {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/telegram.mrs}
   twitter_IP:                          {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/twitter.mrs}
   facebook_IP:                         {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/facebook.mrs}
   netflix_IP:                          {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/netflix.mrs}
-  geolocation-cn:                      {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-cn.mrs}
-  geolocation-!cn:                     {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/geolocation-!cn.mrs}
   cloudflare_IP:                       {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cloudflare.mrs}
   cloudfront_IP:                       {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cloudfront.mrs}
   fastly_IP:                           {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/fastly.mrs}
-  cn:                                  {<<: *BehaviorDN, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geosite/cn.mrs}
   cn_IP:                               {<<: *BehaviorIP, url: https://cdn.jsdelivr.net/gh/gogyt/Mihomo@main/geo/geoip/cn.mrs}
 # DONE
