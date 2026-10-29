@@ -241,7 +241,7 @@ proxy-groups:
   - {name: 其他手动,        <<: *StrategyHS, include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_1.png}
 
   # 4.4 手动策略组与自动策略组分界识别
-  - {name: 全球手动¹,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
+  - {name: 全球手动¹,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select.png}
   - {name: 全球手动²,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Find_My.png}
 
   # 4.5 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
