@@ -36,7 +36,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 规则数据来源主要是[MetaCubeX](https://github.com/MetaCubeX/meta-rules-dat/tree/meta/geo)规则数据库，MetaCubeX的规则一个是采用mihomo内置GEOSITE和GEOIP数据库，另一个是采用的MetaCubeX实时更新的GEO数据库，还有其他少量的数据库，如广告、直连冷门域名、fakeip-filter等数据。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 各种配置大同小异，Pro配置模板可实现指定机场出站，并采用了多元故转默认地区节点，当首选地区策略全部节点断连时，自动切换至下一可用地区策略，实现更为稳定的网络体验。Beta版本是Pro版本的魔改测试版，[RuleBeta.yaml](yaml/RuleBeta.yaml)增加负载均衡粘性会话、低倍率策略组，额外增加3组手动选择策略，配置更加灵活。[GeoBeta.yaml](yaml/GeoBeta.yaml)主要运用了故障转移策略，优先级为： 地区手动策略组 ＞ 自动策略组 ＞ 全球自动，当`地区手动策略`失联时，自动跳转至`地区自动策略`，当地区所有节点都失联时，自动跳转至`全球自动`兜底。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 各种配置大同小异，Pro配置模板可实现指定机场出站，并采用了多元故转默认地区节点，当首选地区策略全部节点断连时，自动切换至下一可用地区策略，实现更为稳定的网络体验。Beta版本是Pro版本的魔改测试版，[RuleBeta.yaml](yaml/RuleBeta.yaml)增加负载均衡粘性会话、低倍率策略组，额外增加3组手动选择策略，配置更加灵活。[GeoBeta.yaml](yaml/GeoBeta.yaml)主要运用了故障转移策略，优先级为： `地区手动策略` ＞ `自动策略` ＞ `全球自动`，当`地区手动策略`断连时，自动跳转至`地区自动策略`，当地区所有节点都断连时，自动跳转至`全球自动`兜底，目的是即便部分节点失联夜可免维护不失联。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 系统上线后按自己需求选择好分流策略即可使用，控制面板中各个策略和节点连通性是否绿色的其实无关紧要，不用强迫症的不停点击测试连通性，系统会根据相关规则设定去判定节点的选择。
 
