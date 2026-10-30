@@ -20,7 +20,7 @@
 
 # 配置说明
 # 本配置是在GeoPro.yaml版本基础上魔改而来，测试版本；
-# 主要运用了故障转移策略，优先级为： 地区手动策略组 ＞ 自动策略组 ＞ 全球自动。故转手动的优先级为：全球手动¹ ＞ 全球手动² ＞ 全球手动³ ＞ 狮城策略 ＞ 美国策略....
+# 主要运用了故障转移策略，优先级为： 地区手动策略组 ＞ 自动策略组 ＞ 全球手动¹ ＞ 全球手动² ＞ 全球手动³ ＞ 全球自动。故转手动的优先级为：全球手动¹ ＞ 全球手动² ＞ 全球手动³ ＞ 狮城策略 ＞ 美国策略....
 # 当地区手动策略失联时，自动跳转至地区自动策略，当地区所有节点都失联时，自动跳转至全球自动兜底。
 # 举例Github → 故转香港 → 香港手动，当香港手动失联时，Github → 故转香港 → 香港策略 → 香港自动；当香港全部节点失联时，Github → 故转香港 → 全球自动。
 
@@ -283,14 +283,14 @@ proxy-groups:
 
   # 4.7 故障转移策略组
   - {name: 故转手动,        <<: *StrategyFB, proxies: [全球手动¹, 全球手动², 全球手动³, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
-  - {name: 故转狮城,        <<: *StrategyFB, proxies: [狮城手动, 狮城策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
-  - {name: 故转美国,        <<: *StrategyFB, proxies: [美国手动, 美国策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
-  - {name: 故转香港,        <<: *StrategyFB, proxies: [香港手动, 香港策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
-  - {name: 故转日本,        <<: *StrategyFB, proxies: [日本手动, 日本策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
-  - {name: 故转台湾,        <<: *StrategyFB, proxies: [台湾手动, 台湾策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
-  - {name: 故转韩国,        <<: *StrategyFB, proxies: [韩国手动, 韩国策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_1.png}
-  - {name: 故转欧洲,        <<: *StrategyFB, proxies: [欧洲手动, 欧洲策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_1.png}
-  - {name: 故转其他,        <<: *StrategyFB, proxies: [其他手动, 其他策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_1.png}
+  - {name: 故转狮城,        <<: *StrategyFB, proxies: [狮城手动, 狮城策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
+  - {name: 故转美国,        <<: *StrategyFB, proxies: [美国手动, 美国策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
+  - {name: 故转香港,        <<: *StrategyFB, proxies: [香港手动, 香港策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
+  - {name: 故转日本,        <<: *StrategyFB, proxies: [日本手动, 日本策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
+  - {name: 故转台湾,        <<: *StrategyFB, proxies: [台湾手动, 台湾策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
+  - {name: 故转韩国,        <<: *StrategyFB, proxies: [韩国手动, 韩国策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_1.png}
+  - {name: 故转欧洲,        <<: *StrategyFB, proxies: [欧洲手动, 欧洲策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_1.png}
+  - {name: 故转其他,        <<: *StrategyFB, proxies: [其他手动, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_1.png}
 
   # 4.8 其他策略组
   - {name: 全球手动³,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/JOOX.png}
