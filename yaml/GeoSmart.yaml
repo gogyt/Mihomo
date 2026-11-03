@@ -246,7 +246,7 @@ proxy-groups:
   - {name: 其他智能,       <<: *StrategyST, include-all: true, filter: *FilterOT, icon: *smart}
 
   # 4.5 故障转移策略组
-  - {name: 故障转移,       <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back.png}
+  - {name: 故障转移,       <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
   - {name: 故转狮城,       <<: *StrategyFB, proxies: [狮城策略, 全球手动, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
   - {name: 故转美国,       <<: *StrategyFB, proxies: [美国策略, 全球手动, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
   - {name: 故转香港,       <<: *StrategyFB, proxies: [香港策略, 全球手动, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
