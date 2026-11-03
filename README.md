@@ -51,7 +51,7 @@
 | <div align="center">**4**</div> | [**GeoBeta.yaml**](yaml/GeoBeta.yaml) | <div align="center">56</div> | <div align="center">34</div> | <div align="center">61</div> | Geo BETA测试版 |
 | <div align="center">**5**</div> | [**RuleLite.yaml**](yaml/RuleLite.yaml) | <div align="center">14</div> | <div align="center">33</div> | <div align="center">33</div> | 极简分流，多机场混合出站
 | <div align="center">**6**</div> | [**RuleLitePro.yaml**](yaml/RuleLitePro.yaml) | <div align="center">14</div> | <div align="center">49</div> | <div align="center">33</div> | 极简分流，多机场**自定义**出站 |
-| <div align="center">**7**</div> | [**RuleSmart.yaml**](yaml/RuleSmart) | <div align="center">56</div> | <div align="center">34</div> | <div align="center">63</div> | 适配Smart核心，多机场混合出站 |
+| <div align="center">**7**</div> | [**RuleSmart.yaml**](yaml/RuleSmart) | <div align="center">54</div> | <div align="center">34</div> | <div align="center">63</div> | 适配Smart核心，多机场混合出站 |
 </div>
 
 ---
