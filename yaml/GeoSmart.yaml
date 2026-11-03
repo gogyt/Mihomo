@@ -15,7 +15,7 @@
 # ──────────────────────────────────────────────────────────
 #  多元故障转移：   ☑ 支持      ☐ 不支持            
 # ──────────────────────────────────────────────────────────
-#  多机场出站类型： ☑ 混合出站  ☐ 指定机场出站  ☑ 指定节点出站
+#  多机场出站类型： ☑ 混合出站  ☑ 指定机场出站  ☑ 指定节点出站
 # ──────────────────────────────────────────────────────────
 
 # 配置说明
@@ -44,6 +44,9 @@ proxy-providers:
 # 2.1策略组类型锚点 - 定义不同的策略组基础配置
 StrategyHS:   &StrategyHS {type: select,       empty-fallback: REJECT}
 StrategyFB:   &StrategyFB {type: fallback,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204'}
+StrategyCR:   &StrategyCR {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: round-robin}         # 轮询：新建立一条 TCP 连接，就依次轮换选取下一个可用节点，循环往复，连接均匀分摊到全部存活节点，不会根据延迟选节点，它只负责流量分发，健康检查仅用于剔除故障节点，不做优先级排序；
+StrategyCH:   &StrategyCH {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: consistent-hashing}  # 一致性哈希（散列）：提取访问目标的顶级域名做哈希计算，哈希值映射到固定节点，同一个域名永远走同一个节点；
+StrategySS:   &StrategySS {type: load-balance, empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', strategy: sticky-sessions}     # 粘性会话（粘滞）：使用「源 IP + 目标地址」组合作为 key 做哈希缓存，缓存有效期约 10 分钟；在缓存有效期内，同一客户端访问同一目标，固定分配同一个节点；超时后重新哈希分配。
 StrategyUT:   &StrategyUT {type: url-test,     empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', tolerance: 50}
 StrategyST:   &StrategyST {type: smart,        empty-fallback: REJECT, interval: 200, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', uselightgbm: true, policy-priority: '主:1.5;备:0.5'}  # 策略权重数值越大优先级越高,修改为关键词节点,比如 主:1.5;备:0.5,默认为1,主>备,使用时按需修改
 
@@ -67,10 +70,12 @@ SelectPY:     &SelectPY {type: select, proxies: [故障转移, 故转狮城, 故
 SelectDD:     &SelectDD {type: select, proxies: [直接连接, 默认代理, 故障转移, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 故转韩国, 故转欧洲, 故转其他, 全球手动, 全球自动]}
 SelectDC:     &SelectDC {type: select, proxies: [直接连接, 默认直连, 默认代理, 故障转移, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 故转韩国, 故转欧洲, 故转其他, 全球手动, 全球自动]}
 SelectFB:     &SelectFB {type: select, proxies: [默认代理, 故障转移, 故转狮城, 故转美国, 故转香港, 故转日本, 故转台湾, 故转韩国, 故转欧洲, 故转其他, 全球手动, 全球自动, 默认直连, 直接连接]}
-SelectHS:     &SelectHS {type: select, proxies: [狮城智能, 香港智能, 日本智能, 美国智能, 台湾智能, 欧洲智能, 韩国智能, 其他智能, 全球自动], include-all: true, filter: *FilterAL}
+SelectHS:     &SelectHS {type: select, proxies: ['[全] 狮城智能', '[主] 狮城智能', '[备] 狮城智能', '[全] 香港智能', '[主] 香港智能', '[备] 香港智能', '[全] 日本智能', '[主] 日本智能', '[备] 日本智能', '[全] 美国智能', '[主] 美国智能', '[备] 美国智能', '[全] 台湾智能', '[主] 台湾智能', '[备] 台湾智能', '[全] 欧洲智能', '[主] 欧洲智能', '[备] 欧洲智能', '[全] 韩国智能', '[主] 韩国智能', '[备] 韩国智能', '[全] 其他智能', '[主] 其他智能', '[备] 其他智能'], include-all: true, filter: *FilterAL}
 
 # 2.5 共用图标锚点
-smart:        &smart      https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Smart.png
+smart_A:      &smart_A https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Smart.png
+smart_B:      &smart_B https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Bot.png
+smart_C:      &smart_C https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/WiFi.png
 
 # 3 核心配置
 # 3.1 基础配置
@@ -226,24 +231,42 @@ proxy-groups:
   - {name: 直接连接,       <<: *StrategyHS, proxies: [DIRECT], hidden: true, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
   # 4.3 地理策略组
-  - {name: 狮城策略,       <<: *StrategyHS, proxies: [狮城智能], include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
-  - {name: 香港策略,       <<: *StrategyHS, proxies: [香港智能], include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
-  - {name: 日本策略,       <<: *StrategyHS, proxies: [日本智能], include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
-  - {name: 美国策略,       <<: *StrategyHS, proxies: [美国智能], include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States.png}
-  - {name: 台湾策略,       <<: *StrategyHS, proxies: [台湾智能], include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan.png}
-  - {name: 欧洲策略,       <<: *StrategyHS, proxies: [欧洲智能], include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
-  - {name: 韩国策略,       <<: *StrategyHS, proxies: [韩国智能], include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
-  - {name: 其他策略,       <<: *StrategyHS, proxies: [其他智能], include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
+  - {name: 狮城策略,        <<: *StrategyHS, proxies: ['[全] 狮城智能', '[主] 狮城智能', '[备] 狮城智能'], include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
+  - {name: 香港策略,        <<: *StrategyHS, proxies: ['[全] 香港智能', '[主] 香港智能', '[备] 香港智能'], include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
+  - {name: 日本策略,        <<: *StrategyHS, proxies: ['[全] 日本智能', '[主] 日本智能', '[备] 日本智能'], include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
+  - {name: 美国策略,        <<: *StrategyHS, proxies: ['[全] 美国智能', '[主] 美国智能', '[备] 美国智能'], include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States.png}
+  - {name: 台湾策略,        <<: *StrategyHS, proxies: ['[全] 台湾智能', '[主] 台湾智能', '[备] 台湾智能'], include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan.png}
+  - {name: 欧洲策略,        <<: *StrategyHS, proxies: ['[全] 欧洲智能', '[主] 欧洲智能', '[备] 欧洲智能'], include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
+  - {name: 韩国策略,        <<: *StrategyHS, proxies: ['[全] 韩国智能', '[主] 韩国智能', '[备] 韩国智能'], include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
+  - {name: 其他策略,        <<: *StrategyHS, proxies: ['[全] 其他智能', '[主] 其他智能', '[备] 其他智能'], include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 4.4 智能策略组
-  - {name: 香港智能,       <<: *StrategyST, include-all: true, filter: *FilterHK, icon: *smart}
-  - {name: 台湾智能,       <<: *StrategyST, include-all: true, filter: *FilterTW, icon: *smart}
-  - {name: 日本智能,       <<: *StrategyST, include-all: true, filter: *FilterJP, icon: *smart}
-  - {name: 狮城智能,       <<: *StrategyST, include-all: true, filter: *FilterSG, icon: *smart}
-  - {name: 韩国智能,       <<: *StrategyST, include-all: true, filter: *FilterKR, icon: *smart}
-  - {name: 美国智能,       <<: *StrategyST, include-all: true, filter: *FilterUS, icon: *smart}
-  - {name: 欧洲智能,       <<: *StrategyST, include-all: true, filter: *FilterEU, icon: *smart}
-  - {name: 其他智能,       <<: *StrategyST, include-all: true, filter: *FilterOT, icon: *smart}
+  - {name: '[全] 香港智能', <<: *StrategyST, include-all: true, filter: *FilterHK, icon: *smart_A}
+  - {name: '[全] 台湾智能', <<: *StrategyST, include-all: true, filter: *FilterTW, icon: *smart_A}
+  - {name: '[全] 狮城智能', <<: *StrategyST, include-all: true, filter: *FilterSG, icon: *smart_A}
+  - {name: '[全] 日本智能', <<: *StrategyST, include-all: true, filter: *FilterJP, icon: *smart_A}
+  - {name: '[全] 韩国智能', <<: *StrategyST, include-all: true, filter: *FilterKR, icon: *smart_A}
+  - {name: '[全] 美国智能', <<: *StrategyST, include-all: true, filter: *FilterUS, icon: *smart_A}
+  - {name: '[全] 欧洲智能', <<: *StrategyST, include-all: true, filter: *FilterEU, icon: *smart_A}
+  - {name: '[全] 其他智能', <<: *StrategyST, include-all: true, filter: *FilterOT, icon: *smart_A}
+
+  - {name: '[主] 香港智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterHK, icon: *smart_B}
+  - {name: '[主] 台湾智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterTW, icon: *smart_B}
+  - {name: '[主] 狮城智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterSG, icon: *smart_B}
+  - {name: '[主] 日本智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterJP, icon: *smart_B}
+  - {name: '[主] 韩国智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterKR, icon: *smart_B}
+  - {name: '[主] 美国智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterUS, icon: *smart_B}
+  - {name: '[主] 欧洲智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterEU, icon: *smart_B}
+  - {name: '[主] 其他智能', <<: *StrategyST, use: [ Airport1 ], filter: *FilterOT, icon: *smart_B}
+
+  - {name: '[备] 香港智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterHK, icon: *smart_C}
+  - {name: '[备] 台湾智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterTW, icon: *smart_C}
+  - {name: '[备] 狮城智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterSG, icon: *smart_C}
+  - {name: '[备] 日本智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterJP, icon: *smart_C}
+  - {name: '[备] 韩国智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterKR, icon: *smart_C}
+  - {name: '[备] 美国智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterUS, icon: *smart_C}
+  - {name: '[备] 欧洲智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterEU, icon: *smart_C}
+  - {name: '[备] 其他智能', <<: *StrategyST, use: [ Airport2 ], filter: *FilterOT, icon: *smart_C}
 
   # 4.5 故障转移策略组
   - {name: 故障转移,       <<: *StrategyFB, proxies: [全球手动, 狮城策略, 美国策略, 台湾策略, 香港策略, 日本策略, 欧洲策略, 韩国策略, 其他策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
