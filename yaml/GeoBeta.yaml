@@ -34,11 +34,11 @@ ProxyAnchor:  &ProxyAnchor {type: http, interval: 86400, proxy: DIRECT, health-c
 # 注意：
 #     1) 填入机场订阅链接,可自定义机场名称。末尾的[主][备]为每个节点添加机场名称前缀,可自定义,避免不同的机场节点重名导致出错。
 #     2) 本配置默认为2个机场，如果需增加机场，可同步修订4.6，若不修订，除Airport1、Airport1外的机场节点只能混合出站，无法指定机场出站。
-#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的2.4、4.3-4.8替换为Rule.yaml对应的2.4、4.3-4.8,否则会报错。
+#     3) 如果只有1个机场,建议使用Rule.yaml或Geo.yaml配置文件。或将本配置的2.4、4.3-4.11替换为Rule.yaml对应的2.4、4.3-4.8,否则会报错。
 proxy-providers: 
-  # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，4.6机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
+  # Airport1订阅源 - 主机场节点集合，注意：修改机场名称Airport1，4.6-4.9机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport1
   Airport1: {<<: *ProxyAnchor, url: 'Airport1订阅源地址', override: {additional-prefix: '[主] '}}
-  # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，4.6机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
+  # Airport2订阅源 - 备用机场节点集合，注意：修改机场名称Airport2，4.6-4.9机场名称也需保持一致，否则会报错，也可以保持机场默认名称Airport2
   Airport2: {<<: *ProxyAnchor, url: 'Airport2订阅源地址', override: {additional-prefix: '[备] '}}
 
 # 2 锚点配置 
@@ -246,7 +246,7 @@ proxy-groups:
   - {name: 全球手动¹,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Select.png}
   - {name: 全球手动²,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Find_My.png}
 
-  # 4.3 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
+  # 4.5 地理策略组 (如果喜欢策略组更整洁,去掉各个具体的节点,可删除掉本小节的include-all和filte参数)
   - {name: 狮城策略,        <<: *StrategyHS, proxies: ['[全] 狮城自动', '[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城粘滞', '[主] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城粘滞', '[备] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城粘滞'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
   - {name: 香港策略,        <<: *StrategyHS, proxies: ['[全] 香港自动', '[全] 香港轮询', '[全] 香港散列', '[全] 香港粘滞', '[主] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港粘滞', '[备] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港粘滞'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
   - {name: 日本策略,        <<: *StrategyHS, proxies: ['[全] 日本自动', '[全] 日本轮询', '[全] 日本散列', '[全] 日本粘滞', '[主] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本粘滞', '[备] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本粘滞'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
@@ -256,7 +256,7 @@ proxy-groups:
   - {name: 韩国策略,        <<: *StrategyHS, proxies: ['[全] 韩国自动', '[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国粘滞', '[主] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国粘滞', '[备] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国粘滞'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
   - {name: 其他策略,        <<: *StrategyHS, proxies: ['[全] 其他自动', '[全] 其他轮询', '[全] 其他散列', '[全] 其他粘滞', '[主] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘滞', '[备] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘滞'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
-  # 4.4 负载均衡散列  (需更改机场名称,与1.2小节机场名称一致)
+  # 4.6 负载均衡散列  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港散列', <<: *StrategyCH, include-all: true, filter: *FilterHK, icon: *consistent}
   - {name: '[全] 台湾散列', <<: *StrategyCH, include-all: true, filter: *FilterTW, icon: *consistent}
   - {name: '[全] 狮城散列', <<: *StrategyCH, include-all: true, filter: *FilterSG, icon: *consistent}
@@ -284,7 +284,7 @@ proxy-groups:
   - {name: '[备] 欧洲散列', <<: *StrategyCH, use: [ Airport2 ], filter: *FilterEU, icon: *consistent}
   - {name: '[备] 其他散列', <<: *StrategyCH, use: [ Airport2 ], filter: *FilterOT, icon: *consistent}
 
-  # 4.5 负载均衡轮询  (需更改机场名称,与1.2小节机场名称一致)
+  # 4.7 负载均衡轮询  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港轮询', <<: *StrategyCR, include-all: true, filter: *FilterHK, icon: *round}
   - {name: '[全] 台湾轮询', <<: *StrategyCR, include-all: true, filter: *FilterTW, icon: *round}
   - {name: '[全] 狮城轮询', <<: *StrategyCR, include-all: true, filter: *FilterSG, icon: *round}
@@ -312,7 +312,7 @@ proxy-groups:
   - {name: '[备] 欧洲轮询', <<: *StrategyCR, use: [ Airport2 ], filter: *FilterEU, icon: *round}
   - {name: '[备] 其他轮询', <<: *StrategyCR, use: [ Airport2 ], filter: *FilterOT, icon: *round}
 
-  # 4.6 全部机场混合负载均衡粘性(需更改机场名称,与1.2小节机场名称一致)
+  # 4.8 全部机场混合负载均衡粘性(需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港粘滞', <<: *StrategyCR, include-all: true, filter: *FilterHK, icon: *sticky}
   - {name: '[全] 台湾粘滞', <<: *StrategyCR, include-all: true, filter: *FilterTW, icon: *sticky}
   - {name: '[全] 狮城粘滞', <<: *StrategyCR, include-all: true, filter: *FilterSG, icon: *sticky}
@@ -340,7 +340,7 @@ proxy-groups:
   - {name: '[备] 欧洲粘滞', <<: *StrategyCR, use: [ Airport2 ], filter: *FilterEU, icon: *sticky}
   - {name: '[备] 其他粘滞', <<: *StrategyCR, use: [ Airport2 ], filter: *FilterOT, icon: *sticky}
 
-  # 4.7 自动测速组  (需更改机场名称,与1.2小节机场名称一致)
+  # 4.9 自动测速组  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港自动', <<: *StrategyUT, include-all: true, filter: *FilterHK, icon: *url-test}
   - {name: '[全] 台湾自动', <<: *StrategyUT, include-all: true, filter: *FilterTW, icon: *url-test}
   - {name: '[全] 狮城自动', <<: *StrategyUT, include-all: true, filter: *FilterSG, icon: *url-test}
@@ -368,7 +368,7 @@ proxy-groups:
   - {name: '[备] 欧洲自动', <<: *StrategyUT, use: [ Airport2 ], filter: *FilterEU, icon: *url-test}
   - {name: '[备] 其他自动', <<: *StrategyUT, use: [ Airport2 ], filter: *FilterOT, icon: *url-test}
 
-  # 4.7 故障转移策略组
+  # 4.10 故障转移策略组
   - {name: 故转手动,        <<: *StrategyFB, proxies: [全球手动¹, 全球手动², 全球手动³, 狮城策略, 美国策略, 香港策略, 日本策略, 台湾策略, 韩国策略, 欧洲策略, 其他策略, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Back_1.png}
   - {name: 故转狮城,        <<: *StrategyFB, proxies: [狮城手动, 狮城策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
   - {name: 故转美国,        <<: *StrategyFB, proxies: [美国手动, 美国策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
@@ -379,7 +379,7 @@ proxy-groups:
   - {name: 故转欧洲,        <<: *StrategyFB, proxies: [欧洲手动, 欧洲策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_1.png}
   - {name: 故转其他,        <<: *StrategyFB, proxies: [其他手动, 其他策略, 全球手动¹, 全球手动², 全球手动³, 全球自动], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_1.png}
 
-  # 4.8 其他策略组
+  # 4.11 其他策略组
   - {name: 全球手动³,       <<: *SelectHS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/JOOX.png}
   - {name: 全球自动,        <<: *StrategyUT, include-all: true, filter: *FilterAL, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/World_Map.png}
 
