@@ -231,14 +231,14 @@ proxy-groups:
   - {name: 直接连接,        <<: *StrategyHS, proxies: [DIRECT], hidden: true, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
   # 4.3 手动策略组
-  - {name: 狮城手动,        <<: *StrategyHS, include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_2.png}
-  - {name: 香港手动,        <<: *StrategyHS, include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_2.png}
-  - {name: 日本手动,        <<: *StrategyHS, include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_2.png}
-  - {name: 美国手动,        <<: *StrategyHS, include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_2.png}
-  - {name: 台湾手动,        <<: *StrategyHS, include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_2.png}
-  - {name: 欧洲手动,        <<: *StrategyHS, include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_2.png}
-  - {name: 韩国手动,        <<: *StrategyHS, include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_2.png}
-  - {name: 其他手动,        <<: *StrategyHS, include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_2.png}
+  - {name: 狮城手动,        <<: *StrategyHS, include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_3.png}
+  - {name: 香港手动,        <<: *StrategyHS, include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_3.png}
+  - {name: 日本手动,        <<: *StrategyHS, include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_3.png}
+  - {name: 美国手动,        <<: *StrategyHS, include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_3.png}
+  - {name: 台湾手动,        <<: *StrategyHS, include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_3.png}
+  - {name: 欧洲手动,        <<: *StrategyHS, include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_3.png}
+  - {name: 韩国手动,        <<: *StrategyHS, include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_3.png}
+  - {name: 其他手动,        <<: *StrategyHS, include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_3.png}
 
   # 4.4 地理策略组
   - {name: 狮城策略,        <<: *StrategyHS, proxies: ['[全] 狮城智能', '[主] 狮城智能', '[备] 狮城智能'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
