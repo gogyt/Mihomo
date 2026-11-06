@@ -20,7 +20,7 @@
 
 # 配置说明
 # 1) 地区故转优先级为： 地区手动策略组 ＞ 地区智能策略组 ＞ 全球手动 ＞ 全球自动。故转手动的优先级为：全球手动 ＞ 狮城策略 ＞ 美国策略....最后全球自动兜底。
-# 2) 关于“全球自动”策略组，在Openclash中，按需启用或取消覆写设置→Smart设置→"Smart 策略智能切换"的勾选，勾选时url-test自动转换为smart策略，即：取消勾选则“全球自动”兜底，反之为“全球智能”兜底。
+# 2) 关于“全球自动”策略组，在Openclash中，按需启用或取消“覆写设置→Smart设置→Smart 策略智能切换”的勾选，勾选时url-test自动转换为smart策略，即：取消勾选“全球自动”兜底，勾选时“全球智能”兜底。
 # 3) 如果你不熟悉配置，仅将你的机场链接填入“1.2机场订阅”的url即可使用。如果需个性化配置，配置前仔细阅读配置中的相关说明,根据需要自行调整。
 
 # 配置区
@@ -230,17 +230,7 @@ proxy-groups:
   - {name: 网络测试,        <<: *SelectDC, include-all: true, filter: *FilterAL, default-selected: '默认直连', icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Speedtest.png}
   - {name: 直接连接,        <<: *StrategyHS, proxies: [DIRECT], hidden: true, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Direct.png}
 
-  # 4.3 手动策略组
-  - {name: 狮城手动,        <<: *StrategyHS, include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
-  - {name: 香港手动,        <<: *StrategyHS, include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
-  - {name: 日本手动,        <<: *StrategyHS, include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
-  - {name: 美国手动,        <<: *StrategyHS, include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
-  - {name: 台湾手动,        <<: *StrategyHS, include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
-  - {name: 欧洲手动,        <<: *StrategyHS, include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_1.png}
-  - {name: 韩国手动,        <<: *StrategyHS, include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_1.png}
-  - {name: 其他手动,        <<: *StrategyHS, include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_3.png}
-
-  # 4.4 地理策略组
+  # 4.3 地理策略组
   - {name: 狮城策略,        <<: *StrategyHS, proxies: ['[全] 狮城智能', '[主] 狮城智能', '[备] 狮城智能'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore.png}
   - {name: 香港策略,        <<: *StrategyHS, proxies: ['[全] 香港智能', '[主] 香港智能', '[备] 香港智能'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong.png}
   - {name: 日本策略,        <<: *StrategyHS, proxies: ['[全] 日本智能', '[主] 日本智能', '[备] 日本智能'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan.png}
@@ -249,6 +239,16 @@ proxy-groups:
   - {name: 欧洲策略,        <<: *StrategyHS, proxies: ['[全] 欧洲智能', '[主] 欧洲智能', '[备] 欧洲智能'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union.png}
   - {name: 韩国策略,        <<: *StrategyHS, proxies: ['[全] 韩国智能', '[主] 韩国智能', '[备] 韩国智能'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea.png}
   - {name: 其他策略,        <<: *StrategyHS, proxies: ['[全] 其他智能', '[主] 其他智能', '[备] 其他智能'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
+
+  # 4.4 手动策略组
+  - {name: 狮城手动,        <<: *StrategyHS, include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
+  - {name: 香港手动,        <<: *StrategyHS, include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
+  - {name: 日本手动,        <<: *StrategyHS, include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
+  - {name: 美国手动,        <<: *StrategyHS, include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
+  - {name: 台湾手动,        <<: *StrategyHS, include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
+  - {name: 欧洲手动,        <<: *StrategyHS, include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_1.png}
+  - {name: 韩国手动,        <<: *StrategyHS, include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_1.png}
+  - {name: 其他手动,        <<: *StrategyHS, include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_3.png}
 
   # 4.5 智能策略组  
   - {name: '[全] 香港智能', <<: *StrategyST, include-all: true, filter: *FilterHK, icon: *smart_A}
