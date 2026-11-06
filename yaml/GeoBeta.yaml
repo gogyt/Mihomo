@@ -243,14 +243,14 @@ proxy-groups:
   - {name: 其他策略,        <<: *StrategyHS, proxies: ['[全] 其他自动', '[全] 其他轮询', '[全] 其他散列', '[全] 其他粘滞', '[主] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘滞', '[备] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘滞'], icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other.png}
 
   # 4.4 手动策略组
-  - {name: 狮城手动,        <<: *StrategyHS, include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
-  - {name: 香港手动,        <<: *StrategyHS, include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
-  - {name: 日本手动,        <<: *StrategyHS, include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
-  - {name: 美国手动,        <<: *StrategyHS, include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
-  - {name: 台湾手动,        <<: *StrategyHS, include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
-  - {name: 欧洲手动,        <<: *StrategyHS, include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_1.png}
-  - {name: 韩国手动,        <<: *StrategyHS, include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_1.png}
-  - {name: 其他手动,        <<: *StrategyHS, include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_3.png}
+  - {name: 狮城手动,        <<: *StrategyHS, proxies: ['[全] 狮城自动', '[全] 狮城轮询', '[全] 狮城散列', '[全] 狮城粘滞', '[主] 狮城自动', '[主] 狮城轮询', '[主] 狮城散列', '[主] 狮城粘滞', '[备] 狮城自动', '[备] 狮城轮询', '[备] 狮城散列', '[备] 狮城粘滞'], include-all: true, filter: *FilterSG, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Singapore_1.png}
+  - {name: 香港手动,        <<: *StrategyHS, proxies: ['[全] 香港自动', '[全] 香港轮询', '[全] 香港散列', '[全] 香港粘滞', '[主] 香港自动', '[主] 香港轮询', '[主] 香港散列', '[主] 香港粘滞', '[备] 香港自动', '[备] 香港轮询', '[备] 香港散列', '[备] 香港粘滞'], include-all: true, filter: *FilterHK, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Hong_Kong_1.png}
+  - {name: 日本手动,        <<: *StrategyHS, proxies: ['[全] 日本自动', '[全] 日本轮询', '[全] 日本散列', '[全] 日本粘滞', '[主] 日本自动', '[主] 日本轮询', '[主] 日本散列', '[主] 日本粘滞', '[备] 日本自动', '[备] 日本轮询', '[备] 日本散列', '[备] 日本粘滞'], include-all: true, filter: *FilterJP, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Japan_1.png}
+  - {name: 美国手动,        <<: *StrategyHS, proxies: ['[全] 美国自动', '[全] 美国轮询', '[全] 美国散列', '[全] 美国粘滞', '[主] 美国自动', '[主] 美国轮询', '[主] 美国散列', '[主] 美国粘滞', '[备] 美国自动', '[备] 美国轮询', '[备] 美国散列', '[备] 美国粘滞'], include-all: true, filter: *FilterUS, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/United_States_1.png}
+  - {name: 台湾手动,        <<: *StrategyHS, proxies: ['[全] 台湾自动', '[全] 台湾轮询', '[全] 台湾散列', '[全] 台湾粘滞', '[主] 台湾自动', '[主] 台湾轮询', '[主] 台湾散列', '[主] 台湾粘滞', '[备] 台湾自动', '[备] 台湾轮询', '[备] 台湾散列', '[备] 台湾粘滞'], include-all: true, filter: *FilterTW, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Taiwan_1.png}
+  - {name: 欧洲手动,        <<: *StrategyHS, proxies: ['[全] 欧洲自动', '[全] 欧洲轮询', '[全] 欧洲散列', '[全] 欧洲粘滞', '[主] 欧洲自动', '[主] 欧洲轮询', '[主] 欧洲散列', '[主] 欧洲粘滞', '[备] 欧洲自动', '[备] 欧洲轮询', '[备] 欧洲散列', '[备] 欧洲粘滞'], include-all: true, filter: *FilterEU, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/European_Union_1.png}
+  - {name: 韩国手动,        <<: *StrategyHS, proxies: ['[全] 韩国自动', '[全] 韩国轮询', '[全] 韩国散列', '[全] 韩国粘滞', '[主] 韩国自动', '[主] 韩国轮询', '[主] 韩国散列', '[主] 韩国粘滞', '[备] 韩国自动', '[备] 韩国轮询', '[备] 韩国散列', '[备] 韩国粘滞'], include-all: true, filter: *FilterKR, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Korea_1.png}
+  - {name: 其他手动,        <<: *StrategyHS, proxies: ['[全] 其他自动', '[全] 其他轮询', '[全] 其他散列', '[全] 其他粘滞', '[主] 其他自动', '[主] 其他轮询', '[主] 其他散列', '[主] 其他粘滞', '[备] 其他自动', '[备] 其他轮询', '[备] 其他散列', '[备] 其他粘滞'], include-all: true, filter: *FilterOT, icon: https://cdn.jsdelivr.net/gh/gogyt/Qure@master/IconSet/Color/Other_3.png}
 
   # 4.5 负载均衡散列  (需更改机场名称,与1.2小节机场名称一致)
   - {name: '[全] 香港散列', <<: *StrategyCH, include-all: true, filter: *FilterHK, icon: *consistent}
