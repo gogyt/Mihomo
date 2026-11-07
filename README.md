@@ -36,7 +36,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 规则数据来源主要是[MetaCubeX](https://github.com/MetaCubeX/meta-rules-dat/tree/meta/geo)规则数据库，MetaCubeX的规则一个是采用mihomo内置GEOSITE和GEOIP数据库，另一个是采用的MetaCubeX实时更新的GEO数据库，还有其他少量的数据库，如广告、直连冷门域名、fakeip-filter等数据。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 各种配置大同小异，Pro配置模板可实现指定机场出站，并采用了多元故转默认地区节点，当首选地区策略全部节点断连时，自动切换至下一可用地区策略，实现更为稳定的网络体验。Beta版本是Pro版本的魔改测试版，[RuleBeta.yaml](yaml/RuleBeta.yaml)增加负载均衡粘性会话、低倍率策略组，地区故障转移优先级为：`地区策略` ＞ `全球手动¹` ＞ ` 全球手动²` ＞ ` 全球自动`。[GeoBeta.yaml](yaml/GeoBeta.yaml)，地区故障转移优先级为： `地区手动策略` ＞ ` 地区策略 ` ＞ `全球手动` ＞ `全球自动`，当`地区手动策略`断连时，自动跳转至`地区策略`，当`地区所有节点`及`全球手动`节点都断连时，自动跳转至`全球自动`兜底，目的是即便部分地区节点断连时也可免维护不失联。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 各种配置大同小异，Pro配置模板可实现指定机场出站，并采用了多元故转默认地区节点，当首选地区策略全部节点断连时，自动切换至下一可用地区策略，实现更为稳定的网络体验。Beta版本是Pro版本的魔改测试版，采用两组地区策略组用于故障转移，增加负载均衡粘性会话，[RuleBeta.yaml](yaml/RuleBeta.yaml)增加低倍率策略组。[GeoBeta.yaml](yaml/GeoBeta.yaml)无低倍策略，地区故障转移优先级为： `地区策略¹` ＞ ` 地区策略² ` ＞ `全球手动` ＞ `全球自动`，当`地区策略¹`断连时，自动跳转至`地区策略²`，当`地区策略²`断连时，自动跳转至`全球手动`节点，当`全球手动`断连时，自动跳转至`全球自动`兜底，目的是即便部分地区节点断连时也可免维护不失联。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️ 系统上线后按自己需求选择好分流策略即可使用，控制面板中各个策略和节点连通性是否绿色的其实无关紧要，不用强迫症的不停点击测试连通性，系统会根据相关规则设定去判定节点的选择。
 
@@ -47,8 +47,8 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | <div align="center">**1**</div> | [**Rule.yaml**](yaml/Rule.yaml) | <div align="center">34</div> | <div align="center">34</div> | <div align="center">51</div> | 常规分流，多机场混合出站 |
 | <div align="center">**2**</div> | [**RulePro.yaml**](yaml/RulePro.yaml) | <div align="center">56</div> | <div align="center">74</div> | <div align="center">62</div> | 多机场**混合**或**自定义**出站，**${\color{orange}\text{ 多元默认故转 }}$** |
-| <div align="center">**3**</div> | [**RuleBeta.yaml**](yaml/RuleBeta.yaml) | <div align="center">59</div> | <div align="center">110</div> | <div align="center">64</div> | Rule BETA测试版 |
-| <div align="center">**4**</div> | [**GeoBeta.yaml**](yaml/GeoBeta.yaml) | <div align="center">54</div> | <div align="center">106</div> | <div align="center">64</div> | Geo BETA测试版 |
+| <div align="center">**3**</div> | [**RuleBeta.yaml**](yaml/RuleBeta.yaml) | <div align="center">67</div> | <div align="center">110</div> | <div align="center">64</div> | Rule BETA测试版 |
+| <div align="center">**4**</div> | [**GeoBeta.yaml**](yaml/GeoBeta.yaml) | <div align="center">62</div> | <div align="center">98</div> | <div align="center">64</div> | Geo BETA测试版 |
 | <div align="center">**5**</div> | [**RuleLite.yaml**](yaml/RuleLite.yaml) | <div align="center">14</div> | <div align="center">34</div> | <div align="center">32</div> | 极简分流，多机场混合出站
 | <div align="center">**6**</div> | [**RuleLitePro.yaml**](yaml/RuleLitePro.yaml) | <div align="center">14</div> | <div align="center">50</div> | <div align="center">32</div> | 极简分流，多机场**自定义**出站 |
 | <div align="center">**7**</div> | [**RuleSmart.yaml**](yaml/RuleSmart) | <div align="center">54</div> | <div align="center">34</div> | <div align="center">63</div> | 适配Smart核心，多机场混合出站 |
