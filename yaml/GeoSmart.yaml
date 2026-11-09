@@ -94,17 +94,17 @@ geo-auto-update: true                                                           
 geo-update-interval: 24                                                                                      # 地理数据库自动更新间隔，单位小时
 geodata-mode: true                                                                                           # 启用geodata模式，使用geoip/geosite规则库进行匹配
 geox-url:
-  geosite: https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat     # geosite域名规则库下载地址
-  geoip:   https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat       # geoip IP归属规则库下载地址
-  mmdb:    https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb    # metadb新版IP库下载地址
-  asn:     https://gh-proxy.com/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb # ASN自治系统编号数据库
+  geosite: https://github.chenc.dev/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat     # geosite域名规则库下载地址
+  geoip:   https://github.chenc.dev/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat       # geoip IP归属规则库下载地址
+  mmdb:    https://github.chenc.dev/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb    # metadb新版IP库下载地址
+  asn:     https://github.chenc.dev/github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb # ASN自治系统编号数据库
 
 # 3.3 认证配置(需要时启用)
 #authentication:                                                                                              # 代理接入账号密码认证列表
 #  - mihomo:mihomo                                                                                            # 账号:密码，客户端连接代理需要填写该凭据
 
 # 3.4管理面板配置
-external-ui-url: https://gh-proxy.com/github.com/Zephyruso/zashboard/releases/latest/download/dist.zip       # 前端面板Zashboard的远程下载地址
+external-ui-url: https://github.chenc.dev/github.com/Zephyruso/zashboard/releases/latest/download/dist.zip       # 前端面板Zashboard的远程下载地址
 external-controller: 0.0.0.0:9090                                                                            # 外部控制器API监听地址，用于管理面板和远程调用
 external-ui-name: zashboard                                                                                  # 指定使用的外部UI面板名称
 external-ui: ui                                                                                              # 前端静态网页文件存放的本地目录
